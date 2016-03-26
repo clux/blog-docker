@@ -86,7 +86,6 @@ fn load_post(slug: &str) -> BlogResult<String> {
     let mut html = Html::new(Flags::empty(), 0);
     let output = html.render(&md);
     let html = try!(output.to_str());
-    //Ok(html.to_string())
     Ok(html.to_string())
 }
 
@@ -124,12 +123,19 @@ fn main() {
 
     let port = args.value_of("port").unwrap_or("8000");
 
-    let posts = load_posts().unwrap(); // TODO: message forgot to clone
+    let posts = match load_posts() {
+        Ok(p) => p,
+        Err(e) => {
+            println!("Failed to load posts: {}", e);
+            process::exit(1);
+        }
+    };
 
     if posts.len() == 0 {
         println!("No posts found in posts/ - clone posts repo first");
         process::exit(1);
     }
+    println!("Loaded {} posts", posts.len());
 
     let mut app = Pencil::new("./");
     app.set_debug(true);
