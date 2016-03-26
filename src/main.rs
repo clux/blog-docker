@@ -4,9 +4,7 @@ extern crate glob;
 extern crate hoedown;
 extern crate pencil;
 extern crate rustc_serialize;
-//extern crate walkdir;
 
-//use walkdir::WalkDir;
 use glob::glob;
 use pencil::{Pencil, Request, PencilResult};
 use rustc_serialize::json;
