@@ -3,6 +3,14 @@ name = "blog"
 version = "0.1.0"
 authors = ["Eirik Albrigtsen <analsandblaster@gmail.com>"]
 
+[lib]
+name = "blog"
+path = "src/lib.rs"
+
+[[bin]]
+name = "blog"
+path = "src/main.rs"
+
 [dependencies]
 clap = "2.2.1"
 glob = "0.2.11"
