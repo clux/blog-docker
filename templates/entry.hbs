@@ -1,3 +1,14 @@
+{{#if info.latex}}
+<script type="text/x-mathjax-config">
+  var jaxobj = {inlineMath: [["$","$"]]};
+  MathJax.Hub.Config({tex2jax: jaxobj});
+</script>
+<script
+  src="http://cdn.mathjax.org/mathjax/2.1-latest/MathJax.js?config=TeX-AMS_HTML">
+</script>
+{{/if}}
+
+
 <h2><a href="{{info.slug}}">{{info.title}}</a></h2>
 <h6>posted {{info.date}} by  <a href="/about/">clux</a>.</h6>
 {{{ html }}}
