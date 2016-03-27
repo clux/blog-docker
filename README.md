@@ -1,4 +1,7 @@
 # blog
+[![build status](https://secure.travis-ci.org/clux/blog.svg)](http://travis-ci.org/clux/blog)
+[![coverage status](http://img.shields.io/coveralls/clux/blog.svg)](https://coveralls.io/r/clux/blog)
+
 Trying out making a blog in rust.
 
 ## Usage
