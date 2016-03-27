@@ -95,3 +95,14 @@ pub fn load_post_vec() -> BlogResult<Posts> {
 
     Ok(xs)
 }
+
+#[cfg(test)]
+mod tests {
+    use data;
+
+    #[test]
+    fn check_load() {
+        let pm = data::load_posts();
+        assert!(pm.is_ok(), "could load posts");
+    }
+}

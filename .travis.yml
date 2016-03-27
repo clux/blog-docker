@@ -10,6 +10,7 @@ matrix:
 before_script:
   - pip install 'travis-cargo<0.2' --user
   - export PATH=$HOME/.local/bin:$PATH
+  - git clone https://github.com/clux/posts.git
 script:
   - travis-cargo build
   - travis-cargo test
