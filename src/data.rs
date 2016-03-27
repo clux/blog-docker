@@ -1,10 +1,12 @@
 use glob::glob;
-use std::collections::HashMap;
+use rustc_serialize::json::{self, ToJson, Json};
+
+use std::collections::BTreeMap;
 use std::fs::File;
 use std::io::Read;
-use rustc_serialize::json;
 
 use errors::{BlogResult};
+
 
 #[derive(RustcDecodable, RustcEncodable, Clone)]
 pub struct MetaData {
@@ -14,15 +16,34 @@ pub struct MetaData {
     pub latex: bool,
 }
 
-#[derive(Clone)]
+#[derive(RustcDecodable, RustcEncodable, Clone)]
 pub struct Post {
     pub info: MetaData,
     pub html: String,
 }
 
-pub type PostMap = HashMap<String, Post>;
+// Manual ToJson implementations (disappears with serde)
+impl ToJson for MetaData {
+    fn to_json(&self) -> Json {
+        let mut obj = BTreeMap::new();
+        obj.insert("date".to_string(), self.date.to_json());
+        obj.insert("slug".to_string(), self.slug.to_json());
+        obj.insert("title".to_string(), self.title.to_json());
+        obj.insert("latex".to_string(), self.latex.to_json());
+        Json::Object(obj)
+    }
+}
+impl ToJson for Post {
+    fn to_json(&self) -> Json {
+        let mut obj = BTreeMap::new();
+        obj.insert("info".to_string(), self.info.to_json());
+        obj.insert("html".to_string(), self.html.to_json());
+        Json::Object(obj)
+    }
+}
 
-
+pub type PostMap = BTreeMap<String, Post>;
+pub type Posts = Vec<Post>;
 
 fn load_post(slug: &str) -> BlogResult<String> {
     use hoedown::{Markdown, Render};
@@ -61,4 +82,16 @@ pub fn load_posts() -> BlogResult<PostMap> {
         map.insert(slug, post);
     }
     Ok(map)
+}
+
+pub fn load_post_vec() -> BlogResult<Posts> {
+    let pm = try!(load_posts());
+
+    // TODO: can use collect here with correct derive?
+    let mut xs = Vec::new();
+    for (_, v) in pm {
+        xs.push(v);
+    }
+
+    Ok(xs)
 }

@@ -1,19 +1,51 @@
 #[macro_use]
 extern crate clap;
-extern crate pencil;
+extern crate iron;
+extern crate router;
+extern crate handlebars_iron as hbs;
 
 extern crate blog;
 use blog::*;
-
-use pencil::{Pencil, Request, PencilResult};
 use clap::{Arg, App};
 
+use iron::prelude::*;
+use iron::status;
+use router::Router;
+use hbs::{Template, HandlebarsEngine, DirectorySource};
+
+use std::collections::BTreeMap;
 use std::process;
+
+fn index(req: &mut Request) -> IronResult<Response> {
+    println!("Got url {}", req.url);
+    let mut resp = Response::new();
+
+    let posts = data::load_post_vec().unwrap(); // TODO: iron state?
+
+    let mut ctx = BTreeMap::new();
+    ctx.insert("posts".to_string(), posts);
+
+    resp.set_mut(Template::new("index", ctx)).set_mut(status::Ok);
+    Ok(resp)
+}
+
+fn entry(req: &mut Request) -> IronResult<Response> {
+    let slug = req.extensions.get::<Router>().unwrap().find("slug").unwrap_or("/");
+    println!("Got url {} {}", req.url, slug);
+
+    let posts = data::load_posts().unwrap(); // TODO: iron state?
+    if let Some(post) = posts.get(slug) {
+        let mut resp = Response::new();
+        resp.set_mut(Template::new("entry", post.clone())).set_mut(status::Ok);
+        return Ok(resp);
+    }
+    Ok(Response::with((status::NotFound)))
+}
 
 fn main() {
     let args = App::new("blog")
         .version(crate_version!())
-        .about("clux's blog engine")
+        .about("blog server")
         .arg(Arg::with_name("port").short("p").takes_value(true))
         .get_matches();
 
@@ -33,19 +65,21 @@ fn main() {
     }
     println!("Loaded {} posts", posts.len());
 
-    let mut app = Pencil::new("./");
-    app.set_debug(true);
-    app.set_log_level();
-    app.enable_static_file_handling();
+    let mut hbse = HandlebarsEngine::new();
+    hbse.add(Box::new(DirectorySource::new("./templates/", ".hbs")));
+    // load templates from all registered sources
+    if let Err(r) = hbse.reload() {
+        panic!("{}", r);
+    }
 
-    //app.register_template("index.html.hb");
-    //app.register_template("entry.html.hb");
+    let mut router = Router::new();
+    router.get("/", index);
+    router.get("/:slug", entry);
 
-    //app.get("/", "index", index);
-    //app.get("/<slug>/", "slug", slug);
+    let mut chain = Chain::new(router);
+    chain.link_after(hbse);
 
-    let listen = format!("{}:{}", "127.0.0.1", port);
-    let listen_str = listen.as_str();
-    println!("Listening on {}", listen);
-    app.run(listen_str)
+    let addr = format!("{}:{}", "127.0.0.1", port);
+    println!("Listening on {}", addr);
+    Iron::new(chain).http(addr.as_str()).unwrap();
 }
