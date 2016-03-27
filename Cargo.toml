@@ -10,6 +10,7 @@ path = "src/lib.rs"
 [[bin]]
 name = "blog"
 path = "src/main.rs"
+doc = false
 
 [dependencies]
 clap = "2.2.1"
