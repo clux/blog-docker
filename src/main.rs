@@ -19,7 +19,6 @@ use std::collections::BTreeMap;
 use std::process;
 
 fn index(_: &mut Request) -> IronResult<Response> {
-    //println!("Got url {}", req.url);
     let mut resp = Response::new();
 
     let posts = data::load_post_vec().unwrap(); // TODO: iron state?
@@ -33,8 +32,6 @@ fn index(_: &mut Request) -> IronResult<Response> {
 
 fn entry(req: &mut Request) -> IronResult<Response> {
     let slug = req.extensions.get::<Router>().unwrap().find("slug").unwrap_or("/");
-    //println!("Got url {} {}", req.url, slug);
-
     let posts = data::load_posts().unwrap(); // TODO: iron state?
     if let Some(post) = posts.get(slug) {
         let mut resp = Response::new();
