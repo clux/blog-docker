@@ -10,7 +10,7 @@ pub enum BlogError {
     Parse(json::DecoderError),
     Pattern(glob::PatternError),
     Glob(glob::GlobError),
-    Unicode(Utf8Error)
+    Unicode(Utf8Error),
 }
 pub type BlogResult<T> = Result<T, BlogError>;
 

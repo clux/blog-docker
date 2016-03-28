@@ -5,7 +5,7 @@ use std::collections::BTreeMap;
 use std::fs::File;
 use std::io::Read;
 
-use errors::{BlogResult};
+use errors::BlogResult;
 
 
 #[derive(RustcDecodable, RustcEncodable, Clone)]
@@ -66,18 +66,18 @@ pub fn load_posts() -> BlogResult<PostMap> {
     // TODO: parallelize these reads
     for entry in entries {
         let pth = try!(entry);
-        //println!("opening path {:?}", pth);
+        // println!("opening path {:?}", pth);
         let mut f = try!(File::open(pth));
         let mut data = String::new();
         try!(f.read_to_string(&mut data));
-        let meta : MetaData = try!(json::decode(&data));
-        //println!("got metadata {}", json::as_pretty_json(&meta));
+        let meta: MetaData = try!(json::decode(&data));
+        // println!("got metadata {}", json::as_pretty_json(&meta));
         let slug = meta.slug.clone();
         let html = try!(load_post(&slug));
-        //println!("got html: {}", html);
+        // println!("got html: {}", html);
         let post = Post {
             info: meta,
-            html: html
+            html: html,
         };
         map.insert(slug, post);
     }
