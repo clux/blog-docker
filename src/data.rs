@@ -53,12 +53,12 @@ fn load_post(slug: &str) -> BlogResult<String> {
     let mut data = String::new();
     try!(f.read_to_string(&mut data));
     let md = Markdown::new(data.as_str());
+    // TODO: markdown need to change relative links to point at slug when converting
     let mut html = Html::new(Flags::empty(), 0);
     let output = html.render(&md);
     let html = try!(output.to_str());
     Ok(html.to_string())
 }
-
 
 pub fn load_posts() -> BlogResult<PostMap> {
     let mut map = PostMap::new();

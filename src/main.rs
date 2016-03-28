@@ -3,6 +3,7 @@ extern crate clap;
 extern crate iron;
 extern crate router;
 extern crate handlebars_iron as hbs;
+extern crate logger;
 
 extern crate blog;
 use blog::*;
@@ -12,12 +13,13 @@ use iron::prelude::*;
 use iron::status;
 use router::Router;
 use hbs::{Template, HandlebarsEngine, DirectorySource};
+use logger::Logger;
 
 use std::collections::BTreeMap;
 use std::process;
 
-fn index(req: &mut Request) -> IronResult<Response> {
-    println!("Got url {}", req.url);
+fn index(_: &mut Request) -> IronResult<Response> {
+    //println!("Got url {}", req.url);
     let mut resp = Response::new();
 
     let posts = data::load_post_vec().unwrap(); // TODO: iron state?
@@ -31,7 +33,7 @@ fn index(req: &mut Request) -> IronResult<Response> {
 
 fn entry(req: &mut Request) -> IronResult<Response> {
     let slug = req.extensions.get::<Router>().unwrap().find("slug").unwrap_or("/");
-    println!("Got url {} {}", req.url, slug);
+    //println!("Got url {} {}", req.url, slug);
 
     let posts = data::load_posts().unwrap(); // TODO: iron state?
     if let Some(post) = posts.get(slug) {
@@ -72,14 +74,19 @@ fn main() {
         panic!("{}", r);
     }
 
+    let (logger_before, logger_after) = Logger::new(None);
+
     let mut router = Router::new();
     router.get("/", index);
     router.get("/:slug", entry);
 
     let mut chain = Chain::new(router);
+    chain.link_before(logger_before);
     chain.link_after(hbse);
+    chain.link_after(logger_after);
 
     let addr = format!("{}:{}", "127.0.0.1", port);
     println!("Listening on {}", addr);
     Iron::new(chain).http(addr.as_str()).unwrap();
 }
+
