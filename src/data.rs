@@ -83,19 +83,6 @@ pub fn load_posts() -> BlogResult<PostMap> {
     Ok(map)
 }
 
-pub fn load_post_vec() -> BlogResult<Posts> {
-    let pm = try!(load_posts());
-
-    // TODO: can use collect here with correct derive?
-    let mut xs = Vec::new();
-    for (_, v) in pm {
-        xs.push(v);
-    }
-
-    Ok(xs)
-}
-
-
 #[cfg(test)]
 mod tests {
     use data;

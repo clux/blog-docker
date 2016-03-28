@@ -37,6 +37,7 @@ fn index(req: &mut Request) -> IronResult<Response> {
     let db = req.extensions.get::<persistent::Read<::DataBase>>().unwrap();
 
     let mut ctx = BTreeMap::new();
+    // TODO: don't need to copy the HTML here..
     ctx.insert("posts".to_string(), db.posts.clone());
 
     resp.set_mut(Template::new("index", ctx)).set_mut(status::Ok);
