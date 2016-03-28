@@ -7,7 +7,6 @@ use std::io::Read;
 
 use errors::BlogResult;
 
-
 #[derive(RustcDecodable, RustcEncodable, Clone)]
 pub struct MetaData {
     pub title: String,
@@ -95,6 +94,7 @@ pub fn load_post_vec() -> BlogResult<Posts> {
 
     Ok(xs)
 }
+
 
 #[cfg(test)]
 mod tests {
