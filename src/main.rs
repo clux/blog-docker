@@ -1,5 +1,3 @@
-#[macro_use]
-extern crate clap;
 extern crate iron;
 extern crate router;
 extern crate handlebars_iron as hbs;
@@ -10,7 +8,6 @@ extern crate staticfile;
 
 extern crate blog;
 use blog::{PostMap, BlogResult};
-use clap::{Arg, App};
 
 use iron::prelude::*;
 use iron::status;
@@ -63,28 +60,18 @@ fn entry(req: &mut Request) -> IronResult<Response> {
 }
 
 fn main() {
-    let args = App::new("blog")
-     .version(crate_version!())
-     .about("blog server")
-     .arg(Arg::with_name("port").short("p").takes_value(true))
-     .get_matches();
-
-    let port = args.value_of("port").unwrap_or("8000");
-
-    let db = match get_database() {
-        Ok(p) => p,
-        Err(e) => {
-            println!("Failed to load posts: {}", e);
-            process::exit(1);
-        }
-    };
-
+    // Load posts
+    let db = get_database().map_err(|e| {
+        println!("Failed to load posts: {}", e);
+        process::exit(1);
+    }).unwrap();
     if db.posts.len() == 0 {
         println!("No posts found in posts/ - clone posts repo first");
         process::exit(1);
     }
     println!("Loaded {} posts", db.posts.len());
 
+    // Load templates
     let mut hbse = HandlebarsEngine::new();
     hbse.add(Box::new(DirectorySource::new("./templates/", ".hbs")));
     // load templates from all registered sources
@@ -92,6 +79,7 @@ fn main() {
         panic!("{}", r);
     }
 
+    // Set up request pipeline
     let (logger_before, logger_after) = Logger::new(None);
 
     let mut router = Router::new();
@@ -111,7 +99,7 @@ fn main() {
     chain.link_after(hbse);
     chain.link_after(logger_after);
 
-    let addr = format!("{}:{}", "127.0.0.1", port);
+    let addr = format!("{}:{}", "127.0.0.1", 8000);
     match Iron::new(chain).http(addr.as_str()) {
         Ok(_) => println!("Listening on {}", addr),
         Err(error) => println!("Unable to start: {}", error),
