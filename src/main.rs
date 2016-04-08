@@ -4,7 +4,9 @@ extern crate iron;
 extern crate router;
 extern crate handlebars_iron as hbs;
 extern crate logger;
+extern crate mount;
 extern crate persistent;
+extern crate staticfile;
 
 extern crate blog;
 use blog::{PostMap, BlogResult};
@@ -13,6 +15,8 @@ use clap::{Arg, App};
 use iron::prelude::*;
 use iron::status;
 use router::Router;
+use mount::Mount;
+use staticfile::Static;
 use hbs::{Template, HandlebarsEngine, DirectorySource};
 use logger::Logger;
 
@@ -30,7 +34,7 @@ pub fn get_database() -> BlogResult<DataBase> {
 
 use std::collections::BTreeMap;
 use std::process;
-
+use std::path::Path;
 
 fn index(req: &mut Request) -> IronResult<Response> {
     let mut resp = Response::new();
@@ -94,7 +98,11 @@ fn main() {
     router.get("/", index);
     router.get("/:slug", entry);
 
-    let mut chain = Chain::new(router);
+    let mut mnt = Mount::new();
+    mnt.mount("/", router);
+    mnt.mount("/static/", Static::new(Path::new("posts/")));
+
+    let mut chain = Chain::new(mnt);
     chain.link_before(logger_before);
 
     // allow posts to be read persitently across requests
