@@ -7,21 +7,27 @@ use std::io::Read;
 
 use errors::BlogResult;
 
+/// The metadata representation of the `data.json` files
 #[derive(RustcDecodable, RustcEncodable, Clone)]
 pub struct MetaData {
+    /// Post title proper
     pub title: String,
-    pub date: String,
+    /// Slugified date + title string corresponding to the folder name
     pub slug: String,
+    /// Date ISO string
+    pub date: String,
+    /// Whether or not LaTeX formatting is used in the markdown
     pub latex: bool,
 }
 
+/// The full internal representation of a post subfolder
 #[derive(RustcDecodable, RustcEncodable, Clone)]
 pub struct Post {
     pub info: MetaData,
     pub html: String,
 }
 
-// Manual ToJson implementations (disappears with serde)
+/// Manual ToJson implementation (disappears with serde)
 impl ToJson for MetaData {
     fn to_json(&self) -> Json {
         let mut obj = BTreeMap::new();
@@ -32,6 +38,7 @@ impl ToJson for MetaData {
         Json::Object(obj)
     }
 }
+/// Manual ToJson implementation (disappears with serde)
 impl ToJson for Post {
     fn to_json(&self) -> Json {
         let mut obj = BTreeMap::new();
@@ -41,24 +48,39 @@ impl ToJson for Post {
     }
 }
 
+/// Convenience alias
 pub type PostMap = BTreeMap<String, Post>;
-pub type Posts = Vec<Post>;
 
+// Helper to load parse `README.md` and convert it to `HTML`.
 fn load_post(slug: &str) -> BlogResult<String> {
     use hoedown::{Markdown, Render};
     use hoedown::renderer::html::{Flags, Html};
+    use regex::Regex;
+
+    // replace `<img src=\"./` with `<img src=\"/imgs/`
+    //let re = Regex::new(r'\<img src\=\"./').unwrap();
 
     let mut f = try!(File::open(format!("posts/{}/README.md", slug)));
     let mut data = String::new();
     try!(f.read_to_string(&mut data));
     let md = Markdown::new(data.as_str());
-    // TODO: markdown need to change relative links to point at slug when converting
     let mut html = Html::new(Flags::empty(), 0);
     let output = html.render(&md);
     let html = try!(output.to_str());
-    Ok(html.to_string())
+
+    // replace relative image paths with their correct path
+    let re = Regex::new("<img src=\"(./)").unwrap();
+    let replacer = format!("<img src=\"static/{}/", slug);
+    let htmlres = re.replace_all(html, &replacer as &str);
+
+    Ok(htmlres.to_string())
 }
 
+/// A one time sequential loader of all posts from the posts folder
+///
+/// By globbing for `data.json` in subdirectories, we can find the all they keys
+/// and metadata. By reading the `README.md` and converting it to HTML via `hoedown`
+/// we can build up the values of `PostMap`.
 pub fn load_posts() -> BlogResult<PostMap> {
     let mut map = PostMap::new();
     let entries = try!(glob("posts/*/data.json"));

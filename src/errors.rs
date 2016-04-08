@@ -29,17 +29,27 @@ impl fmt::Display for BlogError {
 
 // Absorb error types
 impl From<io::Error> for BlogError {
-    fn from(err: io::Error) -> BlogError { BlogError::Io(err) }
+    fn from(err: io::Error) -> BlogError {
+        BlogError::Io(err)
+    }
 }
 impl From<json::DecoderError> for BlogError {
-    fn from(err: json::DecoderError) -> BlogError { BlogError::Parse(err) }
+    fn from(err: json::DecoderError) -> BlogError {
+        BlogError::Parse(err)
+    }
 }
 impl From<glob::PatternError> for BlogError {
-    fn from(err: glob::PatternError) -> BlogError { BlogError::Pattern(err) }
+    fn from(err: glob::PatternError) -> BlogError {
+        BlogError::Pattern(err)
+    }
 }
 impl From<glob::GlobError> for BlogError {
-    fn from(err: glob::GlobError) -> BlogError { BlogError::Glob(err) }
+    fn from(err: glob::GlobError) -> BlogError {
+        BlogError::Glob(err)
+    }
 }
 impl From<Utf8Error> for BlogError {
-    fn from(err: Utf8Error) -> BlogError { BlogError::Unicode(err) }
+    fn from(err: Utf8Error) -> BlogError {
+        BlogError::Unicode(err)
+    }
 }

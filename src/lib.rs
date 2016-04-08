@@ -1,9 +1,10 @@
 extern crate glob;
 extern crate hoedown;
 extern crate rustc_serialize;
-
-pub mod errors;
-pub mod data;
+extern crate regex;
 
 pub use errors::BlogResult;
-pub use data::{Post, MetaData, PostMap, Posts};
+pub use data::{Post, MetaData, PostMap, load_posts};
+
+mod errors;
+mod data;

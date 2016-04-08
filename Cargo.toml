@@ -16,6 +16,7 @@ doc = false
 clap = "2.2.1"
 glob = "0.2.11"
 hoedown = "3.0.5"
+regex = "0.1"
 iron = "*"
 router = "*"
 handlebars-iron = "*"

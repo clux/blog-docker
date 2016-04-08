@@ -7,7 +7,7 @@ extern crate logger;
 extern crate persistent;
 
 extern crate blog;
-use blog::*;
+use blog::{PostMap, BlogResult};
 use clap::{Arg, App};
 
 use iron::prelude::*;
@@ -25,11 +25,12 @@ impl iron::typemap::Key for DataBase {
     type Value = DataBase;
 }
 pub fn get_database() -> BlogResult<DataBase> {
-    Ok(DataBase { posts: try!(data::load_posts()) })
+    Ok(DataBase { posts: try!(blog::load_posts()) })
 }
 
 use std::collections::BTreeMap;
 use std::process;
+
 
 fn index(req: &mut Request) -> IronResult<Response> {
     let mut resp = Response::new();
@@ -59,10 +60,10 @@ fn entry(req: &mut Request) -> IronResult<Response> {
 
 fn main() {
     let args = App::new("blog")
-        .version(crate_version!())
-        .about("blog server")
-        .arg(Arg::with_name("port").short("p").takes_value(true))
-        .get_matches();
+     .version(crate_version!())
+     .about("blog server")
+     .arg(Arg::with_name("port").short("p").takes_value(true))
+     .get_matches();
 
     let port = args.value_of("port").unwrap_or("8000");
 
