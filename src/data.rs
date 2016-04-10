@@ -53,7 +53,7 @@ pub type PostMap = BTreeMap<String, Post>;
 
 // Helper to load parse `README.md` and convert it to `HTML`.
 fn load_post(slug: &str) -> BlogResult<String> {
-    use hoedown::{self, Markdown, Render};
+    use hoedown::{self, Markdown, Render, Extension};
     use hoedown::renderer::html::{Flags, Html};
     use regex::Regex;
 
@@ -63,7 +63,11 @@ fn load_post(slug: &str) -> BlogResult<String> {
     let mut f = try!(File::open(format!("posts/{}/README.md", slug)));
     let mut data = String::new();
     try!(f.read_to_string(&mut data));
-    let md = Markdown::new(data.as_str()).extensions(hoedown::FENCED_CODE);
+    let mut ext = Extension::empty();
+    ext.insert(hoedown::FENCED_CODE); // ```code blocks
+    ext.insert(hoedown::MATH); // allows using $inline=math$ escaped to \(inline=math\)
+    ext.insert(hoedown::MATH_EXPLICIT); // preserve $$displaystyle=math$$
+    let md = Markdown::new(data.as_str()).extensions(ext);
 
     let mut html = Html::new(Flags::empty(), 0);
     let output = html.render(&md);
