@@ -57,9 +57,6 @@ fn load_post(slug: &str) -> BlogResult<String> {
     use hoedown::renderer::html::{Flags, Html};
     use regex::Regex;
 
-    // replace `<img src=\"./` with `<img src=\"/imgs/`
-    //let re = Regex::new(r'\<img src\=\"./').unwrap();
-
     let mut f = try!(File::open(format!("posts/{}/README.md", slug)));
     let mut data = String::new();
     try!(f.read_to_string(&mut data));

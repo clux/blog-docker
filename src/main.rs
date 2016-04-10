@@ -39,7 +39,6 @@ fn index(req: &mut Request) -> IronResult<Response> {
     let db = req.extensions.get::<persistent::Read<::DataBase>>().unwrap();
 
     let mut ctx = BTreeMap::new();
-    // TODO: don't need to copy the HTML here..
     ctx.insert("posts".to_string(), db.posts.clone());
 
     resp.set_mut(Template::new("index", ctx)).set_mut(status::Ok);
@@ -61,10 +60,12 @@ fn entry(req: &mut Request) -> IronResult<Response> {
 
 fn main() {
     // Load posts
-    let db = get_database().map_err(|e| {
-        println!("Failed to load posts: {}", e);
-        process::exit(1);
-    }).unwrap();
+    let db = get_database()
+        .map_err(|e| {
+            println!("Failed to load posts: {}", e);
+            process::exit(1);
+        })
+        .unwrap();
     if db.posts.len() == 0 {
         println!("No posts found in posts/ - clone posts repo first");
         process::exit(1);
