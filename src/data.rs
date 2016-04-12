@@ -1,5 +1,6 @@
 use glob::glob;
 use rustc_serialize::json::{self, ToJson, Json};
+use regex::Regex;
 
 use std::collections::BTreeMap;
 use std::fs::File;
@@ -23,8 +24,12 @@ pub struct MetaData {
 /// The full internal representation of a post subfolder
 #[derive(RustcDecodable, RustcEncodable, Clone)]
 pub struct Post {
+    /// Information from the `data.json`
     pub info: MetaData,
+    /// `README.md` passed through hoedown
     pub html: String,
+    /// The first paragraph, but with a sanity cutoff of 300 characters
+    pub summary: String,
 }
 
 /// Manual ToJson implementation (disappears with serde)
@@ -44,6 +49,7 @@ impl ToJson for Post {
         let mut obj = BTreeMap::new();
         obj.insert("info".to_string(), self.info.to_json());
         obj.insert("html".to_string(), self.html.to_json());
+        obj.insert("summary".to_string(), self.summary.to_json());
         Json::Object(obj)
     }
 }
@@ -51,15 +57,10 @@ impl ToJson for Post {
 /// Convenience alias
 pub type PostMap = BTreeMap<String, Post>;
 
-// Helper to load parse `README.md` and convert it to `HTML`.
-fn load_post(slug: &str) -> BlogResult<String> {
+fn parse_markdown(data: &String) -> BlogResult<String> {
     use hoedown::{self, Markdown, Render, Extension};
     use hoedown::renderer::html::{Flags, Html};
-    use regex::Regex;
 
-    let mut f = try!(File::open(format!("posts/{}/README.md", slug)));
-    let mut data = String::new();
-    try!(f.read_to_string(&mut data));
     let mut ext = Extension::empty();
     ext.insert(hoedown::FENCED_CODE); // ```code blocks
     ext.insert(hoedown::MATH); // allows using $inline=math$ escaped to \(inline=math\)
@@ -68,14 +69,50 @@ fn load_post(slug: &str) -> BlogResult<String> {
 
     let mut html = Html::new(Flags::empty(), 0);
     let output = html.render(&md);
-    let html = try!(output.to_str());
+    let outputstr = try!(output.to_str()).to_string();
+    Ok(outputstr)
+}
+
+// Helper to extract a suitable first paragraph for index
+fn generate_summary(md: &String) -> String {
+    // find first paragraph from md that does not start with an image
+    for l in md.lines() {
+        //println!("Found line {}", l);
+        if l.starts_with("# ") && l.chars().count() < 80 {
+            continue // Skip headings
+        }
+        if l.starts_with("![") && l.ends_with(")") {
+            continue // Skip image tags
+        }
+        if l.chars().count() < 5 {
+            continue // empty lines and weird shit
+        }
+        //println!("  -> using: {}", l);
+        return l.to_string();
+    }
+    "<p>No summary</p>".to_string()
+}
+
+// Helper to load parse `README.md` and convert it to `HTML`.
+fn load_post(slug: &str) -> BlogResult<(String, String)> {
+    let mut f = try!(File::open(format!("posts/{}/README.md", slug)));
+    let mut data = String::new();
+    try!(f.read_to_string(&mut data));
+    let mut htmlpost = try!(parse_markdown(&data));
 
     // replace relative image paths with their correct path
-    let re = Regex::new("<img src=\"(./)").unwrap();
+    let image_path_reg = Regex::new("<img src=\"(./)").unwrap();
     let replacer = format!("<img src=\"static/{}/", slug);
-    let htmlres = re.replace_all(html, &replacer as &str);
+    htmlpost = image_path_reg.replace_all(&htmlpost, &replacer as &str);
 
-    Ok(htmlres.to_string())
+    // summary markdown (subset of data)
+    let mut htmlintro = try!(parse_markdown(&generate_summary(&data)));
+
+    // remove images from summary
+    let image_reg = Regex::new("(<img src=\"[^\"]*\">)").unwrap();
+    htmlintro = image_reg.replace_all(&htmlintro, "");
+
+    Ok((htmlpost.to_string(), htmlintro.to_string()))
 }
 
 /// A one time sequential loader of all posts from the posts folder
@@ -96,10 +133,11 @@ pub fn load_posts() -> BlogResult<PostMap> {
         let meta: MetaData = try!(json::decode(&data));
         // println!("got metadata {}", json::as_pretty_json(&meta));
         let slug = meta.slug.clone();
-        let html = try!(load_post(&slug));
-        // println!("got html: {}", html);
+        let (html, summary) = try!(load_post(&slug));
+        //println!("got html: {}\n\n and summary: {}\n", html, summary);
         let post = Post {
             info: meta,
+            summary: summary,
             html: html,
         };
         map.insert(slug, post);

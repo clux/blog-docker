@@ -1,6 +1,11 @@
 <h1> Recent</h1>
 
-{{#each posts}}
-  <h2><a href="{{info.slug}}">{{info.title}}</a></h2>
-  <h6>posted {{info.date}} by  <a href="/about/">clux</a>.</h6>
-{{/each}}
+<ul>
+  {{#each posts}}
+    <li>
+      <h2><a href="{{info.slug}}">{{info.title}}</a></h2>
+      <h6>posted {{info.date}} by  <a href="/about/">clux</a>.</h6>
+      {{{ summary }}}
+    </li>
+  {{/each}}
+</ul>
