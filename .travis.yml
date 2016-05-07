@@ -3,20 +3,20 @@ services:
 - docker
 language: rust
 rust:
-  - stable
+- stable
 before_script:
-  - pip install 'travis-cargo<0.2' --user
-  - export PATH=$HOME/.local/bin:$PATH
-  - git clone https://github.com/clux/posts.git
-  - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-  - docker pull clux/muslrust
+- pip install 'travis-cargo<0.2' --user
+- export PATH=$HOME/.local/bin:$PATH
+- git clone https://github.com/clux/posts.git
+- docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+- docker pull clux/muslrust
 script:
-  - travis-cargo build
-  - travis-cargo test
-  - travis-cargo bench
-  - travis-cargo --only stable doc
-  - docker run --rm -v $PWD:/volume -w /volume -t clux/muslrust cargo build --release
-  - docker build -t clux/blog .
+- travis-cargo build
+- travis-cargo test
+- travis-cargo bench
+- travis-cargo --only stable doc
+- docker run --rm -v $PWD:/volume -w /volume -t clux/muslrust cargo build --release
+- docker build -t clux/blog .
 addons:
   apt:
     packages:
@@ -24,12 +24,12 @@ addons:
     - libelf-dev
     - libdw-dev
 after_success:
-  - travis-cargo coveralls --no-sudo
-  - docker push clux/blog
+- travis-cargo coveralls --no-sudo
+- docker push clux/blog
 notifications:
   email:
     on_success: change
     on_failure: always
 env:
   global:
-    secure: nXeXIF1Ys/rMMyjSlpUR4u5JLZRYBe3rG6ES7UeuQxEH92fZoNu2nK/NSbPF/5ggm8nsf5TSJequXQY8yCsr+ipsUtMkbbYkIMmMWphNVvA2b+HG0QQHkh3b8hwzFAI1q6/WRpP7X9+y0mCc8OpSMNLV5Wi80MzNyZLG3cOmHFzoCGrFprB2R0kTuzaWQuedkl7/O6xnZRIWuZ8PRgkmJENVL+vjx5TaQegs+jScVPE8uaubBZktWmNTHpCB31cVsi0psoZNsv7bmO3JQ76ozRP+OLGb+dbdu69UFKd97WDAr02U+aiCfJxNbeqOm1Vhz1GiByy7D+RKjQPgkbt0ipfPx/vN83bM8aoLzyrNd4Zt4BIsLfj7pdApjH2+nn24V4Lo6NrOFFpQxrmoycZPomfG7mMlqQVxqtPhEnZKHW53yuUG6BEhKy2y497ctEWIZkJdZISNdAewkuhBvsR4nALoTBNz13S0ALsLvD+HBLDqMwfy6VRxzDJB++TqAldbSpjJmKOHxjDDaNfldQeQFOibo2/CN18oFRtLXA2K0w//Hp974yVwMBnMqtzx2UiKsxmlDDq3fafQTZv0WARCZa91llUwC/C3KTyZiW5wP4Gvn1Ze2ktg47MWEhzBpSOd64YiT2f1XkYklffb9NSTsupdHvYOX4JT9tAePjMKIeI=
+    secure: QXTthzddrD9EMoIU4iPcUt3qLVUtAkkX3RhlVrQXF0IHxp1nsqlFaN7bqrl6DgD+ekFipbT46HyWw5iieXqt/GBbgeN2cUHziLzoF0noCol0OIxyA3buQCY5Dj+d0hGvka86xxRk9x+nr8oVZZ3oU5flzL8HN1YcqEtOp1aauwU=
