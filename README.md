@@ -1,27 +1,34 @@
 # blog
 [![build status](https://secure.travis-ci.org/clux/blog.svg)](http://travis-ci.org/clux/blog)
 [![coverage status](http://img.shields.io/coveralls/clux/blog.svg)](https://coveralls.io/r/clux/blog)
+[![image size](https://img.shields.io/imagelayers/image-size/clux/blog/latest.svg)](https://imagelayers.io/?images=clux%2Fblog:latest)
 
-Trying out making a blog in rust.
+Dockerized rust blog serving content from a mounted posts directory.
 
-## Usage
-Clone, build, run.
+## Deploying
+Pull docker image and posts directory:
+
+```sh
+git clone git@github.com:clux/posts.git
+docker pull clux/blog
+docker run --rm -v $PWD/posts:/posts -p 8000:8000 -t clux/blog
+```
+
+## Developing
+Clone this repo, the dependent post repo, then build and link.
 
 ```sh
 git clone git@github.com:clux/blog.git && cd blog
 git clone git@github.com:clux/posts.git
-cargo build --release
-./target/release/blog
+cargo build
+ln -sf $PWD/target/debug/blog /usr/local/bin/blog
 ```
 
-TODO: src change -> cargo build, posts change -> restart app
-
-## Developing
+Iterate and verify:
 
 ```sh
-ln -sf $PWD/target/debug/blog /usr/local/bin/blog
-cargo build
-blog # verify functionality
+blog
 cargo fmt
-git commit -a
+cargo test
+cargo doc
 ```
