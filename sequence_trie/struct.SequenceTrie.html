@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `SequenceTrie` struct in crate `sequence_trie`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, SequenceTrie">
+
+    <title>sequence_trie::SequenceTrie - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>sequence_trie</a></p><script>window.sidebarCurrent = {name: 'SequenceTrie', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>sequence_trie</a>::<wbr><a class='struct' href=''>SequenceTrie</a></span><span class='out-of-band'><span id='render-detail'>
+            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                [<span class='inner'>&#x2212;</span>]
+            </a>
+        </span><a id='src-8' class='srclink' href='../src/sequence_trie/lib.rs.html#76-82' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct SequenceTrie&lt;K, V&gt; <span class='where'>where K: <a class='trait' href='../sequence_trie/trait.TrieKey.html' title='sequence_trie::TrieKey'>TrieKey</a></span> {
+    pub value: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;V&gt;,
+    pub children: <a class='struct' href='https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html' title='std::collections::hash::map::HashMap'>HashMap</a>&lt;K, <a class='struct' href='../sequence_trie/struct.SequenceTrie.html' title='sequence_trie::SequenceTrie'>SequenceTrie</a>&lt;K, V&gt;&gt;,
+}</pre><div class='docblock'><p>A <code>SequenceTrie</code> is recursively defined as a value and a map containing child Tries.</p>
+
+<p>Typically, Tries are used to store strings, which can be thought of as lists of <code>char</code>s.
+Generalising this to any key type, a Trie is a data structure storing values for keys
+which are themselves lists. Let the parts of such a list-key be called &quot;key fragments&quot;.
+In our representation of a Trie, <code>K</code> denotes the type of the key fragments.</p>
+
+<p>The nesting of child Tries creates a tree structure which can be traversed by mapping
+key fragments onto nodes. The structure is similar to a k-ary tree, except that the children
+are stored in <code>HashMap</code>s, and there is no bound on the number of children a single node may
+have (effectively k = ∞). In a SequenceTrie with <code>char</code> key fragments, the key
+<code>[&#39;a&#39;, &#39;b&#39;, &#39;c&#39;]</code> might correspond to something like this (warning: not real code).</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='ident'>SequenceTrie</span> {
+    <span class='ident'>value</span>: <span class='prelude-val'>Some</span>(<span class='number'>0u</span>),
+    <span class='ident'>children</span>: <span class='string'>&#39;a&#39;</span> <span class='op'>=&gt;</span> <span class='ident'>SequenceTrie</span> {
+        <span class='ident'>value</span>: <span class='prelude-val'>Some</span>(<span class='number'>1u</span>),
+        <span class='ident'>children</span>: <span class='string'>&#39;b&#39;</span> <span class='op'>=&gt;</span> <span class='ident'>SequenceTrie</span> {
+            <span class='ident'>value</span>: <span class='prelude-val'>None</span>,
+            <span class='ident'>children</span>: <span class='string'>&#39;c&#39;</span> <span class='op'>=&gt;</span> <span class='ident'>SequenceTrie</span> {
+                <span class='ident'>value</span>: <span class='prelude-val'>Some</span>(<span class='number'>3u</span>),
+                <span class='ident'>children</span>: <span class='ident'>Nil</span>
+            }
+        }
+    }
+}</pre>
+
+<p>Values are stored optionally at each node because inserting a value for a list-key only inserts
+a value for the last fragment of the key. The intermediate prefix nodes are created with value
+<code>None</code> if they do not exist already.</p>
+
+<p>The above SequenceTrie could be created using the following sequence of operations:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>let</span> <span class='ident'>trie</span>: <span class='ident'>SequenceTrie</span><span class='op'>&lt;</span><span class='ident'>char</span>, <span class='ident'>uint</span><span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>SequenceTrie</span>::<span class='ident'>new</span>();
+<span class='ident'>trie</span>.<span class='ident'>insert</span>([<span class='string'>&#39;a&#39;</span>, <span class='string'>&#39;b&#39;</span>, <span class='string'>&#39;c&#39;</span>], <span class='number'>3u</span>);
+<span class='ident'>trie</span>.<span class='ident'>insert</span>([], <span class='number'>0u</span>);
+<span class='ident'>trie</span>.<span class='ident'>insert</span>([<span class='string'>&#39;a&#39;</span>], <span class='number'>1u</span>);</pre>
+
+<p>The order of insertion is never important.</p>
+
+<p>One interesting thing about Tries is that every key is a <em>descendant</em> of the root, which itself
+has no key fragment. Although this is a rather trivial observation, it means that every key
+corresponds to a non-empty sequence of prefix nodes in the tree. This observation is the
+motivation for the <code>get_prefix_nodes</code> method, which returns the nodes corresponding to the longest
+prefix of a given key.</p>
+
+<p>The empty list key, <code>[]</code>, always corresponds to the root node of the Trie.</p>
+
+<h1 id='the-sequence-trie-invariant' class='section-header'><a href='#the-sequence-trie-invariant'>The Sequence Trie Invariant</a></h1>
+<p>All leaf nodes have non-trivial values (not equal to <code>None</code>). This invariant is maintained by
+the insertion and removal methods and can be relied upon.</p>
+</div><h2 class='fields'>Fields</h2>
+<table><tr class='stab '>
+                                  <td id='structfield.value'><code>value</code></td><td><div class='docblock'><p>Node value.</p>
+</div></td></tr><tr class='stab '>
+                                  <td id='structfield.children'><code>children</code></td><td><div class='docblock'><p>Node children as a hashmap keyed by key fragments.</p>
+</div></td></tr></table><h2 id='methods'>Methods</h2><h3 class='impl'><code>impl&lt;K, V&gt; <a class='struct' href='../sequence_trie/struct.SequenceTrie.html' title='sequence_trie::SequenceTrie'>SequenceTrie</a>&lt;K, V&gt; <span class='where'>where K: <a class='trait' href='../sequence_trie/trait.TrieKey.html' title='sequence_trie::TrieKey'>TrieKey</a></span></code></h3><div class='impl-items'><h4 id='method.new' class='method'><code>fn <a href='#method.new' class='fnname'>new</a>() -&gt; <a class='struct' href='../sequence_trie/struct.SequenceTrie.html' title='sequence_trie::SequenceTrie'>SequenceTrie</a>&lt;K, V&gt;</code></h4>
+<div class='docblock'><p>Create a new SequenceTrie node with no value and an empty child map.</p>
+</div><h4 id='method.insert' class='method'><code>fn <a href='#method.insert' class='fnname'>insert</a>(&amp;mut self, key: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>K<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>, value: V) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<div class='docblock'><p>Insert a key and value into the SequenceTrie.</p>
+
+<p>Returns <code>true</code> if the key did not already correspond to a value.</p>
+</div><h4 id='method.get' class='method'><code>fn <a href='#method.get' class='fnname'>get</a>(&amp;self, key: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>K<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;V&gt;</code></h4>
+<div class='docblock'><p>Find a reference to a key&#39;s value, if it has one.</p>
+</div><h4 id='method.get_node' class='method'><code>fn <a href='#method.get_node' class='fnname'>get_node</a>(&amp;self, key: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>K<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;<a class='struct' href='../sequence_trie/struct.SequenceTrie.html' title='sequence_trie::SequenceTrie'>SequenceTrie</a>&lt;K, V&gt;&gt;</code></h4>
+<div class='docblock'><p>Find a reference to a key&#39;s node, if it has one.</p>
+</div><h4 id='method.get_mut' class='method'><code>fn <a href='#method.get_mut' class='fnname'>get_mut</a>(&amp;mut self, key: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>K<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;mut V&gt;</code></h4>
+<div class='docblock'><p>Find a mutable reference to a key&#39;s value, if it has one.</p>
+</div><h4 id='method.get_mut_node' class='method'><code>fn <a href='#method.get_mut_node' class='fnname'>get_mut_node</a>(&amp;mut self, key: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>K<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;mut <a class='struct' href='../sequence_trie/struct.SequenceTrie.html' title='sequence_trie::SequenceTrie'>SequenceTrie</a>&lt;K, V&gt;&gt;</code></h4>
+<div class='docblock'><p>Find a mutable reference to a key&#39;s node, if it has one.</p>
+</div><h4 id='method.get_prefix_nodes' class='method'><code>fn <a href='#method.get_prefix_nodes' class='fnname'>get_prefix_nodes</a>(&amp;self, key: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>K<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='struct' href='https://doc.rust-lang.org/nightly/collections/vec/struct.Vec.html' title='collections::vec::Vec'>Vec</a>&lt;&amp;<a class='struct' href='../sequence_trie/struct.SequenceTrie.html' title='sequence_trie::SequenceTrie'>SequenceTrie</a>&lt;K, V&gt;&gt;</code></h4>
+<div class='docblock'><p>Find the longest prefix of nodes which match the given key.</p>
+</div><h4 id='method.get_ancestor' class='method'><code>fn <a href='#method.get_ancestor' class='fnname'>get_ancestor</a>(&amp;self, key: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>K<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;V&gt;</code></h4>
+<div class='docblock'><p>Find the value of the nearest ancestor with a non-empty value, if one exists.</p>
+
+<p>If all ancestors have empty (<code>None</code>) values, <code>None</code> is returned.</p>
+</div><h4 id='method.get_ancestor_node' class='method'><code>fn <a href='#method.get_ancestor_node' class='fnname'>get_ancestor_node</a>(&amp;self, key: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>K<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;&amp;<a class='struct' href='../sequence_trie/struct.SequenceTrie.html' title='sequence_trie::SequenceTrie'>SequenceTrie</a>&lt;K, V&gt;&gt;</code></h4>
+<div class='docblock'><p>Find the nearest ancestor with a non-empty value, if one exists.</p>
+
+<p>If all ancestors have empty (<code>None</code>) values, <code>None</code> is returned.</p>
+</div><h4 id='method.remove' class='method'><code>fn <a href='#method.remove' class='fnname'>remove</a>(&amp;mut self, key: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[</a>K<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>]</a>)</code></h4>
+<div class='docblock'><p>Remove the node corresponding to the given key.</p>
+
+<p>This operation is like the reverse of <code>insert</code> in that
+it also deletes extraneous nodes on the path from the root.</p>
+
+<p>If the key node has children, its value is set to <code>None</code> and no further
+action is taken. If the key node is a leaf, then it and its ancestors with
+empty values and no other children are deleted. Deletion proceeds up the tree
+from the key node until a node with a non-empty value or children is reached.</p>
+
+<p>If the key doesn&#39;t match a node in the Trie, no action is taken.</p>
+</div><h4 id='method.iter' class='method'><code>fn <a href='#method.iter' class='fnname'>iter</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../sequence_trie/struct.Iter.html' title='sequence_trie::Iter'>Iter</a>&lt;'a, K, V&gt;</code></h4>
+<div class='docblock'><p>Return an iterator over all the key-value pairs in the collection.</p>
+</div><h4 id='method.keys' class='method'><code>fn <a href='#method.keys' class='fnname'>keys</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../sequence_trie/struct.Keys.html' title='sequence_trie::Keys'>Keys</a>&lt;'a, K, V&gt;</code></h4>
+<div class='docblock'><p>Return an iterator over all the keys in the trie.</p>
+</div><h4 id='method.values' class='method'><code>fn <a href='#method.values' class='fnname'>values</a>&lt;'a&gt;(&amp;'a self) -&gt; <a class='struct' href='../sequence_trie/struct.Values.html' title='sequence_trie::Values'>Values</a>&lt;'a, K, V&gt;</code></h4>
+<div class='docblock'><p>Return an iterator over all the values stored in the trie.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><code>impl&lt;K, V&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='struct' href='../sequence_trie/struct.SequenceTrie.html' title='sequence_trie::SequenceTrie'>SequenceTrie</a>&lt;K, V&gt; <span class='where'>where K: <a class='trait' href='../sequence_trie/trait.TrieKey.html' title='sequence_trie::TrieKey'>TrieKey</a>, V: <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a></span></code></h3><div class='impl-items'><h4 id='method.eq' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.eq' class='fnname'>eq</a>(&amp;self, other: &amp;Self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+<h4 id='method.ne' class='method'><span class="since">1.0.0</span><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, other: &amp;Rhs) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></h4>
+</div><h3 class='impl'><code>impl&lt;K, V&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='struct' href='../sequence_trie/struct.SequenceTrie.html' title='sequence_trie::SequenceTrie'>SequenceTrie</a>&lt;K, V&gt; <span class='where'>where K: <a class='trait' href='../sequence_trie/trait.TrieKey.html' title='sequence_trie::TrieKey'>TrieKey</a>, V: <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a></span></code></h3><div class='impl-items'></div><h3 class='impl'><code>impl&lt;K, V&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='struct' href='../sequence_trie/struct.SequenceTrie.html' title='sequence_trie::SequenceTrie'>SequenceTrie</a>&lt;K, V&gt; <span class='where'>where K: <a class='trait' href='../sequence_trie/trait.TrieKey.html' title='sequence_trie::TrieKey'>TrieKey</a></span></code></h3><div class='impl-items'><h4 id='method.default' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#method.default' class='fnname'>default</a>() -&gt; Self</code></h4>
+</div><h3 id='derived_implementations'>Derived Implementations </h3><h3 class='impl'><code>impl&lt;K: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>, V: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../sequence_trie/struct.SequenceTrie.html' title='sequence_trie::SequenceTrie'>SequenceTrie</a>&lt;K, V&gt; <span class='where'>where K: <a class='trait' href='../sequence_trie/trait.TrieKey.html' title='sequence_trie::TrieKey'>TrieKey</a></span></code></h3><div class='impl-items'><h4 id='method.clone' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../sequence_trie/struct.SequenceTrie.html' title='sequence_trie::SequenceTrie'>SequenceTrie</a>&lt;K, V&gt;</code></h4>
+<h4 id='method.clone_from' class='method'><span class="since">1.0.0</span><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code></h4>
+</div><h3 class='impl'><code>impl&lt;K: <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a>, V: <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../sequence_trie/struct.SequenceTrie.html' title='sequence_trie::SequenceTrie'>SequenceTrie</a>&lt;K, V&gt; <span class='where'>where K: <a class='trait' href='../sequence_trie/trait.TrieKey.html' title='sequence_trie::TrieKey'>TrieKey</a></span></code></h3><div class='impl-items'><h4 id='method.fmt' class='method'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#method.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></h4>
+</div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "sequence_trie";
+        window.playgroundUrl = "";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    
+    <script defer src="../search-index.js"></script>
+</body>
+</html>
