@@ -26,6 +26,8 @@ addons:
 after_success:
 - travis-cargo coveralls --no-sudo
 - docker push clux/blog
+after_script:
+- docker logout
 notifications:
   email:
     on_success: change
