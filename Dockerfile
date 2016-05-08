@@ -1,8 +1,7 @@
 FROM scratch
 
-COPY ./target/x86_64-unknown-linux-musl/release/blog /blog
-
-EXPOSE 8000
+COPY ./target/x86_64-unknown-linux-musl/debug/blog /blog
+COPY ./templates /templates
+EXPOSE 80
 WORKDIR /
-
-CMD ["/blog"]
+ENTRYPOINT ["/blog"]

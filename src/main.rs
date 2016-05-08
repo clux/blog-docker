@@ -92,15 +92,15 @@ fn main() {
     mnt.mount("/static/", Static::new(Path::new("posts/")));
 
     let mut chain = Chain::new(mnt);
-    chain.link_before(logger_before);
+    //chain.link_before(logger_before);
 
     // allow posts to be read persitently across requests
     chain.link(persistent::Read::<DataBase>::both(db));
 
     chain.link_after(hbse);
-    chain.link_after(logger_after);
+    //chain.link_after(logger_after);
 
-    let addr = format!("{}:{}", "0.0.0.0", 8000);
+    let addr = format!("{}:{}", "0.0.0.0", 80);
     match Iron::new(chain).http(addr.as_str()) {
         Ok(_) => println!("Listening on {}", addr),
         Err(error) => println!("Unable to start: {}", error),

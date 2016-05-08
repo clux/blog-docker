@@ -11,7 +11,7 @@ Pull docker image and posts directory:
 ```sh
 git clone git@github.com:clux/posts.git
 docker pull clux/blog
-docker run --rm -v $PWD/posts:/posts -p 8000:8000 -t clux/blog
+docker run --rm -v $PWD/posts:/posts -p 8000:80 -t clux/blog
 ```
 
 ## Developing
