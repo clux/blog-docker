@@ -12,8 +12,10 @@ Pull docker image and posts directory:
 
 ```sh
 docker pull clux/blog
-docker run -p 8000:8000 -t clux/blog
+docker run -p 80:8000 -t clux/blog
 ```
+
+Run on CoreOS with `fleetctl start cluxblog.service`.
 
 ## Developing
 Clone this repo, the dependent post repo, then build and link.
