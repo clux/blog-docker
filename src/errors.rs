@@ -4,6 +4,7 @@ use std::str::Utf8Error;
 use rustc_serialize::json;
 use glob;
 
+/// Main error types not related to the HTTP server
 #[derive(Debug)]
 pub enum BlogError {
     Io(io::Error),
@@ -12,6 +13,8 @@ pub enum BlogError {
     Glob(glob::GlobError),
     Unicode(Utf8Error),
 }
+
+/// Type alias to stop having to type out BlogError everywhere
 pub type BlogResult<T> = Result<T, BlogError>;
 
 // Format implementation used when printing an error

@@ -5,6 +5,8 @@
 
 Dockerized rust blog serving content from a mounted posts directory.
 
+## [documentation](http://clux.github.io/blog)
+
 ## Deploying
 Pull docker image and posts directory:
 

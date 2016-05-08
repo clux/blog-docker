@@ -77,17 +77,17 @@ fn parse_markdown(data: &String) -> BlogResult<String> {
 fn generate_summary(md: &String) -> String {
     // find first paragraph from md that does not start with an image
     for l in md.lines() {
-        //println!("Found line {}", l);
+        // println!("Found line {}", l);
         if l.starts_with("# ") && l.chars().count() < 80 {
-            continue // Skip headings
+            continue; // Skip headings
         }
         if l.starts_with("![") && l.ends_with(")") {
-            continue // Skip image tags
+            continue; // Skip image tags
         }
         if l.chars().count() < 5 {
-            continue // empty lines and weird shit
+            continue; // empty lines and weird shit
         }
-        //println!("  -> using: {}", l);
+        // println!("  -> using: {}", l);
         return l.to_string();
     }
     "<p>No summary</p>".to_string()
@@ -134,7 +134,7 @@ pub fn load_posts() -> BlogResult<PostMap> {
         // println!("got metadata {}", json::as_pretty_json(&meta));
         let slug = meta.slug.clone();
         let (html, summary) = try!(load_post(&slug));
-        //println!("got html: {}\n\n and summary: {}\n", html, summary);
+        // println!("got html: {}\n\n and summary: {}\n", html, summary);
         let post = Post {
             info: meta,
             summary: summary,
