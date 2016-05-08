@@ -11,7 +11,6 @@ Dockerized rust blog serving content from a mounted posts directory.
 Pull docker image and posts directory:
 
 ```sh
-git clone git@github.com:clux/posts.git
 docker pull clux/blog
 docker run -p 8000:8000 -t clux/blog
 ```
