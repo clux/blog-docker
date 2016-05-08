@@ -3,19 +3,19 @@
 [![coverage status](http://img.shields.io/coveralls/clux/blog.svg)](https://coveralls.io/r/clux/blog)
 [![image size](https://img.shields.io/imagelayers/image-size/clux/blog/latest.svg)](https://imagelayers.io/?images=clux%2Fblog:latest)
 
-Dockerized rust blog serving content from a mounted posts directory.
+Dockerised rust blog serving content from a [directory of markdown posts](https://github.com/clux/posts).
 
 ## [documentation](http://clux.github.io/blog)
 
 ## Deploying
-Pull docker image and posts directory:
+Pull docker image and run:
 
 ```sh
 docker pull clux/blog
 docker run -p 80:8000 -t clux/blog
 ```
 
-Run on CoreOS with `fleetctl start cluxblog.service`.
+Run on CoreOS remotely with `fleetctl start cluxblog.service`.
 
 ## Developing
 Clone this repo, the dependent post repo, then build and link.
