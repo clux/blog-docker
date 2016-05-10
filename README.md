@@ -1,7 +1,7 @@
 # blog
 [![build status](https://secure.travis-ci.org/clux/blog.svg)](http://travis-ci.org/clux/blog)
 [![coverage status](http://img.shields.io/coveralls/clux/blog.svg)](https://coveralls.io/r/clux/blog)
-[![image size](https://img.shields.io/imagelayers/image-size/clux/blog/latest.svg)](https://imagelayers.io/?images=clux%2Fblog:latest)
+[![image size](https://imagelayers.io/badge/clux/blog:latest.svg)](https://imagelayers.io/?images=clux/blog:latest)
 
 Dockerised rust blog serving content from a [directory of markdown posts](https://github.com/clux/posts).
 
