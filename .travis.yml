@@ -17,6 +17,10 @@ script:
 - travis-cargo --only stable doc
 - docker run --rm -v $PWD:/volume -w /volume -t clux/muslrust cargo build --release
 - docker build -t clux/blog .
+- docker run -p 8000:8000 --name=blog -t clux/blog &
+- sleep 1
+- curl -s localhost:8000 | grep -q "<ul>"
+- docker rm -f blog
 addons:
   apt:
     packages:

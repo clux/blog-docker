@@ -8,7 +8,7 @@ TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill cluxblog
 ExecStartPre=-/usr/bin/docker rm cluxblog
 ExecStartPre=/usr/bin/docker pull clux/blog
-ExecStart=/usr/bin/docker run --rm --name cluxblog -p 80:8000 clux/blog
+ExecStart=/usr/bin/docker run --name cluxblog -p 80:8000 clux/blog
 ExecStop=/usr/bin/docker stop cluxblog
 
 [X-Fleet]

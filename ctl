@@ -2,6 +2,7 @@
 
 stop_blog() {
   docker kill blog
+  docker rm blog
 }
 
 if [[ "$1" == "build" ]]; then
