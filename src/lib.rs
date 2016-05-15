@@ -24,10 +24,6 @@
 //! This is achieved almost entirely by compiling it with musl, and by
 //! building a docker image 'FROM scratch' with the static binary copied.
 //!
-//! This is working reasonably well, but there are currently some odd
-//! [issues](https://github.com/clux/blog/issues).
-//!
-//! Non-docker usage seems pretty solid though.
 
 extern crate glob;
 extern crate hoedown;

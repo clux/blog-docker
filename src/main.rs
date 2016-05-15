@@ -1,4 +1,3 @@
-#[macro_use]
 extern crate clap;
 
 extern crate iron;
@@ -69,8 +68,8 @@ fn entry(req: &mut Request) -> IronResult<Response> {
 
 fn main() {
     let args = App::new("blog")
-        .version(crate_version!())
-        .about("blog engine")
+        .about("stand alone blog engine written in rust\
+                \nsource at https://github.com/clux/blog")
         .arg(Arg::with_name("port")
                 .short("p")
                 .long("port")
