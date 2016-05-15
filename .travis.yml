@@ -15,7 +15,7 @@ script:
 - travis-cargo test
 - travis-cargo bench
 - travis-cargo --only stable doc
-- docker run --rm -v $PWD:/volume -w /volume -t clux/muslrust cargo build
+- docker run --rm -v $PWD:/volume -w /volume -t clux/muslrust cargo build --release
 - docker build -t clux/blog .
 addons:
   apt:

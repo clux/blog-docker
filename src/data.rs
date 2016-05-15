@@ -105,7 +105,7 @@ fn load_post(slug: &str) -> BlogResult<(String, String)> {
     let replacer = format!("<img src=\"static/{}/", slug);
     htmlpost = image_path_reg.replace_all(&htmlpost, &replacer as &str);
 
-    // summary markdown (subset of data)
+    // create markdown summary
     let mut htmlintro = try!(parse_markdown(&generate_summary(&data)));
 
     // remove images from summary
@@ -126,15 +126,15 @@ pub fn load_posts() -> BlogResult<PostMap> {
     // TODO: parallelize these reads
     for entry in entries {
         let pth = try!(entry);
-        // println!("opening path {:?}", pth);
+        info!("Loading {:?}", pth);
         let mut f = try!(File::open(pth));
         let mut data = String::new();
         try!(f.read_to_string(&mut data));
         let meta: MetaData = try!(json::decode(&data));
-        // println!("got metadata {}", json::as_pretty_json(&meta));
+        //trace!("got metadata {}", json::as_pretty_json(&meta));
         let slug = meta.slug.clone();
         let (html, summary) = try!(load_post(&slug));
-        // println!("got html: {}\n\n and summary: {}\n", html, summary);
+        //trace!("got html: {}\n\n and summary: {}\n", html, summary);
         let post = Post {
             info: meta,
             summary: summary,

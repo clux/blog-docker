@@ -1,26 +1,29 @@
 [package]
+authors = ["Eirik Albrigtsen <analsandblaster@gmail.com>"]
 name = "blog"
 version = "0.1.0"
-authors = ["Eirik Albrigtsen <analsandblaster@gmail.com>"]
+
+[[bin]]
+doc = false
+name = "blog"
+path = "src/main.rs"
+
+[dependencies]
+clap = "2.5.1"
+glob = "*"
+handlebars-iron = "*"
+hoedown = "*"
+iron = "*"
+log = "0.3.6"
+logger = "*"
+loggerv = "0.2.0"
+mount = "*"
+persistent = "*"
+regex = "*"
+router = "*"
+rustc-serialize = "*"
+staticfile = "*"
 
 [lib]
 name = "blog"
 path = "src/lib.rs"
-
-[[bin]]
-name = "blog"
-path = "src/main.rs"
-doc = false
-
-[dependencies]
-glob = "*"
-hoedown = "*"
-regex = "*"
-rustc-serialize = "*"
-iron = "*"
-router = "*"
-handlebars-iron = "*"
-logger = "*"
-staticfile = "*"
-persistent = "*"
-mount = "*"
