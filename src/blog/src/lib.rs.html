@@ -80,8 +80,6 @@
 <span id="37">37</span>
 <span id="38">38</span>
 <span id="39">39</span>
-<span id="40">40</span>
-<span id="41">41</span>
 </pre><pre class='rust '>
 <span class='doccomment'>//! This is the rust doc for the `blog` *library* - what the `blog` *binary*</span>
 <span class='doccomment'>//! depends on to get posts, and convert markdown to html properly.</span>
@@ -109,15 +107,13 @@
 <span class='doccomment'>//! This is achieved almost entirely by compiling it with musl, and by</span>
 <span class='doccomment'>//! building a docker image &#39;FROM scratch&#39; with the static binary copied.</span>
 <span class='doccomment'>//!</span>
-<span class='doccomment'>//! This is working reasonably well, but there are currently some odd</span>
-<span class='doccomment'>//! [issues](https://github.com/clux/blog/issues).</span>
-<span class='doccomment'>//!</span>
-<span class='doccomment'>//! Non-docker usage seems pretty solid though.</span>
 
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>glob</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>hoedown</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rustc_serialize</span>;
 <span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>regex</span>;
+<span class='attribute'>#[<span class='ident'>macro_use</span>]</span>
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>log</span>;
 
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>errors</span>::<span class='ident'>BlogResult</span>;
 <span class='kw'>pub</span> <span class='kw'>use</span> <span class='ident'>data</span>::{<span class='ident'>Post</span>, <span class='ident'>MetaData</span>, <span class='ident'>PostMap</span>, <span class='ident'>load_posts</span>};

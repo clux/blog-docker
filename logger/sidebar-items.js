@@ -1,1 +1,0 @@
-initSidebarItems({"mod":[["format","Formatting helpers for the logger middleware."]],"struct":[["CouldNotOpenTerminal","Error returned when logger cannout access stdout."],["Logger","`Middleware` for logging request and response info to the terminal."]]});
