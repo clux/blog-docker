@@ -51,12 +51,11 @@ fn main() {
             process::exit(1);
         })
         .unwrap();
-    if db.len() == 0 {
+    if db.is_empty() {
         println!("No posts found in posts/ - clone posts repo first");
         process::exit(1);
     }
     println!("Loaded {} posts", db.len());
-    // TODO: load templates in ./templates (currently .hbs - can be changed)
 
     rocket::ignite()
         .manage(db)

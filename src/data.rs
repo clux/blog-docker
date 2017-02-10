@@ -51,7 +51,7 @@ fn parse_markdown(data: &String) -> Result<String> {
     let output = html.render(&md);
     let outputstr = output.to_str()
         .chain_err(|| "Failed to convert html to string")?;
-    Ok(outputstr.to_string())
+    Ok(outputstr.into())
 }
 
 // Helper to extract a suitable first paragraph for index
@@ -69,9 +69,9 @@ fn generate_summary(md: &String) -> String {
             continue; // empty lines and weird shit
         }
         // println!("  -> using: {}", l);
-        return l.to_string();
+        return l.into();
     }
-    "<p>No summary</p>".to_string()
+    "<p>No summary</p>".into()
 }
 
 /// Replace relative image paths with the mounted /static prefix
@@ -83,17 +83,15 @@ pub fn rmap_relative_paths(htmlpost: &str, slug: &str) -> String {
 
 // Helper to load parse `README.md` and convert it to `HTML`.
 fn load_post(slug: &str) -> Result<(String, String)> {
-    let pathstr = format!("./posts/{}/README.md", slug);
-    let pathy = Path::new(&pathstr);
-    let mut f = File::open(pathy)
-        .chain_err(|| format!("Failed to open {}", pathstr))?;
+    let pth = Path::new("./posts").join(slug).join("README.md");
+    let pthstr = pth.display().to_string();
+    let mut f = File::open(pth)
+        .chain_err(|| format!("Failed to open {}", pthstr))?;
     let mut data = String::new();
     f.read_to_string(&mut data)
-        .chain_err(|| format!("Failed to read {}", pathstr))?;
+        .chain_err(|| format!("Failed to read {}", pthstr))?;
     let htmlpost = parse_markdown(&data)
         .chain_err(|| "Failed to parse {} as markdown")?;
-
-    let htmlpost_pathed = rmap_relative_paths(&htmlpost, slug);
 
     // create markdown summary
     let htmlintro = parse_markdown(&generate_summary(&data))?;
@@ -102,7 +100,7 @@ fn load_post(slug: &str) -> Result<(String, String)> {
     let image_reg = Regex::new("(<img src=\"[^\"]*\">)").unwrap();
     let htmlintro_safe = image_reg.replace_all(&htmlintro, "");
 
-    Ok((htmlpost_pathed.into(), htmlintro_safe.into()))
+    Ok((rmap_relative_paths(&htmlpost, slug), htmlintro_safe.into()))
 }
 
 /// A one time sequential loader of all posts from the posts folder
@@ -114,19 +112,14 @@ pub fn load_posts() -> Result<PostMap> {
     let mut map = PostMap::new();
     let entries = glob("posts/*/data.json")
         .chain_err(|| "Failed to glob for posts")?;
-    // TODO: parallelize these  reads
     for entry in entries { // iterate over Result objects from Glob
-        // TODO: really want to log the glob here
         let pth = entry.chain_err(|| "Failed to glob path")?;
-            //.chain_err(|| format!("Failed to glob path {:?}", entry))?;
         let mut f = File::open(pth).chain_err(|| "Failed to read file")?;
         let mut data = String::new();
         f.read_to_string(&mut data).chain_err(|| "Failed to read file")?;
         let meta: MetaData = serde_json::from_str(&data).chain_err(|| "Failed to deserialize file")?;
-        //trace!("got metadata {}", json::as_pretty_json(&meta));
         let slug = meta.slug.clone();
         let (html, summary) = load_post(&slug)?;
-        //trace!("got html: {}\n\n and summary: {}\n", html, summary);
         let post = Post {
             info: meta,
             summary: summary,
