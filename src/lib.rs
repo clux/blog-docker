@@ -25,10 +25,14 @@
 //! building a docker image 'FROM scratch' with the static binary copied.
 //!
 
+#[macro_use]
+extern crate serde_derive;
+extern crate serde_json;
+
 extern crate glob;
 extern crate hoedown;
-extern crate rustc_serialize;
 extern crate regex;
+
 #[macro_use]
 extern crate log;
 

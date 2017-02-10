@@ -23,14 +23,16 @@ Clone this repo, the dependent post repo, then build and link.
 ```sh
 git clone git@github.com:clux/blog.git && cd blog
 git clone git@github.com:clux/posts.git
+rustup override set nightly
+rustup update
 cargo build
-ln -sf $PWD/target/debug/blog /usr/local/bin/blog
+cargo run
 ```
 
 Iterate and verify:
 
 ```sh
-blog
+cargo run
 cargo fmt
 cargo test
 cargo doc

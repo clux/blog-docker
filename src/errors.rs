@@ -1,14 +1,14 @@
 use std::fmt;
 use std::io;
 use std::str::Utf8Error;
-use rustc_serialize::json;
+use serde_json;
 use glob;
 
 /// Main error types not related to the HTTP server
 #[derive(Debug)]
 pub enum BlogError {
     Io(io::Error),
-    Parse(json::DecoderError),
+    Parse(serde_json::error::Error),
     Pattern(glob::PatternError),
     Glob(glob::GlobError),
     Unicode(Utf8Error),
@@ -36,11 +36,12 @@ impl From<io::Error> for BlogError {
         BlogError::Io(err)
     }
 }
-impl From<json::DecoderError> for BlogError {
-    fn from(err: json::DecoderError) -> BlogError {
+impl From<serde_json::error::Error> for BlogError {
+    fn from(err: serde_json::error::Error) -> BlogError {
         BlogError::Parse(err)
     }
 }
+
 impl From<glob::PatternError> for BlogError {
     fn from(err: glob::PatternError) -> BlogError {
         BlogError::Pattern(err)
