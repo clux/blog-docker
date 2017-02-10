@@ -25,6 +25,11 @@
 //! building a docker image 'FROM scratch' with the static binary copied.
 //!
 
+#![recursion_limit = "1024"]
+#[macro_use]
+extern crate error_chain;
+
+
 #[macro_use]
 extern crate serde_derive;
 extern crate serde_json;
@@ -33,11 +38,12 @@ extern crate glob;
 extern crate hoedown;
 extern crate regex;
 
-#[macro_use]
-extern crate log;
-
-pub use errors::BlogResult;
+//pub use errors::BlogResult;
 pub use data::{Post, MetaData, PostMap, load_posts};
 
-mod errors;
 mod data;
+
+mod errors {
+    // Create the Error, ErrorKind, ResultExt, and Result types
+    error_chain! { }
+}

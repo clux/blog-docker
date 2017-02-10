@@ -3,47 +3,31 @@
 extern crate rocket;
 extern crate rocket_contrib;
 
-// NB: these are only for template contexts.. should not have this here..
-extern crate serde_json;
-#[macro_use] extern crate serde_derive;
-
 extern crate blog;
 
-#[macro_use]
-extern crate log;
-
 use rocket::response::NamedFile;
+use rocket::http::Status;
 use rocket::State;
 use rocket_contrib::Template;
+use rocket::response::Failure;
 
 use blog::PostMap;
-//use std::collections::BTreeMap;
 use std::process;
 use std::path::{Path, PathBuf};
 
-// TODO: simplify
-#[derive(Serialize)]
-struct TemplateContext {
-    entry: blog::Post,
-}
-
-
 #[get("/")]
-fn index(db: State<PostMap>) -> String {
-    // TODO: use index template with the whole db
-    db.get("2006-08-09-vault-of-therayne").unwrap().clone().html
+fn index(db: State<PostMap>) -> Template {
+    // TODO: render this properly
+    Template::render("index", &db.clone())
 }
 
 #[get("/<slug>")]
-fn entry(db: State<PostMap>, slug: &str) -> Template {
+fn entry(db: State<PostMap>, slug: &str) -> Result<Template, Failure> {
     // http://localhost:8000/e/2013-03-20-colemak
     if let Some(post) = db.get(slug) {
-        let context = TemplateContext {
-            entry: post.clone(),
-        };
-        Template::render("entry", &context)
+        Ok(Template::render("entry", &post))
     } else {
-        unreachable!() // TODO: 404
+        Err(Failure(Status::NotFound))
     }
 }
 
@@ -53,23 +37,22 @@ fn files(file: PathBuf) -> Option<NamedFile> {
     NamedFile::open(Path::new("posts/").join(file)).ok()
 }
 
-//#[error(404)]
-//fn not_found(req: &Request) -> Template {
-//    let mut map = std::collections::HashMap::new();
-//    map.insert("path", req.uri().as_str());
-//    Template::render("error/404", &map)
-//}
-
 fn main() {
     // Load posts
     let db = blog::load_posts()
         .map_err(|e| {
-            warn!("Failed to load posts: {}", e);
+            println!("Failed to load posts: {}", e);
+            for e in e.iter().skip(1) {
+                println!("Caused by: {}", e);
+            }
+            //if let Some(backtrace) = e.backtrace() {
+            //    println!("backtrace: {:?}", backtrace);
+            //}
             process::exit(1);
         })
         .unwrap();
     if db.len() == 0 {
-        warn!("No posts found in posts/ - clone posts repo first");
+        println!("No posts found in posts/ - clone posts repo first");
         process::exit(1);
     }
     println!("Loaded {} posts", db.len());
@@ -77,9 +60,7 @@ fn main() {
 
     rocket::ignite()
         .manage(db)
-        .mount("/", routes![index])
-        .mount("/e", routes![entry])
-        //.catch(errors![not_found])
-        .mount("/static", routes![files])
+        .mount("/", routes![index, entry])
+        .mount("/static/", routes![files])
         .launch();
 }

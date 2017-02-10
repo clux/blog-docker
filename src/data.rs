@@ -3,10 +3,11 @@ use regex::Regex;
 use serde_json;
 
 use std::collections::BTreeMap;
+use std::path::Path;
 use std::fs::File;
 use std::io::Read;
 
-use errors::BlogResult;
+use errors::*;
 
 /// The metadata representation of the `data.json` files
 #[derive(Serialize, Deserialize, Clone)]
@@ -36,7 +37,7 @@ pub struct Post {
 /// Convenience alias
 pub type PostMap = BTreeMap<String, Post>;
 
-fn parse_markdown(data: &String) -> BlogResult<String> {
+fn parse_markdown(data: &String) -> Result<String> {
     use hoedown::{self, Markdown, Render, Extension};
     use hoedown::renderer::html::{Flags, Html};
 
@@ -48,8 +49,9 @@ fn parse_markdown(data: &String) -> BlogResult<String> {
 
     let mut html = Html::new(Flags::empty(), 0);
     let output = html.render(&md);
-    let outputstr = output.to_str()?.to_string();
-    Ok(outputstr)
+    let outputstr = output.to_str()
+        .chain_err(|| "Failed to convert html to string")?;
+    Ok(outputstr.to_string())
 }
 
 // Helper to extract a suitable first paragraph for index
@@ -72,17 +74,26 @@ fn generate_summary(md: &String) -> String {
     "<p>No summary</p>".to_string()
 }
 
-// Helper to load parse `README.md` and convert it to `HTML`.
-fn load_post(slug: &str) -> BlogResult<(String, String)> {
-    let mut f = File::open(format!("posts/{}/README.md", slug))?;
-    let mut data = String::new();
-    f.read_to_string(&mut data)?;
-    let htmlpost = parse_markdown(&data)?;
+/// Replace relative image paths with the mounted /static prefix
+pub fn rmap_relative_paths(htmlpost: &str, slug: &str) -> String {
+    let re = Regex::new("<img src=\"(./)").unwrap();
+    let replacer = format!("<img src=\"/static/{}/", slug);
+    re.replace_all(&htmlpost, &replacer as &str).into()
+}
 
-    // replace relative image paths with their correct path
-    let image_path_reg = Regex::new("<img src=\"(./)\"").unwrap();
-    let replacer = format!("<img src=\"static/{}/", slug);
-    let htmlpost_pathed = image_path_reg.replace_all(&htmlpost, &replacer as &str);
+// Helper to load parse `README.md` and convert it to `HTML`.
+fn load_post(slug: &str) -> Result<(String, String)> {
+    let pathstr = format!("./posts/{}/README.md", slug);
+    let pathy = Path::new(&pathstr);
+    let mut f = File::open(pathy)
+        .chain_err(|| format!("Failed to open {}", pathstr))?;
+    let mut data = String::new();
+    f.read_to_string(&mut data)
+        .chain_err(|| format!("Failed to read {}", pathstr))?;
+    let htmlpost = parse_markdown(&data)
+        .chain_err(|| "Failed to parse {} as markdown")?;
+
+    let htmlpost_pathed = rmap_relative_paths(&htmlpost, slug);
 
     // create markdown summary
     let htmlintro = parse_markdown(&generate_summary(&data))?;
@@ -99,17 +110,19 @@ fn load_post(slug: &str) -> BlogResult<(String, String)> {
 /// By globbing for `data.json` in subdirectories, we can find the all they keys
 /// and metadata. By reading the `README.md` and converting it to HTML via `hoedown`
 /// we can build up the values of `PostMap`.
-pub fn load_posts() -> BlogResult<PostMap> {
+pub fn load_posts() -> Result<PostMap> {
     let mut map = PostMap::new();
-    let entries = glob("posts/*/data.json")?;
-    // TODO: parallelize these reads
-    for entry in entries {
-        let pth = entry?;
-        info!("Loading {:?}", pth);
-        let mut f = File::open(pth)?;
+    let entries = glob("posts/*/data.json")
+        .chain_err(|| "Failed to glob for posts")?;
+    // TODO: parallelize these  reads
+    for entry in entries { // iterate over Result objects from Glob
+        // TODO: really want to log the glob here
+        let pth = entry.chain_err(|| "Failed to glob path")?;
+            //.chain_err(|| format!("Failed to glob path {:?}", entry))?;
+        let mut f = File::open(pth).chain_err(|| "Failed to read file")?;
         let mut data = String::new();
-        f.read_to_string(&mut data)?;
-        let meta: MetaData = serde_json::from_str(&data)?;
+        f.read_to_string(&mut data).chain_err(|| "Failed to read file")?;
+        let meta: MetaData = serde_json::from_str(&data).chain_err(|| "Failed to deserialize file")?;
         //trace!("got metadata {}", json::as_pretty_json(&meta));
         let slug = meta.slug.clone();
         let (html, summary) = load_post(&slug)?;
@@ -132,5 +145,13 @@ mod tests {
     fn check_load() {
         let pm = data::load_posts();
         assert!(pm.is_ok(), "could load posts");
+    }
+
+    #[test]
+    fn remap_paths() {
+        let html = "bah <p><img src=\"./Blah_aw-z2.png\" alt=\"Wz8\"></p>";
+        assert_eq!(data::rmap_relative_paths(html, "slug"),
+            "bah <p><img src=\"/static/slug/Blah_aw-z2.png\" alt=\"Wz8\"></p>");
+
     }
 }
