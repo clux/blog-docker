@@ -1,6 +1,11 @@
 #![feature(plugin)]
 #![plugin(rocket_codegen)]
 extern crate rocket;
+extern crate rocket_contrib;
+
+// NB: these are only for template contexts.. should not have this here..
+extern crate serde_json;
+#[macro_use] extern crate serde_derive;
 
 extern crate blog;
 
@@ -9,11 +14,18 @@ extern crate log;
 
 use rocket::response::NamedFile;
 use rocket::State;
+use rocket_contrib::Template;
 
 use blog::PostMap;
 //use std::collections::BTreeMap;
 use std::process;
 use std::path::{Path, PathBuf};
+
+// TODO: simplify
+#[derive(Serialize)]
+struct TemplateContext {
+    entry: blog::Post,
+}
 
 
 #[get("/")]
@@ -23,13 +35,15 @@ fn index(db: State<PostMap>) -> String {
 }
 
 #[get("/<slug>")]
-fn entry(db: State<PostMap>, slug: &str) -> String {
+fn entry(db: State<PostMap>, slug: &str) -> Template {
     // http://localhost:8000/e/2013-03-20-colemak
     if let Some(post) = db.get(slug) {
-        // TODO: load template from post.clone() instead
-        post.clone().html
+        let context = TemplateContext {
+            entry: post.clone(),
+        };
+        Template::render("entry", &context)
     } else {
-        "Not found".into() // TODO: 404
+        unreachable!() // TODO: 404
     }
 }
 
@@ -38,6 +52,13 @@ fn files(file: PathBuf) -> Option<NamedFile> {
     // http://localhost:8000/static/2013-03-20-colemak/Colemak_fingers-600.png
     NamedFile::open(Path::new("posts/").join(file)).ok()
 }
+
+//#[error(404)]
+//fn not_found(req: &Request) -> Template {
+//    let mut map = std::collections::HashMap::new();
+//    map.insert("path", req.uri().as_str());
+//    Template::render("error/404", &map)
+//}
 
 fn main() {
     // Load posts
@@ -58,6 +79,7 @@ fn main() {
         .manage(db)
         .mount("/", routes![index])
         .mount("/e", routes![entry])
+        //.catch(errors![not_found])
         .mount("/static", routes![files])
         .launch();
 }

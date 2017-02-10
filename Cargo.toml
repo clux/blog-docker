@@ -19,6 +19,11 @@ serde = "0.9.6"
 serde_derive = "0.9.6"
 serde_json = "0.9.5"
 
+[dependencies.rocket_contrib]
+version = "0.2.0"
+default-features = false
+features = ["handlebars_templates"]
+
 [lib]
 name = "blog"
 path = "src/lib.rs"
