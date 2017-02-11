@@ -1,5 +1,9 @@
-{% if info.latex %}
+{% extends "base" %}
 
+{% block title %}{{info.title}}{% endblock title %}
+
+{% block head %}
+{% if info.latex %}
 <script type="text/x-mathjax-config">
   MathJax.Hub.Config({
     tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']] }
@@ -13,7 +17,11 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/styles/default.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.3.0/highlight.min.js"></script>
 <script>hljs.initHighlightingOnLoad();</script>
+{% endblock head %}
 
+
+{% block content %}
 <h2><a href="{{info.slug}}">{{info.title}}</a></h2>
 <h6>posted {{info.date}} by  <a href="/about/">clux</a>.</h6>
 {{ html }}
+{% endblock content %}

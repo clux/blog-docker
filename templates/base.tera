@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- <link rel="stylesheet" href="style.css" />-->
+    <title>{% block title %}{% endblock title %} - clux</title>
+    {% block head %}{% endblock head %}
+</head>
+<body>
+    <div id="content">{% block content %}{% endblock content %}</div>
+</body>
+</html>
