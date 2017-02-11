@@ -1,5 +1,15 @@
 (function() {var implementors = {};
-implementors['bitflags'] = [];implementors['regex_syntax'] = [];implementors['hyper'] = [];implementors['iron'] = [];implementors['hyper'] = [];implementors['iron'] = [];
+implementors["chrono"] = [];
+implementors["error_chain"] = [];
+implementors["hyper"] = [];
+implementors["lazy_static"] = [];
+implementors["libc"] = [];
+implementors["num"] = [];
+implementors["regex_syntax"] = [];
+implementors["rocket"] = [];
+implementors["rocket_contrib"] = [];
+implementors["serde"] = [];
+implementors["tera"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

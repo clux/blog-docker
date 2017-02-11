@@ -9,8 +9,10 @@
 
     <title>blog - Rust</title>
 
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
     <link rel="stylesheet" type="text/css" href="../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../main.css">
+    
 
     
     
@@ -43,15 +45,16 @@
 
     <section id='main' class="content mod">
 <h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>blog</a></span><span class='out-of-band'><span id='render-detail'>
-            <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
-                [<span class='inner'>&#x2212;</span>]
-            </a>
-        </span><a id='src-0' class='srclink' href='../src/blog/src/lib.rs.html#1-39' title='goto source code'>[src]</a></span></h1>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/blog/lib.rs.html#1-43' title='goto source code'>[src]</a></span></h1>
 <div class='docblock'><p>This is the rust doc for the <code>blog</code> <em>library</em> - what the <code>blog</code> <em>binary</em>
 depends on to get posts, and convert markdown to html properly.</p>
 
 <p>For documentation on using the blog binary, see
-<a href="https://github.com/clux/blog/blob/rust/README.md">the main readme</a></p>
+<a href="https://github.com/clux/blog/blob/rust/README.md">the main readme</a>.
+The <a href="https://github.com/clux/blog/blob/rust/src/main.rs">entry point is main.rs</a>.</p>
 
 <h2 id='strategy' class='section-header'><a href='#strategy'>Strategy</a></h2>
 <p>All markdown files are read at startup by globbing for README.md in
@@ -64,58 +67,38 @@ paragraph that is not a raw heading or an image.</p>
 
 <h2 id='serving' class='section-header'><a href='#serving'>Serving</a></h2>
 <p>The main blog engine would be in the binary, and that&#39;s the only
-thing that is depending on <code>iron</code> and its ecosystem. It has thus far
-seemed the most stable, and it has the most feature support of
-normal web app stuff like templates, databases, routers and loggers.</p>
-
-<h2 id='docker' class='section-header'><a href='#docker'>Docker</a></h2>
-<p>End goal is to have a 5 MB docker image that contains everything.
-This is achieved almost entirely by compiling it with musl, and by
-building a docker image &#39;FROM scratch&#39; with the static binary copied.</p>
+thing that is depending on <code>rocket</code> and its ecosystem.</p>
 </div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.MetaData.html'
-                               title='blog::MetaData'>MetaData</a></td>
-                        <td class='docblock short'>
-                             <p>The metadata representation of the <code>data.json</code> files</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='struct' href='struct.Post.html'
-                               title='blog::Post'>Post</a></td>
-                        <td class='docblock short'>
-                             <p>The full internal representation of a post subfolder</p>
-                        </td>
-                    </tr>
-                </table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.DataBase.html'
+                                  title='blog::DataBase'>DataBase</a></td>
+                           <td class='docblock-short'>
+                                <p>All the data we have in posts/</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.MetaData.html'
+                                  title='blog::MetaData'>MetaData</a></td>
+                           <td class='docblock-short'>
+                                <p>The metadata representation of the <code>data.json</code> files</p>
+                           </td>
+                       </tr>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Post.html'
+                                  title='blog::Post'>Post</a></td>
+                           <td class='docblock-short'>
+                                <p>The full internal representation of a post subfolder</p>
+                           </td>
+                       </tr></table><h2 id='functions' class='section-header'><a href="#functions">Functions</a></h2>
 <table>
-                    <tr class=' module-item'>
-                        <td><a class='fn' href='fn.load_posts.html'
-                               title='blog::load_posts'>load_posts</a></td>
-                        <td class='docblock short'>
-                             <p>A one time sequential loader of all posts from the posts folder</p>
-                        </td>
-                    </tr>
-                </table><h2 id='types' class='section-header'><a href="#types">Type Definitions</a></h2>
-<table>
-                    <tr class=' module-item'>
-                        <td><a class='type' href='type.BlogResult.html'
-                               title='blog::BlogResult'>BlogResult</a></td>
-                        <td class='docblock short'>
-                             <p>Type alias to stop having to type out BlogError everywhere</p>
-                        </td>
-                    </tr>
-                
-                    <tr class=' module-item'>
-                        <td><a class='type' href='type.PostMap.html'
-                               title='blog::PostMap'>PostMap</a></td>
-                        <td class='docblock short'>
-                             <p>Convenience alias</p>
-                        </td>
-                    </tr>
-                </table></section>
+                       <tr class=' module-item'>
+                           <td><a class='fn' href='fn.load_posts.html'
+                                  title='blog::load_posts'>load_posts</a></td>
+                           <td class='docblock-short'>
+                                <p>A one time sequential loader of all posts from the posts folder</p>
+                           </td>
+                       </tr></table></section>
     <section id='search' class="content hidden"></section>
 
     <section class="footer"></section>
@@ -138,6 +121,8 @@ building a docker image &#39;FROM scratch&#39; with the static binary copied.</p
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -169,11 +154,9 @@ building a docker image &#39;FROM scratch&#39; with the static binary copied.</p
     <script>
         window.rootPath = "../";
         window.currentCrate = "blog";
-        window.playgroundUrl = "";
     </script>
     <script src="../jquery.js"></script>
     <script src="../main.js"></script>
-    
     <script defer src="../search-index.js"></script>
 </body>
 </html>

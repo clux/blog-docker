@@ -1,5 +1,17 @@
 (function() {var implementors = {};
-implementors['libc'] = [];implementors['num_bigint'] = ["impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.LowerHex.html' title='core::fmt::LowerHex'>LowerHex</a> for <a class='struct' href='num_bigint/struct.BigUint.html' title='num_bigint::BigUint'>BigUint</a>","impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.LowerHex.html' title='core::fmt::LowerHex'>LowerHex</a> for <a class='struct' href='num_bigint/struct.BigInt.html' title='num_bigint::BigInt'>BigInt</a>",];implementors['itertools'] = ["impl&lt;'a, I&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.LowerHex.html' title='core::fmt::LowerHex'>LowerHex</a> for <a class='struct' href='itertools/struct.FormatDefault.html' title='itertools::FormatDefault'>FormatDefault</a>&lt;'a, I&gt; <span class='where'>where I: <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/trait.Iterator.html' title='core::iter::Iterator'>Iterator</a>, I::Item: <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.LowerHex.html' title='core::fmt::LowerHex'>LowerHex</a></span>",];implementors['num'] = ["impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.LowerHex.html' title='core::fmt::LowerHex'>LowerHex</a> for <a class='struct' href='num/bigint/struct.BigUint.html' title='num::bigint::BigUint'>BigUint</a>","impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.LowerHex.html' title='core::fmt::LowerHex'>LowerHex</a> for <a class='struct' href='num/bigint/struct.BigInt.html' title='num::bigint::BigInt'>BigInt</a>",];implementors['hyper'] = [];implementors['iron'] = [];implementors['hyper'] = [];implementors['iron'] = [];
+implementors["chrono"] = [];
+implementors["error_chain"] = [];
+implementors["hyper"] = [];
+implementors["lazy_static"] = [];
+implementors["libc"] = [];
+implementors["num"] = [];
+implementors["regex_syntax"] = [];
+implementors["rocket"] = ["impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.LowerHex.html' title='core::fmt::LowerHex'>LowerHex</a> for <a class='struct' href='term_painter/struct.Painted.html' title='term_painter::Painted'>Painted</a>&lt;T&gt; <span class='where fmt-newline'>where T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.LowerHex.html' title='core::fmt::LowerHex'>LowerHex</a></span>",];
+implementors["rocket_contrib"] = ["impl&lt;T&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.LowerHex.html' title='core::fmt::LowerHex'>LowerHex</a> for <a class='struct' href='term_painter/struct.Painted.html' title='term_painter::Painted'>Painted</a>&lt;T&gt; <span class='where fmt-newline'>where T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.LowerHex.html' title='core::fmt::LowerHex'>LowerHex</a></span>",];
+implementors["serde"] = [];
+implementors["tera"] = [];
+implementors["term_painter"] = ["impl&lt;T:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.LowerHex.html' title='core::fmt::LowerHex'>LowerHex</a>&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.LowerHex.html' title='core::fmt::LowerHex'>LowerHex</a> for <a class='struct' href='term_painter/struct.Painted.html' title='term_painter::Painted'>Painted</a>&lt;T&gt;",];
+implementors["void"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

@@ -1,5 +1,7 @@
 (function() {var implementors = {};
-implementors['handlebars'] = [];implementors['handlebars'] = [];
+implementors["hyper"] = [];
+implementors["rocket"] = [];
+implementors["rocket_contrib"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

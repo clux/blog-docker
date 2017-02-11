@@ -1,5 +1,9 @@
 (function() {var implementors = {};
-implementors['unicode_normalization'] = [];
+implementors["hyper"] = [];
+implementors["rocket"] = [];
+implementors["rocket_contrib"] = [];
+implementors["tera"] = [];
+implementors["unicode_normalization"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

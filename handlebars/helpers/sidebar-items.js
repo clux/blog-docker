@@ -1,1 +1,0 @@
-initSidebarItems({"trait":[["HelperDef","Helper Definition"]]});

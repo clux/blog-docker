@@ -1,1 +1,0 @@
-initSidebarItems({"fn":[["load_posts","A one time sequential loader of all posts from the posts folder"]],"struct":[["MetaData","The metadata representation of the `data.json` files"],["Post","The full internal representation of a post subfolder"]],"type":[["PostMap","Convenience alias"]]});

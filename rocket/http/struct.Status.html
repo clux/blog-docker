@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Status` struct in crate `rocket`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Status">
+
+    <title>rocket::http::Status - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>rocket</a>::<wbr><a href='index.html'>http</a></p><script>window.sidebarCurrent = {name: 'Status', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>rocket</a>::<wbr><a href='index.html'>http</a>::<wbr><a class='struct' href=''>Status</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/rocket/http/status.rs.html#62-67' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Status {
+    pub code: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>,
+    pub reason: &amp;'static <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>,
+}</pre><div class='docblock'><p>Structure representing HTTP statuses: an integer code and a reason phrase.</p>
+
+<h1 id='usage' class='section-header'><a href='#usage'>Usage</a></h1>
+<p>Status classes should rarely be created directly. Instead, an associated
+constant should be used; one is declared for every standard status defined
+in the HTTP standard.</p>
+
+<h2 id='example' class='section-header'><a href='#example'>Example</a></h2>
+<p>A status of <code>200 OK</code> can be insantiated via the <code>Ok</code> constant:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>Status</span>;
+
+<span class='kw'>let</span> <span class='ident'>ok</span> <span class='op'>=</span> <span class='ident'>Status</span>::<span class='prelude-val'>Ok</span>;</pre>
+
+<p>A status of <code>400 Not Found</code> can be insantiated via the <code>NotFound</code> constant:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>Status</span>;
+
+<span class='kw'>let</span> <span class='ident'>not_found</span> <span class='op'>=</span> <span class='ident'>Status</span>::<span class='ident'>NotFound</span>;</pre>
+
+<p>The code and phrase can be retrieved directly:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>Status</span>;
+
+<span class='kw'>let</span> <span class='ident'>not_found</span> <span class='op'>=</span> <span class='ident'>Status</span>::<span class='ident'>NotFound</span>;
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>not_found</span>.<span class='ident'>code</span>, <span class='number'>404</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>not_found</span>.<span class='ident'>reason</span>, <span class='string'>&quot;Not Found&quot;</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>not_found</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;404 Not Found&quot;</span>.<span class='ident'>to_string</span>());</pre>
+</div><h2 class='fields'>Fields</h2><span id='structfield.code' class='structfield'>
+                           <span id='code.v' class='invisible'>
+                           <code>code: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The HTTP status code associated with this status.</p>
+</div><span id='structfield.reason' class='structfield'>
+                           <span id='reason.v' class='invisible'>
+                           <code>reason: &amp;'static <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The HTTP reason phrase associated with this status.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/status.rs.html#113-246' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedconstant.Continue' class='associatedconstant'><span id='Continue.v' class='invisible'><code>const <a href='#associatedconstant.Continue' class='constant'>Continue</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(100, &quot;Continue&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+100
+</b> and reason <i>
+Continue
+</i>.</p>
+</div><h4 id='associatedconstant.SwitchingProtocols' class='associatedconstant'><span id='SwitchingProtocols.v' class='invisible'><code>const <a href='#associatedconstant.SwitchingProtocols' class='constant'>SwitchingProtocols</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(101, &quot;Switching Protocols&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+101
+</b> and reason <i>
+Switching Protocols
+</i>.</p>
+</div><h4 id='associatedconstant.Processing' class='associatedconstant'><span id='Processing.v' class='invisible'><code>const <a href='#associatedconstant.Processing' class='constant'>Processing</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(102, &quot;Processing&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+102
+</b> and reason <i>
+Processing
+</i>.</p>
+</div><h4 id='associatedconstant.Ok' class='associatedconstant'><span id='Ok.v' class='invisible'><code>const <a href='#associatedconstant.Ok' class='constant'>Ok</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(200, &quot;OK&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+200
+</b> and reason <i>
+OK
+</i>.</p>
+</div><h4 id='associatedconstant.Created' class='associatedconstant'><span id='Created.v' class='invisible'><code>const <a href='#associatedconstant.Created' class='constant'>Created</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(201, &quot;Created&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+201
+</b> and reason <i>
+Created
+</i>.</p>
+</div><h4 id='associatedconstant.Accepted' class='associatedconstant'><span id='Accepted.v' class='invisible'><code>const <a href='#associatedconstant.Accepted' class='constant'>Accepted</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(202, &quot;Accepted&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+202
+</b> and reason <i>
+Accepted
+</i>.</p>
+</div><h4 id='associatedconstant.NonAuthoritativeInformation' class='associatedconstant'><span id='NonAuthoritativeInformation.v' class='invisible'><code>const <a href='#associatedconstant.NonAuthoritativeInformation' class='constant'>NonAuthoritativeInformation</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(203, &quot;Non-Authoritative Information&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+203
+</b> and reason <i>
+Non-Authoritative Information
+</i>.</p>
+</div><h4 id='associatedconstant.NoContent' class='associatedconstant'><span id='NoContent.v' class='invisible'><code>const <a href='#associatedconstant.NoContent' class='constant'>NoContent</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(204, &quot;No Content&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+204
+</b> and reason <i>
+No Content
+</i>.</p>
+</div><h4 id='associatedconstant.ResetContent' class='associatedconstant'><span id='ResetContent.v' class='invisible'><code>const <a href='#associatedconstant.ResetContent' class='constant'>ResetContent</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(205, &quot;Reset Content&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+205
+</b> and reason <i>
+Reset Content
+</i>.</p>
+</div><h4 id='associatedconstant.PartialContent' class='associatedconstant'><span id='PartialContent.v' class='invisible'><code>const <a href='#associatedconstant.PartialContent' class='constant'>PartialContent</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(206, &quot;Partial Content&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+206
+</b> and reason <i>
+Partial Content
+</i>.</p>
+</div><h4 id='associatedconstant.MultiStatus' class='associatedconstant'><span id='MultiStatus.v' class='invisible'><code>const <a href='#associatedconstant.MultiStatus' class='constant'>MultiStatus</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(207, &quot;Multi-Status&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+207
+</b> and reason <i>
+Multi-Status
+</i>.</p>
+</div><h4 id='associatedconstant.AlreadyReported' class='associatedconstant'><span id='AlreadyReported.v' class='invisible'><code>const <a href='#associatedconstant.AlreadyReported' class='constant'>AlreadyReported</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(208, &quot;Already Reported&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+208
+</b> and reason <i>
+Already Reported
+</i>.</p>
+</div><h4 id='associatedconstant.ImUsed' class='associatedconstant'><span id='ImUsed.v' class='invisible'><code>const <a href='#associatedconstant.ImUsed' class='constant'>ImUsed</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(226, &quot;IM Used&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+226
+</b> and reason <i>
+IM Used
+</i>.</p>
+</div><h4 id='associatedconstant.MultipleChoices' class='associatedconstant'><span id='MultipleChoices.v' class='invisible'><code>const <a href='#associatedconstant.MultipleChoices' class='constant'>MultipleChoices</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(300, &quot;Multiple Choices&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+300
+</b> and reason <i>
+Multiple Choices
+</i>.</p>
+</div><h4 id='associatedconstant.MovedPermanently' class='associatedconstant'><span id='MovedPermanently.v' class='invisible'><code>const <a href='#associatedconstant.MovedPermanently' class='constant'>MovedPermanently</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(301, &quot;Moved Permanently&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+301
+</b> and reason <i>
+Moved Permanently
+</i>.</p>
+</div><h4 id='associatedconstant.Found' class='associatedconstant'><span id='Found.v' class='invisible'><code>const <a href='#associatedconstant.Found' class='constant'>Found</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(302, &quot;Found&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+302
+</b> and reason <i>
+Found
+</i>.</p>
+</div><h4 id='associatedconstant.SeeOther' class='associatedconstant'><span id='SeeOther.v' class='invisible'><code>const <a href='#associatedconstant.SeeOther' class='constant'>SeeOther</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(303, &quot;See Other&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+303
+</b> and reason <i>
+See Other
+</i>.</p>
+</div><h4 id='associatedconstant.NotModified' class='associatedconstant'><span id='NotModified.v' class='invisible'><code>const <a href='#associatedconstant.NotModified' class='constant'>NotModified</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(304, &quot;Not Modified&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+304
+</b> and reason <i>
+Not Modified
+</i>.</p>
+</div><h4 id='associatedconstant.UseProxy' class='associatedconstant'><span id='UseProxy.v' class='invisible'><code>const <a href='#associatedconstant.UseProxy' class='constant'>UseProxy</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(305, &quot;Use Proxy&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+305
+</b> and reason <i>
+Use Proxy
+</i>.</p>
+</div><h4 id='associatedconstant.TemporaryRedirect' class='associatedconstant'><span id='TemporaryRedirect.v' class='invisible'><code>const <a href='#associatedconstant.TemporaryRedirect' class='constant'>TemporaryRedirect</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(307, &quot;Temporary Redirect&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+307
+</b> and reason <i>
+Temporary Redirect
+</i>.</p>
+</div><h4 id='associatedconstant.PermanentRedirect' class='associatedconstant'><span id='PermanentRedirect.v' class='invisible'><code>const <a href='#associatedconstant.PermanentRedirect' class='constant'>PermanentRedirect</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(308, &quot;Permanent Redirect&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+308
+</b> and reason <i>
+Permanent Redirect
+</i>.</p>
+</div><h4 id='associatedconstant.BadRequest' class='associatedconstant'><span id='BadRequest.v' class='invisible'><code>const <a href='#associatedconstant.BadRequest' class='constant'>BadRequest</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(400, &quot;Bad Request&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+400
+</b> and reason <i>
+Bad Request
+</i>.</p>
+</div><h4 id='associatedconstant.Unauthorized' class='associatedconstant'><span id='Unauthorized.v' class='invisible'><code>const <a href='#associatedconstant.Unauthorized' class='constant'>Unauthorized</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(401, &quot;Unauthorized&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+401
+</b> and reason <i>
+Unauthorized
+</i>.</p>
+</div><h4 id='associatedconstant.PaymentRequired' class='associatedconstant'><span id='PaymentRequired.v' class='invisible'><code>const <a href='#associatedconstant.PaymentRequired' class='constant'>PaymentRequired</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(402, &quot;Payment Required&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+402
+</b> and reason <i>
+Payment Required
+</i>.</p>
+</div><h4 id='associatedconstant.Forbidden' class='associatedconstant'><span id='Forbidden.v' class='invisible'><code>const <a href='#associatedconstant.Forbidden' class='constant'>Forbidden</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(403, &quot;Forbidden&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+403
+</b> and reason <i>
+Forbidden
+</i>.</p>
+</div><h4 id='associatedconstant.NotFound' class='associatedconstant'><span id='NotFound.v' class='invisible'><code>const <a href='#associatedconstant.NotFound' class='constant'>NotFound</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(404, &quot;Not Found&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+404
+</b> and reason <i>
+Not Found
+</i>.</p>
+</div><h4 id='associatedconstant.MethodNotAllowed' class='associatedconstant'><span id='MethodNotAllowed.v' class='invisible'><code>const <a href='#associatedconstant.MethodNotAllowed' class='constant'>MethodNotAllowed</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(405, &quot;Method Not Allowed&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+405
+</b> and reason <i>
+Method Not Allowed
+</i>.</p>
+</div><h4 id='associatedconstant.NotAcceptable' class='associatedconstant'><span id='NotAcceptable.v' class='invisible'><code>const <a href='#associatedconstant.NotAcceptable' class='constant'>NotAcceptable</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(406, &quot;Not Acceptable&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+406
+</b> and reason <i>
+Not Acceptable
+</i>.</p>
+</div><h4 id='associatedconstant.ProxyAuthenticationRequired' class='associatedconstant'><span id='ProxyAuthenticationRequired.v' class='invisible'><code>const <a href='#associatedconstant.ProxyAuthenticationRequired' class='constant'>ProxyAuthenticationRequired</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(407, &quot;Proxy Authentication Required&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+407
+</b> and reason <i>
+Proxy Authentication Required
+</i>.</p>
+</div><h4 id='associatedconstant.RequestTimeout' class='associatedconstant'><span id='RequestTimeout.v' class='invisible'><code>const <a href='#associatedconstant.RequestTimeout' class='constant'>RequestTimeout</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(408, &quot;Request Timeout&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+408
+</b> and reason <i>
+Request Timeout
+</i>.</p>
+</div><h4 id='associatedconstant.Conflict' class='associatedconstant'><span id='Conflict.v' class='invisible'><code>const <a href='#associatedconstant.Conflict' class='constant'>Conflict</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(409, &quot;Conflict&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+409
+</b> and reason <i>
+Conflict
+</i>.</p>
+</div><h4 id='associatedconstant.Gone' class='associatedconstant'><span id='Gone.v' class='invisible'><code>const <a href='#associatedconstant.Gone' class='constant'>Gone</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(410, &quot;Gone&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+410
+</b> and reason <i>
+Gone
+</i>.</p>
+</div><h4 id='associatedconstant.LengthRequired' class='associatedconstant'><span id='LengthRequired.v' class='invisible'><code>const <a href='#associatedconstant.LengthRequired' class='constant'>LengthRequired</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(411, &quot;Length Required&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+411
+</b> and reason <i>
+Length Required
+</i>.</p>
+</div><h4 id='associatedconstant.PreconditionFailed' class='associatedconstant'><span id='PreconditionFailed.v' class='invisible'><code>const <a href='#associatedconstant.PreconditionFailed' class='constant'>PreconditionFailed</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(412, &quot;Precondition Failed&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+412
+</b> and reason <i>
+Precondition Failed
+</i>.</p>
+</div><h4 id='associatedconstant.PayloadTooLarge' class='associatedconstant'><span id='PayloadTooLarge.v' class='invisible'><code>const <a href='#associatedconstant.PayloadTooLarge' class='constant'>PayloadTooLarge</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(413, &quot;Payload Too Large&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+413
+</b> and reason <i>
+Payload Too Large
+</i>.</p>
+</div><h4 id='associatedconstant.UriTooLong' class='associatedconstant'><span id='UriTooLong.v' class='invisible'><code>const <a href='#associatedconstant.UriTooLong' class='constant'>UriTooLong</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(414, &quot;URI Too Long&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+414
+</b> and reason <i>
+URI Too Long
+</i>.</p>
+</div><h4 id='associatedconstant.UnsupportedMediaType' class='associatedconstant'><span id='UnsupportedMediaType.v' class='invisible'><code>const <a href='#associatedconstant.UnsupportedMediaType' class='constant'>UnsupportedMediaType</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(415, &quot;Unsupported Media Type&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+415
+</b> and reason <i>
+Unsupported Media Type
+</i>.</p>
+</div><h4 id='associatedconstant.RangeNotSatisfiable' class='associatedconstant'><span id='RangeNotSatisfiable.v' class='invisible'><code>const <a href='#associatedconstant.RangeNotSatisfiable' class='constant'>RangeNotSatisfiable</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(416, &quot;Range Not Satisfiable&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+416
+</b> and reason <i>
+Range Not Satisfiable
+</i>.</p>
+</div><h4 id='associatedconstant.ExpectationFailed' class='associatedconstant'><span id='ExpectationFailed.v' class='invisible'><code>const <a href='#associatedconstant.ExpectationFailed' class='constant'>ExpectationFailed</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(417, &quot;Expectation Failed&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+417
+</b> and reason <i>
+Expectation Failed
+</i>.</p>
+</div><h4 id='associatedconstant.ImATeapot' class='associatedconstant'><span id='ImATeapot.v' class='invisible'><code>const <a href='#associatedconstant.ImATeapot' class='constant'>ImATeapot</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(418, &quot;I\&#39;m a teapot&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+418
+</b> and reason <i>
+I&#39;m a teapot
+</i>.</p>
+</div><h4 id='associatedconstant.MisdirectedRequest' class='associatedconstant'><span id='MisdirectedRequest.v' class='invisible'><code>const <a href='#associatedconstant.MisdirectedRequest' class='constant'>MisdirectedRequest</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(421, &quot;Misdirected Request&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+421
+</b> and reason <i>
+Misdirected Request
+</i>.</p>
+</div><h4 id='associatedconstant.UnprocessableEntity' class='associatedconstant'><span id='UnprocessableEntity.v' class='invisible'><code>const <a href='#associatedconstant.UnprocessableEntity' class='constant'>UnprocessableEntity</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(422, &quot;Unprocessable Entity&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+422
+</b> and reason <i>
+Unprocessable Entity
+</i>.</p>
+</div><h4 id='associatedconstant.Locked' class='associatedconstant'><span id='Locked.v' class='invisible'><code>const <a href='#associatedconstant.Locked' class='constant'>Locked</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(423, &quot;Locked&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+423
+</b> and reason <i>
+Locked
+</i>.</p>
+</div><h4 id='associatedconstant.FailedDependency' class='associatedconstant'><span id='FailedDependency.v' class='invisible'><code>const <a href='#associatedconstant.FailedDependency' class='constant'>FailedDependency</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(424, &quot;Failed Dependency&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+424
+</b> and reason <i>
+Failed Dependency
+</i>.</p>
+</div><h4 id='associatedconstant.UpgradeRequired' class='associatedconstant'><span id='UpgradeRequired.v' class='invisible'><code>const <a href='#associatedconstant.UpgradeRequired' class='constant'>UpgradeRequired</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(426, &quot;Upgrade Required&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+426
+</b> and reason <i>
+Upgrade Required
+</i>.</p>
+</div><h4 id='associatedconstant.PreconditionRequired' class='associatedconstant'><span id='PreconditionRequired.v' class='invisible'><code>const <a href='#associatedconstant.PreconditionRequired' class='constant'>PreconditionRequired</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(428, &quot;Precondition Required&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+428
+</b> and reason <i>
+Precondition Required
+</i>.</p>
+</div><h4 id='associatedconstant.TooManyRequests' class='associatedconstant'><span id='TooManyRequests.v' class='invisible'><code>const <a href='#associatedconstant.TooManyRequests' class='constant'>TooManyRequests</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(429, &quot;Too Many Requests&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+429
+</b> and reason <i>
+Too Many Requests
+</i>.</p>
+</div><h4 id='associatedconstant.RequestHeaderFieldsTooLarge' class='associatedconstant'><span id='RequestHeaderFieldsTooLarge.v' class='invisible'><code>const <a href='#associatedconstant.RequestHeaderFieldsTooLarge' class='constant'>RequestHeaderFieldsTooLarge</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(431, &quot;Request Header Fields Too Large&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+431
+</b> and reason <i>
+Request Header Fields Too Large
+</i>.</p>
+</div><h4 id='associatedconstant.UnavailableForLegalReasons' class='associatedconstant'><span id='UnavailableForLegalReasons.v' class='invisible'><code>const <a href='#associatedconstant.UnavailableForLegalReasons' class='constant'>UnavailableForLegalReasons</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(451, &quot;Unavailable For Legal Reasons&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+451
+</b> and reason <i>
+Unavailable For Legal Reasons
+</i>.</p>
+</div><h4 id='associatedconstant.InternalServerError' class='associatedconstant'><span id='InternalServerError.v' class='invisible'><code>const <a href='#associatedconstant.InternalServerError' class='constant'>InternalServerError</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(500, &quot;Internal Server Error&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+500
+</b> and reason <i>
+Internal Server Error
+</i>.</p>
+</div><h4 id='associatedconstant.NotImplemented' class='associatedconstant'><span id='NotImplemented.v' class='invisible'><code>const <a href='#associatedconstant.NotImplemented' class='constant'>NotImplemented</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(501, &quot;Not Implemented&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+501
+</b> and reason <i>
+Not Implemented
+</i>.</p>
+</div><h4 id='associatedconstant.BadGateway' class='associatedconstant'><span id='BadGateway.v' class='invisible'><code>const <a href='#associatedconstant.BadGateway' class='constant'>BadGateway</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(502, &quot;Bad Gateway&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+502
+</b> and reason <i>
+Bad Gateway
+</i>.</p>
+</div><h4 id='associatedconstant.ServiceUnavailable' class='associatedconstant'><span id='ServiceUnavailable.v' class='invisible'><code>const <a href='#associatedconstant.ServiceUnavailable' class='constant'>ServiceUnavailable</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(503, &quot;Service Unavailable&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+503
+</b> and reason <i>
+Service Unavailable
+</i>.</p>
+</div><h4 id='associatedconstant.GatewayTimeout' class='associatedconstant'><span id='GatewayTimeout.v' class='invisible'><code>const <a href='#associatedconstant.GatewayTimeout' class='constant'>GatewayTimeout</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(504, &quot;Gateway Timeout&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+504
+</b> and reason <i>
+Gateway Timeout
+</i>.</p>
+</div><h4 id='associatedconstant.HttpVersionNotSupported' class='associatedconstant'><span id='HttpVersionNotSupported.v' class='invisible'><code>const <a href='#associatedconstant.HttpVersionNotSupported' class='constant'>HttpVersionNotSupported</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(505, &quot;HTTP Version Not Supported&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+505
+</b> and reason <i>
+HTTP Version Not Supported
+</i>.</p>
+</div><h4 id='associatedconstant.VariantAlsoNegotiates' class='associatedconstant'><span id='VariantAlsoNegotiates.v' class='invisible'><code>const <a href='#associatedconstant.VariantAlsoNegotiates' class='constant'>VariantAlsoNegotiates</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(506, &quot;Variant Also Negotiates&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+506
+</b> and reason <i>
+Variant Also Negotiates
+</i>.</p>
+</div><h4 id='associatedconstant.InsufficientStorage' class='associatedconstant'><span id='InsufficientStorage.v' class='invisible'><code>const <a href='#associatedconstant.InsufficientStorage' class='constant'>InsufficientStorage</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(507, &quot;Insufficient Storage&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+507
+</b> and reason <i>
+Insufficient Storage
+</i>.</p>
+</div><h4 id='associatedconstant.LoopDetected' class='associatedconstant'><span id='LoopDetected.v' class='invisible'><code>const <a href='#associatedconstant.LoopDetected' class='constant'>LoopDetected</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(508, &quot;Loop Detected&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+508
+</b> and reason <i>
+Loop Detected
+</i>.</p>
+</div><h4 id='associatedconstant.NotExtended' class='associatedconstant'><span id='NotExtended.v' class='invisible'><code>const <a href='#associatedconstant.NotExtended' class='constant'>NotExtended</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(510, &quot;Not Extended&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+510
+</b> and reason <i>
+Not Extended
+</i>.</p>
+</div><h4 id='associatedconstant.NetworkAuthenticationRequired' class='associatedconstant'><span id='NetworkAuthenticationRequired.v' class='invisible'><code>const <a href='#associatedconstant.NetworkAuthenticationRequired' class='constant'>NetworkAuthenticationRequired</a>: <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a> = &lt;Status&gt;::new(511, &quot;Network Authentication Required&quot;)</code></span></h4>
+<div class='docblock'><p><a href="struct.Status.html">Status</a> with code <b>
+511
+</b> and reason <i>
+Network Authentication Required
+</i>.</p>
+</div><h4 id='method.from_code' class='method'><span id='from_code.v' class='invisible'><code>fn <a href='#method.from_code' class='fnname'>from_code</a>(code: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a>&gt;</code></span></h4>
+<div class='docblock'><p>Returns a Status given a standard status code <code>code</code>. If <code>code</code> is
+not a known status code, <code>None</code> is returned.</p>
+
+<h1 id='example-1' class='section-header'><a href='#example-1'>Example</a></h1>
+<p>Create a <code>Status</code> from a known <code>code</code>:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>Status</span>;
+
+<span class='kw'>let</span> <span class='ident'>not_found</span> <span class='op'>=</span> <span class='ident'>Status</span>::<span class='ident'>from_code</span>(<span class='number'>404</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>not_found</span>, <span class='prelude-val'>Some</span>(<span class='ident'>Status</span>::<span class='ident'>NotFound</span>));</pre>
+
+<p>Create a <code>Status</code> from an unknown <code>code</code>:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>Status</span>;
+
+<span class='kw'>let</span> <span class='ident'>not_found</span> <span class='op'>=</span> <span class='ident'>Status</span>::<span class='ident'>from_code</span>(<span class='number'>600</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>not_found</span>.<span class='ident'>is_none</span>());</pre>
+</div><h4 id='method.class' class='method'><span id='class.v' class='invisible'><code>fn <a href='#method.class' class='fnname'>class</a>(&amp;self) -&gt; <a class='enum' href='../../rocket/http/enum.StatusClass.html' title='rocket::http::StatusClass'>StatusClass</a></code></span></h4>
+<div class='docblock'><p>Returns the class of a given status.</p>
+
+<h1 id='example-2' class='section-header'><a href='#example-2'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::{<span class='ident'>Status</span>, <span class='ident'>StatusClass</span>};
+
+<span class='kw'>let</span> <span class='ident'>processing</span> <span class='op'>=</span> <span class='ident'>Status</span>::<span class='ident'>Processing</span>;
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>processing</span>.<span class='ident'>class</span>(), <span class='ident'>StatusClass</span>::<span class='ident'>Informational</span>);
+
+<span class='kw'>let</span> <span class='ident'>ok</span> <span class='op'>=</span> <span class='ident'>Status</span>::<span class='prelude-val'>Ok</span>;
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ok</span>.<span class='ident'>class</span>(), <span class='ident'>StatusClass</span>::<span class='ident'>Success</span>);
+
+<span class='kw'>let</span> <span class='ident'>see_other</span> <span class='op'>=</span> <span class='ident'>Status</span>::<span class='ident'>SeeOther</span>;
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>see_other</span>.<span class='ident'>class</span>(), <span class='ident'>StatusClass</span>::<span class='ident'>Redirection</span>);
+
+<span class='kw'>let</span> <span class='ident'>not_found</span> <span class='op'>=</span> <span class='ident'>Status</span>::<span class='ident'>NotFound</span>;
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>not_found</span>.<span class='ident'>class</span>(), <span class='ident'>StatusClass</span>::<span class='ident'>ClientError</span>);
+
+<span class='kw'>let</span> <span class='ident'>internal_error</span> <span class='op'>=</span> <span class='ident'>Status</span>::<span class='ident'>InternalServerError</span>;
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>internal_error</span>.<span class='ident'>class</span>(), <span class='ident'>StatusClass</span>::<span class='ident'>ServerError</span>);
+
+<span class='kw'>let</span> <span class='ident'>custom</span> <span class='op'>=</span> <span class='ident'>Status</span>::<span class='ident'>new</span>(<span class='number'>600</span>, <span class='string'>&quot;Bizarre&quot;</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>custom</span>.<span class='ident'>class</span>(), <span class='ident'>StatusClass</span>::<span class='ident'>Unknown</span>);</pre>
+</div><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>const fn <a href='#method.new' class='fnname'>new</a>(code: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>, reason: &amp;'static <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a></code></span></h4>
+<div class='docblock'><p>Creates a new <code>Status</code> with <code>code</code> and <code>reason</code>. This should be <em>only</em>
+to construct non-standard HTTP statuses. Use an associated constant for
+standard statuses.</p>
+
+<h1 id='example-3' class='section-header'><a href='#example-3'>Example</a></h1>
+<p>Create a custom <code>299 Somewhat Successful</code> status:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>Status</span>;
+
+<span class='kw'>let</span> <span class='ident'>custom</span> <span class='op'>=</span> <span class='ident'>Status</span>::<span class='ident'>new</span>(<span class='number'>299</span>, <span class='string'>&quot;Somewhat Successful&quot;</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>custom</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;299 Somewhat Successful&quot;</span>.<span class='ident'>to_string</span>());</pre>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/status.rs.html#61' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/status.rs.html#61' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.eq' class='method'><span id='eq.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests for <code>self</code> and <code>other</code> values to be equal, and is used by <code>==</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq">Read more</a></p>
+</div><h4 id='method.ne' class='method'><span id='ne.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests for <code>!=</code>.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html' title='core::hash::Hash'>Hash</a> for <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/status.rs.html#61' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.hash' class='method'><span id='hash.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#tymethod.hash' class='fnname'>hash</a>&lt;__H:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/hash/trait.Hasher.html' title='core::hash::Hasher'>Hasher</a>&gt;(&amp;self, __arg_0: &amp;mut __H)</code></span></h4>
+<div class='docblock'><p>Feeds this value into the state given, updating the hasher as necessary.</p>
+</div><h4 id='method.hash_slice' class='method'><span id='hash_slice.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#method.hash_slice' class='fnname'>hash_slice</a>&lt;H&gt;(data: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[Self]</a>, state: &amp;mut H) <span class='where fmt-newline'>where H: <a class='trait' href='https://doc.rust-lang.org/nightly/core/hash/trait.Hasher.html' title='core::hash::Hasher'>Hasher</a></span></code><div class='since' title='Stable since Rust version 1.3.0'>1.3.0</div></span></h4>
+<div class='docblock'><p>Feeds a slice of this type into the state provided.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/status.rs.html#61' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/status.rs.html#61' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a></code></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/status.rs.html#61' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a> for <a class='struct' href='../../rocket/http/struct.Status.html' title='rocket::http::Status'>Status</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/status.rs.html#248-253' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt-1' class='method'><span id='fmt.v-1' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "rocket";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

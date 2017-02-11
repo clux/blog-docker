@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `rocket_contrib` crate.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, rocket_contrib">
+
+    <title>rocket_contrib - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'></p><script>window.sidebarCurrent = {name: 'rocket_contrib', ty: 'mod', relpath: '../'};</script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content mod">
+<h1 class='fqn'><span class='in-band'>Crate <a class='mod' href=''>rocket_contrib</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/rocket_contrib/lib.rs.html#1-68' title='goto source code'>[src]</a></span></h1>
+<div class='docblock'><p>This crate contains officially sanctioned contributor libraries that provide
+functionality commonly used by Rocket applications.</p>
+
+<p>These libraries are always kept in-sync with the core Rocket library. They
+provide common, but not fundamental, abstractions to be used by Rocket
+applications. In particular, contributor libraries typically export types
+implementing a combination of the <code>FromRequest</code>, <code>FromParam</code>, and
+<code>Responder</code> traits.</p>
+
+<p>Each module in this library is held behind a feature flag, with the most
+common modules exposed by default. The present feature list is below, with
+an asterisk next to the features that are enabled by default:</p>
+
+<ul>
+<li><a href="struct.JSON.html">json*</a></li>
+<li><a href="struct.Template.html">handlebars_templates</a></li>
+<li><a href="struct.Template.html">tera_templates</a></li>
+<li><a href="struct.UUID.html">uuid</a></li>
+</ul>
+
+<p>The recommend way to include features from this crate via Cargo in your
+project is by adding a <code>[dependencies.rocket_contrib]</code> section to your
+<code>Cargo.toml</code> file, setting <code>default-features</code> to false, and specifying
+features manually. For example, to use the JSON module, you would add:</p>
+
+<pre class='rust rust-example-rendered'>
+[<span class='ident'>dependencies</span>.<span class='ident'>rocket_contrib</span>]
+<span class='ident'>version</span> <span class='op'>=</span> <span class='string'>&quot;*&quot;</span>
+<span class='ident'>default</span><span class='op'>-</span><span class='ident'>features</span> <span class='op'>=</span> <span class='bool-val'>false</span>
+<span class='ident'>features</span> <span class='op'>=</span> [<span class='string'>&quot;json&quot;</span>]</pre>
+
+<p>This crate is expected to grow with time, bringing in outside crates to be
+officially supported by Rocket.</p>
+</div><h2 id='structs' class='section-header'><a href="#structs">Structs</a></h2>
+<table>
+                       <tr class=' module-item'>
+                           <td><a class='struct' href='struct.Template.html'
+                                  title='rocket_contrib::Template'>Template</a></td>
+                           <td class='docblock-short'>
+                                <p>The Template type implements generic support for template rendering in
+Rocket.</p>
+                           </td>
+                       </tr></table></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "rocket_contrib";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

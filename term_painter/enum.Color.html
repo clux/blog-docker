@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Color` enum in crate `term_painter`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Color">
+
+    <title>term_painter::Color - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>term_painter</a></p><script>window.sidebarCurrent = {name: 'Color', ty: 'enum', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content enum">
+<h1 class='fqn'><span class='in-band'>Enum <a href='index.html'>term_painter</a>::<wbr><a class='enum' href=''>Color</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/term_painter/lib.rs.html#297-316' title='goto source code'>[src]</a></span></h1>
+<pre class='rust enum'>pub enum Color {
+    NotSet,
+    Black,
+    Red,
+    Green,
+    Yellow,
+    Blue,
+    Magenta,
+    Cyan,
+    White,
+    BrightBlack,
+    BrightRed,
+    BrightGreen,
+    BrightYellow,
+    BrightBlue,
+    BrightMagenta,
+    BrightCyan,
+    BrightWhite,
+    Custom(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>),
+}</pre><div class='docblock'><p>Lists all possible Colors. It implements <code>ToStyle</code> so it&#39;s possible to call
+<code>ToStyle</code>&#39;s methods directly on a <code>Color</code> variant like:</p>
+
+<pre class='rust rust-example-rendered'>
+
+<span class='macro'>println</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>Color</span>::<span class='ident'>Red</span>.<span class='ident'>bold</span>().<span class='ident'>paint</span>(<span class='string'>&quot;Red and bold&quot;</span>));</pre>
+
+<p>It is not guaranteed that the local terminal supports all of those colors.
+As already mentioned in the module documentation, you should use <code>term</code>
+directly to check the terminal&#39;s capabilities.</p>
+
+<p><strong>Note</strong>: Using <code>Color::NotSet</code> will <em>not</em> reset the color to the default
+terminal color.</p>
+</div><h2 class='variants'>Variants</h2>
+<span id='variant.NotSet' class='variant'><span id='NotSet.v' class='invisible'><code>NotSet</code></span></span><span id='variant.Black' class='variant'><span id='Black.v' class='invisible'><code>Black</code></span></span><span id='variant.Red' class='variant'><span id='Red.v' class='invisible'><code>Red</code></span></span><span id='variant.Green' class='variant'><span id='Green.v' class='invisible'><code>Green</code></span></span><span id='variant.Yellow' class='variant'><span id='Yellow.v' class='invisible'><code>Yellow</code></span></span><span id='variant.Blue' class='variant'><span id='Blue.v' class='invisible'><code>Blue</code></span></span><span id='variant.Magenta' class='variant'><span id='Magenta.v' class='invisible'><code>Magenta</code></span></span><span id='variant.Cyan' class='variant'><span id='Cyan.v' class='invisible'><code>Cyan</code></span></span><span id='variant.White' class='variant'><span id='White.v' class='invisible'><code>White</code></span></span><span id='variant.BrightBlack' class='variant'><span id='BrightBlack.v' class='invisible'><code>BrightBlack</code></span></span><span id='variant.BrightRed' class='variant'><span id='BrightRed.v' class='invisible'><code>BrightRed</code></span></span><span id='variant.BrightGreen' class='variant'><span id='BrightGreen.v' class='invisible'><code>BrightGreen</code></span></span><span id='variant.BrightYellow' class='variant'><span id='BrightYellow.v' class='invisible'><code>BrightYellow</code></span></span><span id='variant.BrightBlue' class='variant'><span id='BrightBlue.v' class='invisible'><code>BrightBlue</code></span></span><span id='variant.BrightMagenta' class='variant'><span id='BrightMagenta.v' class='invisible'><code>BrightMagenta</code></span></span><span id='variant.BrightCyan' class='variant'><span id='BrightCyan.v' class='invisible'><code>BrightCyan</code></span></span><span id='variant.BrightWhite' class='variant'><span id='BrightWhite.v' class='invisible'><code>BrightWhite</code></span></span><span id='variant.Custom' class='variant'><span id='Custom.v' class='invisible'><code>Custom(<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>)</code></span></span><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='enum' href='../term_painter/enum.Color.html' title='term_painter::Color'>Color</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/term_painter/lib.rs.html#296' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='enum' href='../term_painter/enum.Color.html' title='term_painter::Color'>Color</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/term_painter/lib.rs.html#296' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.eq' class='method'><span id='eq.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../term_painter/enum.Color.html' title='term_painter::Color'>Color</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests for <code>self</code> and <code>other</code> values to be equal, and is used by <code>==</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq">Read more</a></p>
+</div><h4 id='method.ne' class='method'><span id='ne.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='enum' href='../term_painter/enum.Color.html' title='term_painter::Color'>Color</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests for <code>!=</code>.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='enum' href='../term_painter/enum.Color.html' title='term_painter::Color'>Color</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/term_painter/lib.rs.html#296' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='enum' href='../term_painter/enum.Color.html' title='term_painter::Color'>Color</a></code></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Copy.html' title='core::marker::Copy'>Copy</a> for <a class='enum' href='../term_painter/enum.Color.html' title='term_painter::Color'>Color</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/term_painter/lib.rs.html#296' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='enum' href='../term_painter/enum.Color.html' title='term_painter::Color'>Color</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/term_painter/lib.rs.html#296' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='enum' href='../term_painter/enum.Color.html' title='term_painter::Color'>Color</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/term_painter/lib.rs.html#344-348' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.default' class='method'><span id='default.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; Self</code></span></h4>
+<div class='docblock'><p>Returns the &quot;default value&quot; for a type. <a href="https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../term_painter/trait.ToStyle.html' title='term_painter::ToStyle'>ToStyle</a> for <a class='enum' href='../term_painter/enum.Color.html' title='term_painter::Color'>Color</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/term_painter/lib.rs.html#350-359' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.to_style' class='method'><span id='to_style.v' class='invisible'><code>fn <a href='../term_painter/trait.ToStyle.html#tymethod.to_style' class='fnname'>to_style</a>(self) -&gt; <a class='struct' href='../term_painter/struct.Style.html' title='term_painter::Style'>Style</a></code></span></h4>
+<div class='docblock'><p>Returns a Style with default values and the <code>self</code> color as foreground
+color.</p>
+</div><h4 id='method.to_mapped_style' class='method'><span id='to_mapped_style.v' class='invisible'><code>fn <a href='../term_painter/trait.ToStyle.html#method.to_mapped_style' class='fnname'>to_mapped_style</a>&lt;F&gt;(self, func: F) -&gt; <a class='struct' href='../term_painter/struct.Style.html' title='term_painter::Style'>Style</a> <span class='where fmt-newline'>where F: <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnOnce.html' title='core::ops::FnOnce'>FnOnce</a>(&amp;mut <a class='struct' href='../term_painter/struct.Style.html' title='term_painter::Style'>Style</a>)</span></code></span></h4>
+<div class='docblock'><p>Convenience method for modifying the style before it&#39;s returned.</p>
+</div><h4 id='method.fg' class='method'><span id='fg.v' class='invisible'><code>fn <a href='../term_painter/trait.ToStyle.html#method.fg' class='fnname'>fg</a>(self, c: <a class='enum' href='../term_painter/enum.Color.html' title='term_painter::Color'>Color</a>) -&gt; <a class='struct' href='../term_painter/struct.Style.html' title='term_painter::Style'>Style</a></code></span></h4>
+<div class='docblock'><p>Sets the foreground (text) color.</p>
+</div><h4 id='method.bg' class='method'><span id='bg.v' class='invisible'><code>fn <a href='../term_painter/trait.ToStyle.html#method.bg' class='fnname'>bg</a>(self, c: <a class='enum' href='../term_painter/enum.Color.html' title='term_painter::Color'>Color</a>) -&gt; <a class='struct' href='../term_painter/struct.Style.html' title='term_painter::Style'>Style</a></code></span></h4>
+<div class='docblock'><p>Sets the background color.</p>
+</div><h4 id='method.bold' class='method'><span id='bold.v' class='invisible'><code>fn <a href='../term_painter/trait.ToStyle.html#method.bold' class='fnname'>bold</a>(self) -&gt; <a class='struct' href='../term_painter/struct.Style.html' title='term_painter::Style'>Style</a></code></span></h4>
+<div class='docblock'><p>Makes the text bold.</p>
+</div><h4 id='method.dim' class='method'><span id='dim.v' class='invisible'><code>fn <a href='../term_painter/trait.ToStyle.html#method.dim' class='fnname'>dim</a>(self) -&gt; <a class='struct' href='../term_painter/struct.Style.html' title='term_painter::Style'>Style</a></code></span></h4>
+<div class='docblock'><p>Dim mode.</p>
+</div><h4 id='method.underline' class='method'><span id='underline.v' class='invisible'><code>fn <a href='../term_painter/trait.ToStyle.html#method.underline' class='fnname'>underline</a>(self) -&gt; <a class='struct' href='../term_painter/struct.Style.html' title='term_painter::Style'>Style</a></code></span></h4>
+<div class='docblock'><p>Underlines the text.</p>
+</div><h4 id='method.not_underline' class='method'><span id='not_underline.v' class='invisible'><code>fn <a href='../term_painter/trait.ToStyle.html#method.not_underline' class='fnname'>not_underline</a>(self) -&gt; <a class='struct' href='../term_painter/struct.Style.html' title='term_painter::Style'>Style</a></code></span></h4>
+<div class='docblock'><p>Removes underline-attribute.</p>
+</div><h4 id='method.blink' class='method'><span id='blink.v' class='invisible'><code>fn <a href='../term_painter/trait.ToStyle.html#method.blink' class='fnname'>blink</a>(self) -&gt; <a class='struct' href='../term_painter/struct.Style.html' title='term_painter::Style'>Style</a></code></span></h4>
+<div class='docblock'><p>Underlines the text.</p>
+</div><h4 id='method.reverse' class='method'><span id='reverse.v' class='invisible'><code>fn <a href='../term_painter/trait.ToStyle.html#method.reverse' class='fnname'>reverse</a>(self) -&gt; <a class='struct' href='../term_painter/struct.Style.html' title='term_painter::Style'>Style</a></code></span></h4>
+<div class='docblock'><p>Underlines the text.</p>
+</div><h4 id='method.secure' class='method'><span id='secure.v' class='invisible'><code>fn <a href='../term_painter/trait.ToStyle.html#method.secure' class='fnname'>secure</a>(self) -&gt; <a class='struct' href='../term_painter/struct.Style.html' title='term_painter::Style'>Style</a></code></span></h4>
+<div class='docblock'><p>Secure mode.</p>
+</div><h4 id='method.paint' class='method'><span id='paint.v' class='invisible'><code>fn <a href='../term_painter/trait.ToStyle.html#method.paint' class='fnname'>paint</a>&lt;T&gt;(&amp;self, obj: T) -&gt; <a class='struct' href='../term_painter/struct.Painted.html' title='term_painter::Painted'>Painted</a>&lt;T&gt; <span class='where fmt-newline'>where Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a></span></code></span></h4>
+<div class='docblock'><p>Wraps the style specified in <code>self</code> and something of arbitrary type into a <code>Painted</code>. When <code>Painted</code> is printed it will print the arbitrary something with the given style. <a href="../term_painter/trait.ToStyle.html#method.paint">Read more</a></p>
+</div><h4 id='method.with' class='method'><span id='with.v' class='invisible'><code>fn <a href='../term_painter/trait.ToStyle.html#method.with' class='fnname'>with</a>&lt;F, R&gt;(&amp;self, f: F) -&gt; R <span class='where fmt-newline'>where F: <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.FnOnce.html' title='core::ops::FnOnce'>FnOnce</a>() -&gt; R, Self: <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a></span></code></span></h4>
+<div class='docblock'><p>Executes the given function, applying the style information before calling it and resetting after it finished. <a href="../term_painter/trait.ToStyle.html#method.with">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "term_painter";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

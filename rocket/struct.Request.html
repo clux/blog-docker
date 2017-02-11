@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Request` struct in crate `rocket`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Request">
+
+    <title>rocket::Request - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>rocket</a></p><script>window.sidebarCurrent = {name: 'Request', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>rocket</a>::<wbr><a class='struct' href=''>Request</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/rocket/request/request.rs.html#26-34' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Request&lt;'r&gt; { /* fields omitted */ }</pre><div class='docblock'><p>The type of an incoming web request.</p>
+
+<p>This should be used sparingly in Rocket applications. In particular, it
+should likely only be used when writing
+<a href="/rocket/request/trait.FromRequest.html">FromRequest</a> implementations. It
+contains all of the information for a given web request except for the body
+data. This includes the HTTP method, URI, cookies, headers, and more.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'r&gt; <a class='struct' href='../rocket/struct.Request.html' title='rocket::Request'>Request</a>&lt;'r&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/rocket/request/request.rs.html#36-453' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>&lt;U:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='struct' href='../rocket/http/uri/struct.URI.html' title='rocket::http::uri::URI'>URI</a>&lt;'r&gt;&gt;&gt;(method: <a class='enum' href='../rocket/http/enum.Method.html' title='rocket::http::Method'>Method</a>, uri: U) -&gt; <a class='struct' href='../rocket/struct.Request.html' title='rocket::Request'>Request</a>&lt;'r&gt;</code></span></h4>
+<div class='docblock'><p>Create a new <code>Request</code> with the given <code>method</code> and <code>uri</code>. The <code>uri</code>
+parameter can be of any type that implements <code>Into&lt;URI&gt;</code> including
+<code>&amp;str</code> and <code>String</code>; it must be a valid absolute URI.</p>
+
+<h1 id='example' class='section-header'><a href='#example'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>Request</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>Method</span>;
+
+<span class='kw'>let</span> <span class='ident'>request</span> <span class='op'>=</span> <span class='ident'>Request</span>::<span class='ident'>new</span>(<span class='ident'>Method</span>::<span class='ident'>Get</span>, <span class='string'>&quot;/uri&quot;</span>);</pre>
+</div><h4 id='method.method' class='method'><span id='method.v' class='invisible'><code>fn <a href='#method.method' class='fnname'>method</a>(&amp;self) -&gt; <a class='enum' href='../rocket/http/enum.Method.html' title='rocket::http::Method'>Method</a></code></span></h4>
+<div class='docblock'><p>Retrieve the method from <code>self</code>.</p>
+
+<h1 id='example-1' class='section-header'><a href='#example-1'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>Request</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>Method</span>;
+
+<span class='kw'>let</span> <span class='ident'>request</span> <span class='op'>=</span> <span class='ident'>Request</span>::<span class='ident'>new</span>(<span class='ident'>Method</span>::<span class='ident'>Get</span>, <span class='string'>&quot;/uri&quot;</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>request</span>.<span class='ident'>method</span>(), <span class='ident'>Method</span>::<span class='ident'>Get</span>);</pre>
+</div><h4 id='method.set_method' class='method'><span id='set_method.v' class='invisible'><code>fn <a href='#method.set_method' class='fnname'>set_method</a>(&amp;mut self, method: <a class='enum' href='../rocket/http/enum.Method.html' title='rocket::http::Method'>Method</a>)</code></span></h4>
+<div class='docblock'><p>Set the method of <code>self</code>.</p>
+
+<h1 id='example-2' class='section-header'><a href='#example-2'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>Request</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>Method</span>;
+
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>request</span> <span class='op'>=</span> <span class='ident'>Request</span>::<span class='ident'>new</span>(<span class='ident'>Method</span>::<span class='ident'>Get</span>, <span class='string'>&quot;/uri&quot;</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>request</span>.<span class='ident'>method</span>(), <span class='ident'>Method</span>::<span class='ident'>Get</span>);
+
+<span class='ident'>request</span>.<span class='ident'>set_method</span>(<span class='ident'>Method</span>::<span class='ident'>Post</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>request</span>.<span class='ident'>method</span>(), <span class='ident'>Method</span>::<span class='ident'>Post</span>);</pre>
+</div><h4 id='method.uri' class='method'><span id='uri.v' class='invisible'><code>fn <a href='#method.uri' class='fnname'>uri</a>(&amp;self) -&gt; &amp;<a class='struct' href='../rocket/http/uri/struct.URI.html' title='rocket::http::uri::URI'>URI</a></code></span></h4>
+<div class='docblock'><p>Borrow the URI from <code>self</code>, which must be an absolute URI.</p>
+
+<h1 id='example-3' class='section-header'><a href='#example-3'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>Request</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>Method</span>;
+
+<span class='kw'>let</span> <span class='ident'>request</span> <span class='op'>=</span> <span class='ident'>Request</span>::<span class='ident'>new</span>(<span class='ident'>Method</span>::<span class='ident'>Get</span>, <span class='string'>&quot;/uri&quot;</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>request</span>.<span class='ident'>uri</span>().<span class='ident'>as_str</span>(), <span class='string'>&quot;/uri&quot;</span>);</pre>
+</div><h4 id='method.set_uri' class='method'><span id='set_uri.v' class='invisible'><code>fn <a href='#method.set_uri' class='fnname'>set_uri</a>&lt;'u: 'r, U:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='struct' href='../rocket/http/uri/struct.URI.html' title='rocket::http::uri::URI'>URI</a>&lt;'u&gt;&gt;&gt;(&amp;mut self, uri: U)</code></span></h4>
+<div class='docblock'><p>Set the URI in <code>self</code>. The <code>uri</code> parameter can be of any type that
+implements <code>Into&lt;URI&gt;</code> including <code>&amp;str</code> and <code>String</code>; it must be a valid
+absolute URI.</p>
+
+<h1 id='example-4' class='section-header'><a href='#example-4'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>Request</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>Method</span>;
+
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>request</span> <span class='op'>=</span> <span class='ident'>Request</span>::<span class='ident'>new</span>(<span class='ident'>Method</span>::<span class='ident'>Get</span>, <span class='string'>&quot;/uri&quot;</span>);
+
+<span class='ident'>request</span>.<span class='ident'>set_uri</span>(<span class='string'>&quot;/hello/Sergio?type=greeting&quot;</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>request</span>.<span class='ident'>uri</span>().<span class='ident'>as_str</span>(), <span class='string'>&quot;/hello/Sergio?type=greeting&quot;</span>);</pre>
+</div><h4 id='method.remote' class='method'><span id='remote.v' class='invisible'><code>fn <a href='#method.remote' class='fnname'>remote</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='enum' href='https://doc.rust-lang.org/nightly/std/net/addr/enum.SocketAddr.html' title='std::net::addr::SocketAddr'>SocketAddr</a>&gt;</code></span></h4>
+<div class='docblock'><p>Returns the address of the remote connection that initiated this
+request if the address is known. If the address is not known, <code>None</code> is
+returned.</p>
+
+<h1 id='example-5' class='section-header'><a href='#example-5'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>Request</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>Method</span>;
+
+<span class='kw'>let</span> <span class='ident'>request</span> <span class='op'>=</span> <span class='ident'>Request</span>::<span class='ident'>new</span>(<span class='ident'>Method</span>::<span class='ident'>Get</span>, <span class='string'>&quot;/uri&quot;</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>request</span>.<span class='ident'>remote</span>().<span class='ident'>is_none</span>());</pre>
+</div><h4 id='method.headers' class='method'><span id='headers.v' class='invisible'><code>fn <a href='#method.headers' class='fnname'>headers</a>(&amp;self) -&gt; &amp;<a class='struct' href='../rocket/http/struct.HeaderMap.html' title='rocket::http::HeaderMap'>HeaderMap</a>&lt;'r&gt;</code></span></h4>
+<div class='docblock'><p>Returns a <code>HeaderMap</code> of all of the headers in <code>self</code>.</p>
+
+<h1 id='example-6' class='section-header'><a href='#example-6'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>Request</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>Method</span>;
+
+<span class='kw'>let</span> <span class='ident'>request</span> <span class='op'>=</span> <span class='ident'>Request</span>::<span class='ident'>new</span>(<span class='ident'>Method</span>::<span class='ident'>Get</span>, <span class='string'>&quot;/uri&quot;</span>);
+<span class='kw'>let</span> <span class='ident'>header_map</span> <span class='op'>=</span> <span class='ident'>request</span>.<span class='ident'>headers</span>();
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>header_map</span>.<span class='ident'>is_empty</span>());</pre>
+</div><h4 id='method.add_header' class='method'><span id='add_header.v' class='invisible'><code>fn <a href='#method.add_header' class='fnname'>add_header</a>&lt;H:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='struct' href='../rocket/http/struct.Header.html' title='rocket::http::Header'>Header</a>&lt;'r&gt;&gt;&gt;(&amp;mut self, header: H)</code></span></h4>
+<div class='docblock'><p>Add the <code>header</code> to <code>self</code>&#39;s headers.</p>
+
+<h1 id='example-7' class='section-header'><a href='#example-7'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>Request</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::{<span class='ident'>Method</span>, <span class='ident'>ContentType</span>};
+
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>request</span> <span class='op'>=</span> <span class='ident'>Request</span>::<span class='ident'>new</span>(<span class='ident'>Method</span>::<span class='ident'>Get</span>, <span class='string'>&quot;/uri&quot;</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>request</span>.<span class='ident'>headers</span>().<span class='ident'>is_empty</span>());
+
+<span class='ident'>request</span>.<span class='ident'>add_header</span>(<span class='ident'>ContentType</span>::<span class='ident'>HTML</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>request</span>.<span class='ident'>headers</span>().<span class='ident'>contains</span>(<span class='string'>&quot;Content-Type&quot;</span>));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>request</span>.<span class='ident'>headers</span>().<span class='ident'>len</span>(), <span class='number'>1</span>);</pre>
+</div><h4 id='method.replace_header' class='method'><span id='replace_header.v' class='invisible'><code>fn <a href='#method.replace_header' class='fnname'>replace_header</a>&lt;H:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='struct' href='../rocket/http/struct.Header.html' title='rocket::http::Header'>Header</a>&lt;'r&gt;&gt;&gt;(&amp;mut self, header: H)</code></span></h4>
+<div class='docblock'><p>Replaces the value of the header with <code>header.name</code> with <code>header.value</code>.
+If no such header existed, <code>header</code> is added.</p>
+
+<h1 id='example-8' class='section-header'><a href='#example-8'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>Request</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::{<span class='ident'>Method</span>, <span class='ident'>ContentType</span>};
+
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>request</span> <span class='op'>=</span> <span class='ident'>Request</span>::<span class='ident'>new</span>(<span class='ident'>Method</span>::<span class='ident'>Get</span>, <span class='string'>&quot;/uri&quot;</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>request</span>.<span class='ident'>headers</span>().<span class='ident'>is_empty</span>());
+
+<span class='ident'>request</span>.<span class='ident'>add_header</span>(<span class='ident'>ContentType</span>::<span class='ident'>HTML</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>request</span>.<span class='ident'>content_type</span>(), <span class='prelude-val'>Some</span>(<span class='ident'>ContentType</span>::<span class='ident'>HTML</span>));
+
+<span class='ident'>request</span>.<span class='ident'>replace_header</span>(<span class='ident'>ContentType</span>::<span class='ident'>JSON</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>request</span>.<span class='ident'>content_type</span>(), <span class='prelude-val'>Some</span>(<span class='ident'>ContentType</span>::<span class='ident'>JSON</span>));</pre>
+</div><h4 id='method.cookies' class='method'><span id='cookies.v' class='invisible'><code>fn <a href='#method.cookies' class='fnname'>cookies</a>(&amp;self) -&gt; &amp;<a class='type' href='../rocket/http/type.Cookies.html' title='rocket::http::Cookies'>Cookies</a></code></span></h4>
+<div class='docblock'><p>Returns a borrow to the cookies in <code>self</code>.</p>
+
+<p>Note that <code>Cookies</code> implements internal mutability, so this method
+allows you to get <em>and</em> set cookies in <code>self</code>.</p>
+
+<h1 id='example-9' class='section-header'><a href='#example-9'>Example</a></h1>
+<p>Add a new cookie to a request&#39;s cookies:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>Request</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::{<span class='ident'>Cookie</span>, <span class='ident'>Method</span>};
+
+<span class='kw'>let</span> <span class='ident'>request</span> <span class='op'>=</span> <span class='ident'>Request</span>::<span class='ident'>new</span>(<span class='ident'>Method</span>::<span class='ident'>Get</span>, <span class='string'>&quot;/uri&quot;</span>);
+<span class='ident'>request</span>.<span class='ident'>cookies</span>().<span class='ident'>add</span>(<span class='ident'>Cookie</span>::<span class='ident'>new</span>(<span class='string'>&quot;key&quot;</span>, <span class='string'>&quot;val&quot;</span>));
+<span class='ident'>request</span>.<span class='ident'>cookies</span>().<span class='ident'>add</span>(<span class='ident'>Cookie</span>::<span class='ident'>new</span>(<span class='string'>&quot;ans&quot;</span>, <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;life: {}&quot;</span>, <span class='number'>38</span> <span class='op'>+</span> <span class='number'>4</span>)));</pre>
+</div><h4 id='method.content_type' class='method'><span id='content_type.v' class='invisible'><code>fn <a href='#method.content_type' class='fnname'>content_type</a>(&amp;self) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a>&gt;</code></span></h4>
+<div class='docblock'><p>Returns <code>Some</code> of the Content-Type header of <code>self</code>. If the header is
+not present, returns <code>None</code>.</p>
+
+<h1 id='example-10' class='section-header'><a href='#example-10'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>Request</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::{<span class='ident'>Method</span>, <span class='ident'>ContentType</span>};
+
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>request</span> <span class='op'>=</span> <span class='ident'>Request</span>::<span class='ident'>new</span>(<span class='ident'>Method</span>::<span class='ident'>Get</span>, <span class='string'>&quot;/uri&quot;</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>request</span>.<span class='ident'>content_type</span>(), <span class='prelude-val'>None</span>);
+
+<span class='ident'>request</span>.<span class='ident'>replace_header</span>(<span class='ident'>ContentType</span>::<span class='ident'>JSON</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>request</span>.<span class='ident'>content_type</span>(), <span class='prelude-val'>Some</span>(<span class='ident'>ContentType</span>::<span class='ident'>JSON</span>));</pre>
+</div><h4 id='method.get_param' class='method'><span id='get_param.v' class='invisible'><code>fn <a href='#method.get_param' class='fnname'>get_param</a>&lt;'a, T:&nbsp;<a class='trait' href='../rocket/request/trait.FromParam.html' title='rocket::request::FromParam'>FromParam</a>&lt;'a&gt;&gt;(&amp;'a self, n: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a class='enum' href='../rocket/enum.Error.html' title='rocket::Error'>Error</a>&gt;</code></span></h4>
+<div class='docblock'><p>Retrieves and parses into <code>T</code> the 0-indexed <code>n</code>th dynamic parameter from
+the request. Returns <code>Error::NoKey</code> if <code>n</code> is greater than the number of
+params. Returns <code>Error::BadParse</code> if the parameter type <code>T</code> can&#39;t be
+parsed from the parameter.</p>
+
+<p>This method exists only to be used by manual routing. To retrieve
+parameters from a request, use Rocket&#39;s code generation facilities.</p>
+
+<h1 id='example-11' class='section-header'><a href='#example-11'>Example</a></h1>
+<p>Retrieve parameter <code>0</code>, which is expected to be an <code>&amp;str</code>, in a manual
+route:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::{<span class='ident'>Request</span>, <span class='ident'>Data</span>};
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>handler</span>::<span class='ident'>Outcome</span>;
+
+<span class='kw'>fn</span> <span class='ident'>name</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span>(<span class='ident'>req</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;a</span> <span class='ident'>Request</span>, _: <span class='ident'>Data</span>) <span class='op'>-&gt;</span> <span class='ident'>Outcome</span><span class='op'>&lt;</span><span class='lifetime'>&#39;a</span><span class='op'>&gt;</span> {
+    <span class='ident'>Outcome</span>::<span class='ident'>of</span>(<span class='ident'>req</span>.<span class='ident'>get_param</span>(<span class='number'>0</span>).<span class='ident'>unwrap_or</span>(<span class='string'>&quot;unnamed&quot;</span>))
+}</pre>
+</div><h4 id='method.get_segments' class='method'><span id='get_segments.v' class='invisible'><code>fn <a href='#method.get_segments' class='fnname'>get_segments</a>&lt;'a, T:&nbsp;<a class='trait' href='../rocket/request/trait.FromSegments.html' title='rocket::request::FromSegments'>FromSegments</a>&lt;'a&gt;&gt;(&amp;'a self, n: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.usize.html'>usize</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;T, <a class='enum' href='../rocket/enum.Error.html' title='rocket::Error'>Error</a>&gt;</code></span></h4>
+<div class='docblock'><p>Retrieves and parses into <code>T</code> all of the path segments in the request
+URI beginning at the 0-indexed <code>n</code>th dynamic parameter. <code>T</code> must
+implement <a href="/rocket/request/trait.FromSegments.html">FromSegments</a>, which
+is used to parse the segments.</p>
+
+<p>This method exists only to be used by manual routing. To retrieve
+segments from a request, use Rocket&#39;s code generation facilities.</p>
+
+<h1 id='error' class='section-header'><a href='#error'>Error</a></h1>
+<p>If there are less than <code>n</code> segments, returns an <code>Err</code> of <code>NoKey</code>. If
+parsing the segments failed, returns an <code>Err</code> of <code>BadParse</code>.</p>
+
+<h1 id='example-12' class='section-header'><a href='#example-12'>Example</a></h1>
+<p>If the request URI is <code>&quot;/hello/there/i/am/here&quot;</code>, and the matched route
+path for this request is <code>&quot;/hello/&lt;name&gt;/i/&lt;segs..&gt;&quot;</code>, then
+<code>request.get_segments::&lt;T&gt;(1)</code> will attempt to parse the segments
+<code>&quot;am/here&quot;</code> as type <code>T</code>.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'r&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a> for <a class='struct' href='../rocket/struct.Request.html' title='rocket::Request'>Request</a>&lt;'r&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/rocket/request/request.rs.html#455-468' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Pretty prints a Request. This is primarily used by Rocket&#39;s logging
+infrastructure.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "rocket";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

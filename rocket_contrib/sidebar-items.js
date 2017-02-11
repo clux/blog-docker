@@ -1,0 +1,1 @@
+initSidebarItems({"struct":[["Template","The Template type implements generic support for template rendering in Rocket."]]});

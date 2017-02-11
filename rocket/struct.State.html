@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `State` struct in crate `rocket`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, State">
+
+    <title>rocket::State - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>rocket</a></p><script>window.sidebarCurrent = {name: 'State', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>rocket</a>::<wbr><a class='struct' href=''>State</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/rocket/request/state.rs.html#54' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct State&lt;'r, T:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> + 'static&gt;(_);</pre><div class='docblock'><p>Request guard to retrieve managed state.</p>
+
+<p>This type can be used as a request guard to retrieve the state Rocket is
+managing for some type <code>T</code>. This allows for the sharing of state across any
+number of handlers. A value for the given type must previously have been
+registered to be managed by Rocket via the
+<a href="/rocket/struct.Rocket.html#method.manage">manage</a> method. The type being
+managed must be thread safe and sendable across thread boundaries. In other
+words, it must implement <code>Send + Sync + &#39;static</code>.</p>
+
+<h1 id='example' class='section-header'><a href='#example'>Example</a></h1>
+<p>Imagine you have some configuration struct of the type <code>MyConfig</code> that you&#39;d
+like to initialize at start-up and later access it in several handlers. The
+following example does just this:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>State</span>;
+
+<span class='comment'>// In a real application, this would likely be more complex.</span>
+<span class='kw'>struct</span> <span class='ident'>MyConfig</span>(<span class='ident'>String</span>);
+
+<span class='attribute'>#[<span class='ident'>get</span>(<span class='string'>&quot;/&quot;</span>)]</span>
+<span class='kw'>fn</span> <span class='ident'>index</span>(<span class='ident'>state</span>: <span class='ident'>State</span><span class='op'>&lt;</span><span class='ident'>MyConfig</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
+    <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;The config value is: {}&quot;</span>, <span class='ident'>state</span>.<span class='number'>0</span>)
+}
+
+<span class='attribute'>#[<span class='ident'>get</span>(<span class='string'>&quot;/raw&quot;</span>)]</span>
+<span class='kw'>fn</span> <span class='ident'>raw_config_value</span><span class='op'>&lt;</span><span class='lifetime'>&#39;r</span><span class='op'>&gt;</span>(<span class='ident'>state</span>: <span class='ident'>State</span><span class='op'>&lt;</span><span class='lifetime'>&#39;r</span>, <span class='ident'>MyConfig</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;r</span> <span class='ident'>str</span> {
+    <span class='comment'>// use `inner()` to get a lifetime longer than `deref` gives us</span>
+    <span class='ident'>state</span>.<span class='ident'>inner</span>().<span class='number'>0</span>.<span class='ident'>as_str</span>()
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='kw'>let</span> <span class='ident'>config</span> <span class='op'>=</span> <span class='ident'>MyConfig</span>(<span class='string'>&quot;user input&quot;</span>.<span class='ident'>to_string</span>());
+    <span class='ident'>rocket</span>::<span class='ident'>ignite</span>()
+        .<span class='ident'>mount</span>(<span class='string'>&quot;/&quot;</span>, <span class='macro'>routes</span><span class='macro'>!</span>[<span class='ident'>index</span>, <span class='ident'>raw_config_value</span>])
+        .<span class='ident'>manage</span>(<span class='ident'>config</span>)
+        .<span class='ident'>launch</span>()
+}</pre>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'r, T:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> + 'static&gt; <a class='struct' href='../rocket/struct.State.html' title='rocket::State'>State</a>&lt;'r, T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/rocket/request/state.rs.html#56-65' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.inner' class='method'><span id='inner.v' class='invisible'><code>fn <a href='#method.inner' class='fnname'>inner</a>(&amp;self) -&gt; &amp;'r T</code></span></h4>
+<div class='docblock'><p>Retrieve a borrow to the underyling value.</p>
+
+<p>Using this method is typically unnecessary as <code>State</code> implements <code>Deref</code>
+with a <code>Target</code> of <code>T</code>. This means Rocket will automatically coerce a
+<code>State&lt;T&gt;</code> to an <code>&amp;T</code> when the types call for it.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'r, T:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> + 'static&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.Eq.html' title='core::cmp::Eq'>Eq</a> for <a class='struct' href='../rocket/struct.State.html' title='rocket::State'>State</a>&lt;'r, T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/rocket/request/state.rs.html#53' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'></div><h3 class='impl'><span class='in-band'><code>impl&lt;'r, T:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> + 'static&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='struct' href='../rocket/struct.State.html' title='rocket::State'>State</a>&lt;'r, T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/rocket/request/state.rs.html#53' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.eq' class='method'><span id='eq.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='struct' href='../rocket/struct.State.html' title='rocket::State'>State</a>&lt;'r, T&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests for <code>self</code> and <code>other</code> values to be equal, and is used by <code>==</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq">Read more</a></p>
+</div><h4 id='method.ne' class='method'><span id='ne.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='struct' href='../rocket/struct.State.html' title='rocket::State'>State</a>&lt;'r, T&gt;) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests for <code>!=</code>.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'r, T:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> + 'static&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../rocket/struct.State.html' title='rocket::State'>State</a>&lt;'r, T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/rocket/request/state.rs.html#53' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a, 'r, T:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> + 'static&gt; <a class='trait' href='../rocket/request/trait.FromRequest.html' title='rocket::request::FromRequest'>FromRequest</a>&lt;'a, 'r&gt; for <a class='struct' href='../rocket/struct.State.html' title='rocket::State'>State</a>&lt;'r, T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/rocket/request/state.rs.html#68-86' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Error' class='type'><span id='Error.t' class='invisible'><code>type <a href='../rocket/request/trait.FromRequest.html#associatedtype.Error' class='type'>Error</a> = <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a></code></span></h4>
+<div class='docblock'><p>The associated error to be returned if derivation fails.</p>
+</div><h4 id='method.from_request' class='method'><span id='from_request.v' class='invisible'><code>fn <a href='../rocket/request/trait.FromRequest.html#tymethod.from_request' class='fnname'>from_request</a>(req: &amp;'a <a class='struct' href='../rocket/struct.Request.html' title='rocket::Request'>Request</a>&lt;'r&gt;) -&gt; <a class='type' href='../rocket/request/type.Outcome.html' title='rocket::request::Outcome'>Outcome</a>&lt;<a class='struct' href='../rocket/struct.State.html' title='rocket::State'>State</a>&lt;'r, T&gt;, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a>&gt;</code></span></h4>
+<div class='docblock'><p>Derives an instance of <code>Self</code> from the incoming request metadata. <a href="../rocket/request/trait.FromRequest.html#tymethod.from_request">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'r, T:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Send.html' title='core::marker::Send'>Send</a> + <a class='trait' href='https://doc.rust-lang.org/nightly/core/marker/trait.Sync.html' title='core::marker::Sync'>Sync</a> + 'static&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html' title='core::ops::Deref'>Deref</a> for <a class='struct' href='../rocket/struct.State.html' title='rocket::State'>State</a>&lt;'r, T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/rocket/request/state.rs.html#88-94' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Target' class='type'><span id='Target.t' class='invisible'><code>type <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html#associatedtype.Target' class='type'>Target</a> = T</code></span></h4>
+<div class='docblock'><p>The resulting type after dereferencing</p>
+</div><h4 id='method.deref' class='method'><span id='deref.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/ops/trait.Deref.html#tymethod.deref' class='fnname'>deref</a>(&amp;self) -&gt; &amp;T</code></span></h4>
+<div class='docblock'><p>The method called to dereference a value</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "rocket";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

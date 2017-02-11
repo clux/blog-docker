@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ConfigBuilder` struct in crate `rocket`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ConfigBuilder">
+
+    <title>rocket::config::ConfigBuilder - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>rocket</a>::<wbr><a href='index.html'>config</a></p><script>window.sidebarCurrent = {name: 'ConfigBuilder', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>rocket</a>::<wbr><a href='index.html'>config</a>::<wbr><a class='struct' href=''>ConfigBuilder</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/rocket/config/builder.rs.html#10-27' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct ConfigBuilder {
+    pub environment: <a class='enum' href='../../rocket/config/enum.Environment.html' title='rocket::config::Environment'>Environment</a>,
+    pub address: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>,
+    pub port: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>,
+    pub workers: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>,
+    pub log_level: <a class='enum' href='../../rocket/enum.LoggingLevel.html' title='rocket::LoggingLevel'>LoggingLevel</a>,
+    pub session_key: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;,
+    pub extras: <a class='struct' href='https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html' title='std::collections::hash::map::HashMap'>HashMap</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a class='enum' href='../../rocket/config/enum.Value.html' title='rocket::config::Value'>Value</a>&gt;,
+    pub root: <a class='struct' href='https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html' title='std::path::PathBuf'>PathBuf</a>,
+}</pre><div class='docblock'><p>Structure following the builder pattern for building <code>Config</code> structures.</p>
+</div><h2 class='fields'>Fields</h2><span id='structfield.environment' class='structfield'>
+                           <span id='environment.v' class='invisible'>
+                           <code>environment: <a class='enum' href='../../rocket/config/enum.Environment.html' title='rocket::config::Environment'>Environment</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The environment that this configuration corresponds to.</p>
+</div><span id='structfield.address' class='structfield'>
+                           <span id='address.v' class='invisible'>
+                           <code>address: <a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The address to serve on.</p>
+</div><span id='structfield.port' class='structfield'>
+                           <span id='port.v' class='invisible'>
+                           <code>port: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The port to serve on.</p>
+</div><span id='structfield.workers' class='structfield'>
+                           <span id='workers.v' class='invisible'>
+                           <code>workers: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The number of workers to run in parallel.</p>
+</div><span id='structfield.log_level' class='structfield'>
+                           <span id='log_level.v' class='invisible'>
+                           <code>log_level: <a class='enum' href='../../rocket/enum.LoggingLevel.html' title='rocket::LoggingLevel'>LoggingLevel</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>How much information to log.</p>
+</div><span id='structfield.session_key' class='structfield'>
+                           <span id='session_key.v' class='invisible'>
+                           <code>session_key: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The session key.</p>
+</div><span id='structfield.extras' class='structfield'>
+                           <span id='extras.v' class='invisible'>
+                           <code>extras: <a class='struct' href='https://doc.rust-lang.org/nightly/std/collections/hash/map/struct.HashMap.html' title='std::collections::hash::map::HashMap'>HashMap</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>, <a class='enum' href='../../rocket/config/enum.Value.html' title='rocket::config::Value'>Value</a>&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Any extra parameters that aren&#39;t part of Rocket&#39;s config.</p>
+</div><span id='structfield.root' class='structfield'>
+                           <span id='root.v' class='invisible'>
+                           <code>root: <a class='struct' href='https://doc.rust-lang.org/nightly/std/path/struct.PathBuf.html' title='std::path::PathBuf'>PathBuf</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The root directory of this config.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../rocket/config/struct.ConfigBuilder.html' title='rocket::config::ConfigBuilder'>ConfigBuilder</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/config/builder.rs.html#29-294' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>(environment: <a class='enum' href='../../rocket/config/enum.Environment.html' title='rocket::config::Environment'>Environment</a>) -&gt; <a class='struct' href='../../rocket/config/struct.ConfigBuilder.html' title='rocket::config::ConfigBuilder'>ConfigBuilder</a></code></span></h4>
+<div class='docblock'><p>Create a new <code>ConfigBuilder</code> instance using the default parameters from
+the given <code>environment</code>. The root configuration directory is set to the
+current working directory.</p>
+
+<p>This method is typically called indirectly via
+<a href="/rocket/config/struct.Config.html#method.build">Config::build</a>.</p>
+
+<h1 id='panics' class='section-header'><a href='#panics'>Panics</a></h1>
+<p>Panics if the current directory cannot be retrieved.</p>
+
+<h1 id='example' class='section-header'><a href='#example'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>config</span>::{<span class='ident'>Config</span>, <span class='ident'>Environment</span>};
+
+<span class='kw'>let</span> <span class='ident'>config</span> <span class='op'>=</span> <span class='ident'>Config</span>::<span class='ident'>build</span>(<span class='ident'>Environment</span>::<span class='ident'>Staging</span>)
+    .<span class='ident'>address</span>(<span class='string'>&quot;127.0.0.1&quot;</span>)
+    .<span class='ident'>port</span>(<span class='number'>700</span>)
+    .<span class='ident'>workers</span>(<span class='number'>12</span>)
+    .<span class='ident'>finalize</span>();
+</pre>
+</div><h4 id='method.address' class='method'><span id='address.v-1' class='invisible'><code>fn <a href='#method.address' class='fnname'>address</a>&lt;A:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;&gt;(self, address: A) -&gt; Self</code></span></h4>
+<div class='docblock'><p>Sets the <code>address</code> in the configuration being built.</p>
+
+<h1 id='example-1' class='section-header'><a href='#example-1'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>config</span>::{<span class='ident'>Config</span>, <span class='ident'>Environment</span>};
+
+<span class='kw'>let</span> <span class='ident'>config</span> <span class='op'>=</span> <span class='ident'>Config</span>::<span class='ident'>build</span>(<span class='ident'>Environment</span>::<span class='ident'>Staging</span>)
+    .<span class='ident'>address</span>(<span class='string'>&quot;127.0.0.1&quot;</span>)
+    .<span class='ident'>unwrap</span>();
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>config</span>.<span class='ident'>address</span>.<span class='ident'>as_str</span>(), <span class='string'>&quot;127.0.0.1&quot;</span>);</pre>
+</div><h4 id='method.port' class='method'><span id='port.v-1' class='invisible'><code>fn <a href='#method.port' class='fnname'>port</a>(self, port: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>) -&gt; Self</code></span></h4>
+<div class='docblock'><p>Sets the <code>port</code> in the configuration being built.</p>
+
+<h1 id='example-2' class='section-header'><a href='#example-2'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>config</span>::{<span class='ident'>Config</span>, <span class='ident'>Environment</span>};
+
+<span class='kw'>let</span> <span class='ident'>config</span> <span class='op'>=</span> <span class='ident'>Config</span>::<span class='ident'>build</span>(<span class='ident'>Environment</span>::<span class='ident'>Staging</span>)
+    .<span class='ident'>port</span>(<span class='number'>1329</span>)
+    .<span class='ident'>unwrap</span>();
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>config</span>.<span class='ident'>port</span>, <span class='number'>1329</span>);</pre>
+</div><h4 id='method.workers' class='method'><span id='workers.v-1' class='invisible'><code>fn <a href='#method.workers' class='fnname'>workers</a>(self, workers: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>) -&gt; Self</code></span></h4>
+<div class='docblock'><p>Sets <code>workers</code> in the configuration being built.</p>
+
+<h1 id='example-3' class='section-header'><a href='#example-3'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>config</span>::{<span class='ident'>Config</span>, <span class='ident'>Environment</span>};
+
+<span class='kw'>let</span> <span class='ident'>config</span> <span class='op'>=</span> <span class='ident'>Config</span>::<span class='ident'>build</span>(<span class='ident'>Environment</span>::<span class='ident'>Staging</span>)
+    .<span class='ident'>workers</span>(<span class='number'>64</span>)
+    .<span class='ident'>unwrap</span>();
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>config</span>.<span class='ident'>workers</span>, <span class='number'>64</span>);</pre>
+</div><h4 id='method.log_level' class='method'><span id='log_level.v-1' class='invisible'><code>fn <a href='#method.log_level' class='fnname'>log_level</a>(self, log_level: <a class='enum' href='../../rocket/enum.LoggingLevel.html' title='rocket::LoggingLevel'>LoggingLevel</a>) -&gt; Self</code></span></h4>
+<div class='docblock'><p>Sets the <code>log_level</code> in the configuration being built.</p>
+
+<h1 id='example-4' class='section-header'><a href='#example-4'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>LoggingLevel</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>config</span>::{<span class='ident'>Config</span>, <span class='ident'>Environment</span>};
+
+<span class='kw'>let</span> <span class='ident'>config</span> <span class='op'>=</span> <span class='ident'>Config</span>::<span class='ident'>build</span>(<span class='ident'>Environment</span>::<span class='ident'>Staging</span>)
+    .<span class='ident'>log_level</span>(<span class='ident'>LoggingLevel</span>::<span class='ident'>Critical</span>)
+    .<span class='ident'>unwrap</span>();
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>config</span>.<span class='ident'>log_level</span>, <span class='ident'>LoggingLevel</span>::<span class='ident'>Critical</span>);</pre>
+</div><h4 id='method.session_key' class='method'><span id='session_key.v-1' class='invisible'><code>fn <a href='#method.session_key' class='fnname'>session_key</a>&lt;K:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;&gt;(self, key: K) -&gt; Self</code></span></h4>
+<div class='docblock'><p>Sets the <code>session_key</code> in the configuration being built.</p>
+
+<h1 id='example-5' class='section-header'><a href='#example-5'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>LoggingLevel</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>config</span>::{<span class='ident'>Config</span>, <span class='ident'>Environment</span>};
+
+<span class='kw'>let</span> <span class='ident'>key</span> <span class='op'>=</span> <span class='string'>&quot;VheMwXIBygSmOlZAhuWl2B+zgvTN3WW5&quot;</span>;
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>config</span> <span class='op'>=</span> <span class='ident'>Config</span>::<span class='ident'>build</span>(<span class='ident'>Environment</span>::<span class='ident'>Staging</span>)
+    .<span class='ident'>session_key</span>(<span class='ident'>key</span>)
+    .<span class='ident'>unwrap</span>();
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>config</span>.<span class='ident'>take_session_key</span>(), <span class='prelude-val'>Some</span>(<span class='ident'>key</span>.<span class='ident'>to_string</span>()));</pre>
+</div><h4 id='method.environment' class='method'><span id='environment.v-1' class='invisible'><code>fn <a href='#method.environment' class='fnname'>environment</a>(self, env: <a class='enum' href='../../rocket/config/enum.Environment.html' title='rocket::config::Environment'>Environment</a>) -&gt; Self</code></span></h4>
+<div class='docblock'><p>Sets the <code>environment</code> in the configuration being built.</p>
+
+<h1 id='example-6' class='section-header'><a href='#example-6'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>config</span>::{<span class='ident'>Config</span>, <span class='ident'>Environment</span>};
+
+<span class='kw'>let</span> <span class='ident'>config</span> <span class='op'>=</span> <span class='ident'>Config</span>::<span class='ident'>build</span>(<span class='ident'>Environment</span>::<span class='ident'>Staging</span>)
+    .<span class='ident'>environment</span>(<span class='ident'>Environment</span>::<span class='ident'>Production</span>)
+    .<span class='ident'>unwrap</span>();
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>config</span>.<span class='ident'>environment</span>, <span class='ident'>Environment</span>::<span class='ident'>Production</span>);</pre>
+</div><h4 id='method.root' class='method'><span id='root.v-1' class='invisible'><code>fn <a href='#method.root' class='fnname'>root</a>&lt;P:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html' title='core::convert::AsRef'>AsRef</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/std/path/struct.Path.html' title='std::path::Path'>Path</a>&gt;&gt;(self, path: P) -&gt; Self</code></span></h4>
+<div class='docblock'><p>Sets the <code>root</code> in the configuration being built.</p>
+
+<h1 id='example-7' class='section-header'><a href='#example-7'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>config</span>::{<span class='ident'>Config</span>, <span class='ident'>Environment</span>};
+
+<span class='kw'>let</span> <span class='ident'>config</span> <span class='op'>=</span> <span class='ident'>Config</span>::<span class='ident'>build</span>(<span class='ident'>Environment</span>::<span class='ident'>Staging</span>)
+    .<span class='ident'>root</span>(<span class='string'>&quot;/my_app/dir&quot;</span>)
+    .<span class='ident'>unwrap</span>();
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>config</span>.<span class='ident'>root</span>(), <span class='ident'>Path</span>::<span class='ident'>new</span>(<span class='string'>&quot;/my_app/dir&quot;</span>));</pre>
+</div><h4 id='method.extra' class='method'><span id='extra.v' class='invisible'><code>fn <a href='#method.extra' class='fnname'>extra</a>&lt;V:&nbsp;<a class='trait' href='../../rocket/config/trait.IntoValue.html' title='rocket::config::IntoValue'>IntoValue</a>&gt;(self, name: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, value: V) -&gt; Self</code></span></h4>
+<div class='docblock'><p>Adds an extra configuration parameter with <code>name</code> and <code>value</code> to the
+configuration being built. The value can be any type that implements
+<a href="/rocket/config/trait.IntoValue.html">IntoValue</a> including <code>&amp;str</code>,
+<code>String</code>, <code>Vec&lt;V: IntoValue&gt;</code>, <code>HashMap&lt;S: Into&lt;String&gt;, V: IntoValue&gt;</code>,
+and all integer and float types.</p>
+
+<h1 id='example-8' class='section-header'><a href='#example-8'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>config</span>::{<span class='ident'>Config</span>, <span class='ident'>Environment</span>};
+
+<span class='kw'>let</span> <span class='ident'>config</span> <span class='op'>=</span> <span class='ident'>Config</span>::<span class='ident'>build</span>(<span class='ident'>Environment</span>::<span class='ident'>Staging</span>)
+    .<span class='ident'>extra</span>(<span class='string'>&quot;pi&quot;</span>, <span class='number'>3.14</span>)
+    .<span class='ident'>extra</span>(<span class='string'>&quot;custom_dir&quot;</span>, <span class='string'>&quot;/a/b/c&quot;</span>)
+    .<span class='ident'>unwrap</span>();
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>config</span>.<span class='ident'>get_float</span>(<span class='string'>&quot;pi&quot;</span>), <span class='prelude-val'>Ok</span>(<span class='number'>3.14</span>));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>config</span>.<span class='ident'>get_str</span>(<span class='string'>&quot;custom_dir&quot;</span>), <span class='prelude-val'>Ok</span>(<span class='string'>&quot;/a/b/c&quot;</span>));</pre>
+</div><h4 id='method.finalize' class='method'><span id='finalize.v' class='invisible'><code>fn <a href='#method.finalize' class='fnname'>finalize</a>(self) -&gt; <a class='type' href='../../rocket/config/type.Result.html' title='rocket::config::Result'>Result</a>&lt;<a class='struct' href='../../rocket/config/struct.Config.html' title='rocket::config::Config'>Config</a>&gt;</code></span></h4>
+<div class='docblock'><p>Return the <code>Config</code> structure that was being built by this builder.</p>
+
+<h1 id='errors' class='section-header'><a href='#errors'>Errors</a></h1>
+<p>If the current working directory cannot be retrieved, returns a <code>BadCWD</code>
+error. If the address or session key fail to parse, returns a <code>BadType</code>
+error.</p>
+
+<h1 id='example-9' class='section-header'><a href='#example-9'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>config</span>::{<span class='ident'>Config</span>, <span class='ident'>Environment</span>};
+
+<span class='kw'>let</span> <span class='ident'>config</span> <span class='op'>=</span> <span class='ident'>Config</span>::<span class='ident'>build</span>(<span class='ident'>Environment</span>::<span class='ident'>Staging</span>)
+    .<span class='ident'>address</span>(<span class='string'>&quot;127.0.0.1&quot;</span>)
+    .<span class='ident'>port</span>(<span class='number'>700</span>)
+    .<span class='ident'>workers</span>(<span class='number'>12</span>)
+    .<span class='ident'>finalize</span>();
+
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>config</span>.<span class='ident'>is_ok</span>());
+
+<span class='kw'>let</span> <span class='ident'>config</span> <span class='op'>=</span> <span class='ident'>Config</span>::<span class='ident'>build</span>(<span class='ident'>Environment</span>::<span class='ident'>Staging</span>)
+    .<span class='ident'>address</span>(<span class='string'>&quot;?&quot;</span>)
+    .<span class='ident'>finalize</span>();
+
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>config</span>.<span class='ident'>is_err</span>());</pre>
+</div><h4 id='method.unwrap' class='method'><span id='unwrap.v' class='invisible'><code>fn <a href='#method.unwrap' class='fnname'>unwrap</a>(self) -&gt; <a class='struct' href='../../rocket/config/struct.Config.html' title='rocket::config::Config'>Config</a></code></span></h4>
+<div class='docblock'><p>Return the <code>Config</code> structure that was being built by this builder.</p>
+
+<h1 id='panics-1' class='section-header'><a href='#panics-1'>Panics</a></h1>
+<p>Panics if the current working directory cannot be retrieved or if the
+supplied address or session key fail to parse.</p>
+
+<h1 id='example-10' class='section-header'><a href='#example-10'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>config</span>::{<span class='ident'>Config</span>, <span class='ident'>Environment</span>};
+
+<span class='kw'>let</span> <span class='ident'>config</span> <span class='op'>=</span> <span class='ident'>Config</span>::<span class='ident'>build</span>(<span class='ident'>Environment</span>::<span class='ident'>Staging</span>)
+    .<span class='ident'>address</span>(<span class='string'>&quot;127.0.0.1&quot;</span>)
+    .<span class='ident'>unwrap</span>();
+
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>config</span>.<span class='ident'>address</span>.<span class='ident'>as_str</span>(), <span class='string'>&quot;127.0.0.1&quot;</span>);</pre>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../rocket/config/struct.ConfigBuilder.html' title='rocket::config::ConfigBuilder'>ConfigBuilder</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/config/builder.rs.html#9' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../rocket/config/struct.ConfigBuilder.html' title='rocket::config::ConfigBuilder'>ConfigBuilder</a></code></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "rocket";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

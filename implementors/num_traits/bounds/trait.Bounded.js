@@ -1,5 +1,8 @@
 (function() {var implementors = {};
-implementors['num_traits'] = [];
+implementors["chrono"] = [];
+implementors["num_traits"] = [];
+implementors["rocket_contrib"] = [];
+implementors["tera"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

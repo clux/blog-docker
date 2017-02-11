@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Context","The context wrap data you render on your templates."]],"trait":[["JsonRender",""],["JsonTruthy",""]]});

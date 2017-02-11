@@ -4,13 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-88ac128001ac3a9a/hyper-0.8.1/src/header/common/preference_applied.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/hyper-0.10.4/src/header/common/preference_applied.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>preference_applied.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../../main.css">
+    
 
     
     
@@ -141,6 +143,13 @@
 <span id="98"> 98</span>
 <span id="99"> 99</span>
 <span id="100">100</span>
+<span id="101">101</span>
+<span id="102">102</span>
+<span id="103">103</span>
+<span id="104">104</span>
+<span id="105">105</span>
+<span id="106">106</span>
+<span id="107">107</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
 <span class='kw'>use</span> <span class='ident'>header</span>::{<span class='ident'>Header</span>, <span class='ident'>HeaderFormat</span>, <span class='ident'>Preference</span>};
@@ -209,6 +218,13 @@
 
 <span class='kw'>impl</span> <span class='ident'>HeaderFormat</span> <span class='kw'>for</span> <span class='ident'>PreferenceApplied</span> {
     <span class='kw'>fn</span> <span class='ident'>fmt_header</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
+        <span class='ident'>fmt</span>::<span class='ident'>Display</span>::<span class='ident'>fmt</span>(<span class='self'>self</span>, <span class='ident'>f</span>)
+    }
+}
+
+<span class='kw'>impl</span> <span class='ident'>fmt</span>::<span class='ident'>Display</span> <span class='kw'>for</span> <span class='ident'>PreferenceApplied</span> {
+    <span class='kw'>fn</span> <span class='ident'>fmt</span>(<span class='kw-2'>&amp;</span><span class='self'>self</span>, <span class='ident'>f</span>: <span class='kw-2'>&amp;</span><span class='kw-2'>mut</span> <span class='ident'>fmt</span>::<span class='ident'>Formatter</span>) <span class='op'>-&gt;</span> <span class='ident'>fmt</span>::<span class='prelude-ty'>Result</span> {
+        <span class='comment'>//TODO: format this without allocating a Vec and cloning contents</span>
         <span class='kw'>let</span> <span class='ident'>preferences</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;</span> <span class='op'>=</span> <span class='self'>self</span>.<span class='number'>0</span>.<span class='ident'>iter</span>().<span class='ident'>map</span>(<span class='op'>|</span><span class='ident'>pref</span><span class='op'>|</span> <span class='kw'>match</span> <span class='ident'>pref</span> {
             <span class='comment'>// The spec ignores parameters in `Preferences-Applied`</span>
             <span class='kw-2'>&amp;</span><span class='ident'>Preference</span>::<span class='ident'>Extension</span>(<span class='kw-2'>ref</span> <span class='ident'>name</span>, <span class='kw-2'>ref</span> <span class='ident'>value</span>, _) <span class='op'>=&gt;</span> <span class='ident'>Preference</span>::<span class='ident'>Extension</span>(
@@ -216,7 +232,7 @@
               <span class='ident'>value</span>.<span class='ident'>to_owned</span>(),
               <span class='macro'>vec</span><span class='macro'>!</span>[]
             ),
-            <span class='ident'>preference</span> <span class='kw-2'>@</span> _ <span class='op'>=&gt;</span> <span class='ident'>preference</span>.<span class='ident'>clone</span>()
+            <span class='ident'>preference</span> @ _ <span class='op'>=&gt;</span> <span class='ident'>preference</span>.<span class='ident'>clone</span>()
         }).<span class='ident'>collect</span>();
         <span class='ident'>fmt_comma_delimited</span>(<span class='ident'>f</span>, <span class='kw-2'>&amp;</span><span class='ident'>preferences</span>)
     }
@@ -225,7 +241,7 @@
 <span class='attribute'>#[<span class='ident'>cfg</span>(<span class='ident'>test</span>)]</span>
 <span class='kw'>mod</span> <span class='ident'>tests</span> {
     <span class='kw'>use</span> <span class='ident'>header</span>::{<span class='ident'>HeaderFormat</span>, <span class='ident'>Preference</span>};
-    <span class='kw'>use</span> <span class='ident'>super</span>::<span class='op'>*</span>;
+    <span class='kw'>use</span> <span class='kw'>super</span>::<span class='kw-2'>*</span>;
 
     <span class='attribute'>#[<span class='ident'>test</span>]</span>
     <span class='kw'>fn</span> <span class='ident'>test_format_ignore_parameters</span>() {
@@ -266,6 +282,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -297,11 +315,9 @@
     <script>
         window.rootPath = "../../../../";
         window.currentCrate = "hyper";
-        window.playgroundUrl = "";
     </script>
     <script src="../../../../jquery.js"></script>
     <script src="../../../../main.js"></script>
-    
     <script defer src="../../../../search-index.js"></script>
 </body>
 </html>

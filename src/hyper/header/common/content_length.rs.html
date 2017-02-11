@@ -4,13 +4,15 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="generator" content="rustdoc">
-    <meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-88ac128001ac3a9a/hyper-0.8.1/src/header/common/content_length.rs`.">
+    <meta name="description" content="Source to the Rust file `/home/clux/.cargo/registry/src/github.com-1ecc6299db9ec823/hyper-0.10.4/src/header/common/content_length.rs`.">
     <meta name="keywords" content="rust, rustlang, rust-lang">
 
     <title>content_length.rs.html -- source</title>
 
+    <link rel="stylesheet" type="text/css" href="../../../../normalize.css">
     <link rel="stylesheet" type="text/css" href="../../../../rustdoc.css">
     <link rel="stylesheet" type="text/css" href="../../../../main.css">
+    
 
     
     
@@ -135,7 +137,6 @@
 <span id="92">92</span>
 <span id="93">93</span>
 <span id="94">94</span>
-<span id="95">95</span>
 </pre><pre class='rust '>
 <span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>fmt</span>;
 
@@ -186,7 +187,7 @@
             .<span class='ident'>fold</span>(<span class='prelude-val'>None</span>, <span class='op'>|</span><span class='ident'>prev</span>, <span class='ident'>x</span><span class='op'>|</span> {
                 <span class='kw'>match</span> (<span class='ident'>prev</span>, <span class='ident'>x</span>) {
                     (<span class='prelude-val'>None</span>, <span class='ident'>x</span>) <span class='op'>=&gt;</span> <span class='prelude-val'>Some</span>(<span class='ident'>x</span>),
-                    (<span class='ident'>e</span><span class='kw-2'>@</span><span class='prelude-val'>Some</span>(<span class='prelude-val'>Err</span>(_)), _ ) <span class='op'>=&gt;</span> <span class='ident'>e</span>,
+                    (<span class='ident'>e</span>@<span class='prelude-val'>Some</span>(<span class='prelude-val'>Err</span>(_)), _ ) <span class='op'>=&gt;</span> <span class='ident'>e</span>,
                     (<span class='prelude-val'>Some</span>(<span class='prelude-val'>Ok</span>(<span class='ident'>prev</span>)), <span class='prelude-val'>Ok</span>(<span class='ident'>x</span>)) <span class='kw'>if</span> <span class='ident'>prev</span> <span class='op'>==</span> <span class='ident'>x</span> <span class='op'>=&gt;</span> <span class='prelude-val'>Some</span>(<span class='prelude-val'>Ok</span>(<span class='ident'>prev</span>)),
                     _ <span class='op'>=&gt;</span> <span class='prelude-val'>Some</span>(<span class='prelude-val'>Err</span>(::<span class='ident'>Error</span>::<span class='ident'>Header</span>))
                 }
@@ -211,7 +212,6 @@
 }
 
 <span class='macro'>__hyper__deref</span><span class='macro'>!</span>(<span class='ident'>ContentLength</span> <span class='op'>=&gt;</span> <span class='ident'>u64</span>);
-<span class='macro'>__hyper_generate_header_serialization</span><span class='macro'>!</span>(<span class='ident'>ContentLength</span>);
 
 <span class='macro'>__hyper__tm</span><span class='macro'>!</span>(<span class='ident'>ContentLength</span>, <span class='ident'>tests</span> {
     <span class='comment'>// Testcase from RFC</span>
@@ -256,6 +256,8 @@
                     <dd>Move down in search results</dd>
                     <dt>&#9166;</dt>
                     <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
                 </dl>
             </div>
 
@@ -287,11 +289,9 @@
     <script>
         window.rootPath = "../../../../";
         window.currentCrate = "hyper";
-        window.playgroundUrl = "";
     </script>
     <script src="../../../../jquery.js"></script>
     <script src="../../../../main.js"></script>
-    
     <script defer src="../../../../search-index.js"></script>
 </body>
 </html>

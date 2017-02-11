@@ -1,5 +1,9 @@
 (function() {var implementors = {};
-implementors['url'] = [];
+implementors["hyper"] = ["impl <a class='trait' href='url/percent_encoding/trait.EncodeSet.html' title='url::percent_encoding::EncodeSet'>EncodeSet</a> for <a class='struct' href='hyper/header/parsing/struct.HTTP_VALUE.html' title='hyper::header::parsing::HTTP_VALUE'>HTTP_VALUE</a>",];
+implementors["rocket"] = ["impl <a class='trait' href='url/percent_encoding/trait.EncodeSet.html' title='url::percent_encoding::EncodeSet'>EncodeSet</a> for <a class='struct' href='hyper/header/parsing/struct.HTTP_VALUE.html' title='hyper::header::parsing::HTTP_VALUE'>HTTP_VALUE</a>",];
+implementors["rocket_contrib"] = ["impl <a class='trait' href='url/percent_encoding/trait.EncodeSet.html' title='url::percent_encoding::EncodeSet'>EncodeSet</a> for <a class='struct' href='hyper/header/parsing/struct.HTTP_VALUE.html' title='hyper::header::parsing::HTTP_VALUE'>HTTP_VALUE</a>",];
+implementors["tera"] = [];
+implementors["url"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

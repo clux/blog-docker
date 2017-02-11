@@ -1,5 +1,9 @@
 (function() {var implementors = {};
-implementors['url'] = [];
+implementors["hyper"] = [];
+implementors["rocket"] = [];
+implementors["rocket_contrib"] = [];
+implementors["tera"] = [];
+implementors["url"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

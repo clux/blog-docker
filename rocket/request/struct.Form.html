@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Form` struct in crate `rocket`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Form">
+
+    <title>rocket::request::Form - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>rocket</a>::<wbr><a href='index.html'>request</a></p><script>window.sidebarCurrent = {name: 'Form', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>rocket</a>::<wbr><a href='index.html'>request</a>::<wbr><a class='struct' href=''>Form</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/rocket/request/form/mod.rs.html#156-160' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Form&lt;'f, T:&nbsp;<a class='trait' href='../../rocket/request/trait.FromForm.html' title='rocket::request::FromForm'>FromForm</a>&lt;'f&gt; + 'f&gt; { /* fields omitted */ }</pre><div class='docblock'><p>A <code>FromData</code> type for parsing <code>FromForm</code> types.</p>
+
+<p>This type implements the <code>FromData</code> trait. It provides a generic means to
+parse arbitrary structures from incoming form data.</p>
+
+<h1 id='usage' class='section-header'><a href='#usage'>Usage</a></h1>
+<p>This type can be used with any type that implements the <code>FromForm</code> trait.
+The trait can be automatically derived; see the
+<a href="trait.FromForm.html">FromForm</a> documentation for more information on
+deriving or implementing the trait.</p>
+
+<p>Because <code>Form</code> implement <code>FromData</code>, it can be used directly as a target of
+the <code>data = &quot;&lt;param&gt;&quot;</code> route parameter. For instance, if some structure of
+type <code>T</code> implements the <code>FromForm</code> trait, an incoming form can be
+automatically parsed into the <code>T</code> structure with the following route and
+handler:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='attribute'>#[<span class='ident'>post</span>(<span class='string'>&quot;/form_submit&quot;</span>, <span class='ident'>data</span> <span class='op'>=</span> <span class='string'>&quot;&lt;param&gt;&quot;</span>)]</span>
+<span class='kw'>fn</span> <span class='ident'>submit</span>(<span class='ident'>form</span>: <span class='ident'>Form</span><span class='op'>&lt;</span><span class='ident'>T</span><span class='op'>&gt;</span>) ... { ... }</pre>
+
+<p>To preserve memory safety, if the underlying structure type contains
+references into form data, the type can only be borrowed via the
+<a href="#method.get">get</a> or <a href="#method.get_mut">get_mut</a> methods. Otherwise, the
+parsed structure can be retrieved with the <a href="#method.into_inner">into_inner</a>
+method.</p>
+
+<h2 id='with-references' class='section-header'><a href='#with-references'>With References</a></h2>
+<p>The simplest data structure with a reference into form data looks like this:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>FromForm</span>)]</span>
+<span class='kw'>struct</span> <span class='ident'>UserInput</span><span class='op'>&lt;</span><span class='lifetime'>&#39;f</span><span class='op'>&gt;</span> {
+    <span class='ident'>value</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;f</span> <span class='ident'>str</span>
+}</pre>
+
+<p>This corresponds to a form with a single field named <code>value</code> that should be
+a string. A handler for this type can be written as:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='attribute'>#[<span class='ident'>post</span>(<span class='string'>&quot;/submit&quot;</span>, <span class='ident'>data</span> <span class='op'>=</span> <span class='string'>&quot;&lt;user_input&gt;&quot;</span>)]</span>
+<span class='kw'>fn</span> <span class='ident'>submit_task</span><span class='op'>&lt;</span><span class='lifetime'>&#39;r</span><span class='op'>&gt;</span>(<span class='ident'>user_input</span>: <span class='ident'>Form</span><span class='op'>&lt;</span><span class='lifetime'>&#39;r</span>, <span class='ident'>UserInput</span><span class='op'>&lt;</span><span class='lifetime'>&#39;r</span><span class='op'>&gt;&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
+    <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;Your value: {}&quot;</span>, <span class='ident'>user_input</span>.<span class='ident'>get</span>().<span class='ident'>value</span>)
+}</pre>
+
+<p>Note that the <code>`r</code> lifetime is used <em>twice</em> in the handler&#39;s signature:
+this is necessary to tie the lifetime of the structure to the lifetime of
+the request data.</p>
+
+<h2 id='without-references' class='section-header'><a href='#without-references'>Without References</a></h2>
+<p>The owned analog of the <code>UserInput</code> type above is:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='attribute'>#[<span class='ident'>derive</span>(<span class='ident'>FromForm</span>)]</span>
+<span class='kw'>struct</span> <span class='ident'>OwnedUserInput</span> {
+    <span class='ident'>value</span>: <span class='ident'>String</span>
+}</pre>
+
+<p>The handler is written similarly:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='attribute'>#[<span class='ident'>post</span>(<span class='string'>&quot;/submit&quot;</span>, <span class='ident'>data</span> <span class='op'>=</span> <span class='string'>&quot;&lt;user_input&gt;&quot;</span>)]</span>
+<span class='kw'>fn</span> <span class='ident'>submit_task</span>(<span class='ident'>user_input</span>: <span class='ident'>Form</span><span class='op'>&lt;</span><span class='ident'>OwnedUserInput</span><span class='op'>&gt;</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
+    <span class='kw'>let</span> <span class='ident'>input</span>: <span class='ident'>OwnedUserInput</span> <span class='op'>=</span> <span class='ident'>user_input</span>.<span class='ident'>into_inner</span>();
+    <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;Your value: {}&quot;</span>, <span class='ident'>input</span>.<span class='ident'>value</span>)
+}</pre>
+
+<p>Note that no lifetime annotations are required: Rust is able to infer the
+lifetime as <code>`static</code>. Because the lifetime is <code>`static</code>, the
+<code>into_inner</code> method can be used to directly retrieve the parsed value.</p>
+
+<h2 id='performance-and-correctness-considerations' class='section-header'><a href='#performance-and-correctness-considerations'>Performance and Correctness Considerations</a></h2>
+<p>Whether you should use a <code>str</code> or <code>String</code> in your <code>FromForm</code> type depends
+on your use case. The primary question to answer is: <em>Can the input contain
+characters that must be URL encoded?</em> Note that this includes commmon
+characters such as spaces. If so, then you must use <code>String</code>, whose
+<code>FromFormValue</code> implementation deserializes the URL encoded string for you.
+Because the <code>str</code> references will refer directly to the underlying form
+data, they will be raw and URL encoded.</p>
+
+<p>If your string values will not contain URL encoded characters, using <code>str</code>
+will result in fewer allocation and is thus spreferred.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'f, T:&nbsp;<a class='trait' href='../../rocket/request/trait.FromForm.html' title='rocket::request::FromForm'>FromForm</a>&lt;'f&gt; + 'f&gt; <a class='struct' href='../../rocket/request/struct.Form.html' title='rocket::request::Form'>Form</a>&lt;'f, T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/request/form/mod.rs.html#178-235' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.get' class='method'><span id='get.v' class='invisible'><code>fn <a href='#method.get' class='fnname'>get</a>(&amp;'f self) -&gt; &amp;'f T</code></span></h4>
+<div class='docblock'><p>Immutably borrow the parsed type.</p>
+</div><h4 id='method.get_mut' class='method'><span id='get_mut.v' class='invisible'><code>fn <a href='#method.get_mut' class='fnname'>get_mut</a>(&amp;'f mut self) -&gt; &amp;'f mut T</code></span></h4>
+<div class='docblock'><p>Mutably borrow the parsed type.</p>
+</div><h4 id='method.raw_form_string' class='method'><span id='raw_form_string.v' class='invisible'><code>fn <a href='#method.raw_form_string' class='fnname'>raw_form_string</a>(&amp;self) -&gt; &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a></code></span></h4>
+<div class='docblock'><p>Returns the raw form string that was used to parse the encapsulated
+object.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'f, T:&nbsp;<a class='trait' href='../../rocket/request/trait.FromForm.html' title='rocket::request::FromForm'>FromForm</a>&lt;'f&gt; + 'static&gt; <a class='struct' href='../../rocket/request/struct.Form.html' title='rocket::request::Form'>Form</a>&lt;'f, T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/request/form/mod.rs.html#237-242' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.into_inner' class='method'><span id='into_inner.v' class='invisible'><code>fn <a href='#method.into_inner' class='fnname'>into_inner</a>(self) -&gt; T</code></span></h4>
+<div class='docblock'><p>Consume this object and move out the parsed object.</p>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl&lt;'f, T:&nbsp;<a class='trait' href='../../rocket/request/trait.FromForm.html' title='rocket::request::FromForm'>FromForm</a>&lt;'f&gt; + <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> + 'f&gt; <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../rocket/request/struct.Form.html' title='rocket::request::Form'>Form</a>&lt;'f, T&gt;</code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/request/form/mod.rs.html#244-248' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'f, T:&nbsp;<a class='trait' href='../../rocket/request/trait.FromForm.html' title='rocket::request::FromForm'>FromForm</a>&lt;'f&gt;&gt; <a class='trait' href='../../rocket/data/trait.FromData.html' title='rocket::data::FromData'>FromData</a> for <a class='struct' href='../../rocket/request/struct.Form.html' title='rocket::request::Form'>Form</a>&lt;'f, T&gt; <span class='where fmt-newline'>where T::<a class='trait' href='../../rocket/request/trait.FromForm.html' title='rocket::request::FromForm'>Error</a>: <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a></span></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/request/form/mod.rs.html#263-292' title='goto source code'>[src]</a></span></h3>
+<div class='docblock'><p>Parses a <code>Form</code> from incoming form data.</p>
+
+<p>If the content type of the request data is not
+<code>application/x-www-form-urlencoded</code>, <code>Forward</code>s the request. If the form
+data cannot be parsed into a <code>T</code>, a <code>Failure</code> with status code
+<code>UnprocessableEntity</code> is returned. If the form string is malformed, a
+<code>Failure</code> with status code <code>BadRequest</code> is returned. Finally, if reading the
+incoming stream fails, returns a <code>Failure</code> with status code
+<code>InternalServerError</code>. In all failure cases, the raw form string is returned
+if it was able to be retrieved from the incoming stream.</p>
+
+<p>All relevant warnings and errors are written to the console in Rocket
+logging format.</p>
+</div><div class='impl-items'><h4 id='associatedtype.Error' class='type'><span id='Error.t' class='invisible'><code>type <a href='../../rocket/data/trait.FromData.html#associatedtype.Error' class='type'>Error</a> = <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;<a class='struct' href='https://doc.rust-lang.org/nightly/collections/string/struct.String.html' title='collections::string::String'>String</a>&gt;</code></span></h4>
+<div class='docblock'><p>The raw form string, if it was able to be retrieved from the request.</p>
+</div><h4 id='method.from_data' class='method'><span id='from_data.v' class='invisible'><code>fn <a href='../../rocket/data/trait.FromData.html#tymethod.from_data' class='fnname'>from_data</a>(request: &amp;<a class='struct' href='../../rocket/struct.Request.html' title='rocket::Request'>Request</a>, data: <a class='struct' href='../../rocket/struct.Data.html' title='rocket::Data'>Data</a>) -&gt; <a class='type' href='../../rocket/data/type.Outcome.html' title='rocket::data::Outcome'>Outcome</a>&lt;Self, Self::<a class='trait' href='../../rocket/data/trait.FromData.html' title='rocket::data::FromData'>Error</a>&gt;</code></span></h4>
+<div class='docblock'><p>Parses an instance of <code>Self</code> from the incoming request body data. <a href="../../rocket/data/trait.FromData.html#tymethod.from_data">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "rocket";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>

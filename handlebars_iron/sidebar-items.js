@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["DirectorySource",""],["HandlebarsEngine",""],["MemorySource",""],["SourceError",""],["Template",""]],"trait":[["Source",""]]});

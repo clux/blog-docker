@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Catcher` struct in crate `rocket`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Catcher">
+
+    <title>rocket::Catcher - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>rocket</a></p><script>window.sidebarCurrent = {name: 'Catcher', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>rocket</a>::<wbr><a class='struct' href=''>Catcher</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/rocket/catcher.rs.html#65-70' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Catcher {
+    pub code: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>,
+    // some fields omitted
+}</pre><div class='docblock'><p>An error catching route.</p>
+
+<p>Catchers are routes that run when errors occur. They correspond directly
+with the HTTP error status code they will be handling and are registered
+with Rocket via the <a href="/rocket/struct.Rocket.html#method.catch">Rocket::catch</a>
+method. For example, to handle &quot;404 not found&quot; errors, a catcher for the
+&quot;404&quot; status code is registered.</p>
+
+<p>Because error handlers are only called when all routes are exhausted, they
+should not fail nor forward. If an error catcher fails, the user will
+receive no response. If an error catcher forwards, Rocket will respond with
+an internal server error.</p>
+
+<h1 id='built-in-catchers' class='section-header'><a href='#built-in-catchers'>Built-In Catchers</a></h1>
+<p>Rocket has many built-in, pre-registered default catchers. In particular,
+Rocket has catchers for all of the following status codes: 400, 401, 402,
+403, 404, 405, 406, 407, 408, 409, 410, 411, 412, 413, 414, 415, 416, 417,
+418, 421, 426, 428, 429, 431, 451, 500, 501, 503, and 510. As such, catchers
+only need to be registered if an error needs to be handled in a custom
+fashion.</p>
+
+<h1 id='code-generation' class='section-header'><a href='#code-generation'>Code Generation</a></h1>
+<p>Catchers should rarely be used directly. Instead, they are typically
+declared using the <code>error</code> decorator, as follows:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>feature</span>(<span class='ident'>plugin</span>)]</span>
+<span class='attribute'>#<span class='op'>!</span>[<span class='ident'>plugin</span>(<span class='ident'>rocket_codegen</span>)]</span>
+
+<span class='kw'>extern</span> <span class='kw'>crate</span> <span class='ident'>rocket</span>;
+
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>Request</span>;
+
+<span class='attribute'>#[<span class='ident'>error</span>(<span class='number'>500</span>)]</span>
+<span class='kw'>fn</span> <span class='ident'>internal_error</span>() <span class='op'>-&gt;</span> <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;static</span> <span class='ident'>str</span> {
+    <span class='string'>&quot;Whoops! Looks like we messed up.&quot;</span>
+}
+
+<span class='attribute'>#[<span class='ident'>error</span>(<span class='number'>400</span>)]</span>
+<span class='kw'>fn</span> <span class='ident'>not_found</span>(<span class='ident'>req</span>: <span class='kw-2'>&amp;</span><span class='ident'>Request</span>) <span class='op'>-&gt;</span> <span class='ident'>String</span> {
+    <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;I couldn&#39;t find &#39;{}&#39;. Try something else?&quot;</span>, <span class='ident'>req</span>.<span class='ident'>uri</span>())
+}
+
+<span class='kw'>fn</span> <span class='ident'>main</span>() {
+    <span class='ident'>rocket</span>::<span class='ident'>ignite</span>().<span class='ident'>catch</span>(<span class='macro'>errors</span><span class='macro'>!</span>[<span class='ident'>internal_error</span>, <span class='ident'>not_found</span>]).<span class='ident'>launch</span>()
+}</pre>
+
+<p>A function decorated with <code>error</code> can take in 0, 1, or 2 parameters:
+<code>Error</code>, <code>&amp;Request</code>, or both, as desired.</p>
+</div><h2 class='fields'>Fields</h2><span id='structfield.code' class='structfield'>
+                           <span id='code.v' class='invisible'>
+                           <code>code: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a></code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The HTTP status code to match against.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../rocket/struct.Catcher.html' title='rocket::Catcher'>Catcher</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/rocket/catcher.rs.html#72-114' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>(code: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.u16.html'>u16</a>, handler: <a class='type' href='../rocket/type.ErrorHandler.html' title='rocket::ErrorHandler'>ErrorHandler</a>) -&gt; <a class='struct' href='../rocket/struct.Catcher.html' title='rocket::Catcher'>Catcher</a></code></span></h4>
+<div class='docblock'><p>Creates a catcher for the given status code using the given error
+handler. This should only be used when routing manually.</p>
+
+<h1 id='examples' class='section-header'><a href='#examples'>Examples</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::{<span class='ident'>Catcher</span>, <span class='ident'>Request</span>, <span class='ident'>Error</span>};
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>response</span>::{<span class='prelude-ty'>Result</span>, <span class='ident'>Responder</span>};
+
+<span class='kw'>fn</span> <span class='ident'>handle_404</span><span class='op'>&lt;</span><span class='lifetime'>&#39;r</span><span class='op'>&gt;</span>(_: <span class='ident'>Error</span>, <span class='ident'>req</span>: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;r</span> <span class='ident'>Request</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='lifetime'>&#39;r</span><span class='op'>&gt;</span> {
+   <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;Couldn&#39;t find: {}&quot;</span>, <span class='ident'>req</span>.<span class='ident'>uri</span>()).<span class='ident'>respond</span>()
+}
+
+<span class='kw'>fn</span> <span class='ident'>handle_500</span><span class='op'>&lt;</span><span class='lifetime'>&#39;r</span><span class='op'>&gt;</span>(_: <span class='ident'>Error</span>, _: <span class='kw-2'>&amp;</span><span class='lifetime'>&#39;r</span> <span class='ident'>Request</span>) <span class='op'>-&gt;</span> <span class='prelude-ty'>Result</span><span class='op'>&lt;</span><span class='lifetime'>&#39;r</span><span class='op'>&gt;</span> {
+    <span class='string'>&quot;Whoops, we messed up!&quot;</span>.<span class='ident'>respond</span>()
+}
+
+<span class='kw'>let</span> <span class='ident'>not_found_catcher</span> <span class='op'>=</span> <span class='ident'>Catcher</span>::<span class='ident'>new</span>(<span class='number'>404</span>, <span class='ident'>handle_404</span>);
+<span class='kw'>let</span> <span class='ident'>internal_server_error_catcher</span> <span class='op'>=</span> <span class='ident'>Catcher</span>::<span class='ident'>new</span>(<span class='number'>500</span>, <span class='ident'>handle_500</span>);</pre>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a> for <a class='struct' href='../rocket/struct.Catcher.html' title='rocket::Catcher'>Catcher</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/rocket/catcher.rs.html#123-127' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "rocket";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

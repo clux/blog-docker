@@ -1,5 +1,8 @@
 (function() {var implementors = {};
-implementors['rustc_serialize'] = [];implementors['handlebars'] = [];implementors['blog'] = ["impl <a class='trait' href='rustc_serialize/json/trait.ToJson.html' title='rustc_serialize::json::ToJson'>ToJson</a> for <a class='struct' href='blog/struct.MetaData.html' title='blog::MetaData'>MetaData</a>","impl <a class='trait' href='rustc_serialize/json/trait.ToJson.html' title='rustc_serialize::json::ToJson'>ToJson</a> for <a class='struct' href='blog/struct.Post.html' title='blog::Post'>Post</a>",];implementors['handlebars'] = [];implementors['blog'] = ["impl <a class='trait' href='rustc_serialize/json/trait.ToJson.html' title='rustc_serialize::json::ToJson'>ToJson</a> for <a class='struct' href='blog/struct.MetaData.html' title='blog::MetaData'>MetaData</a>","impl <a class='trait' href='rustc_serialize/json/trait.ToJson.html' title='rustc_serialize::json::ToJson'>ToJson</a> for <a class='struct' href='blog/struct.Post.html' title='blog::Post'>Post</a>",];
+implementors["hyper"] = [];
+implementors["rocket"] = [];
+implementors["rocket_contrib"] = [];
+implementors["rustc_serialize"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

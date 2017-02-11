@@ -1,1 +1,0 @@
-initSidebarItems({"struct":[["Mount","`Mount` is a simple mounting middleware."],["OriginalUrl","Exposes the original, unmodified path to be stored in `Request::extensions`."]]});

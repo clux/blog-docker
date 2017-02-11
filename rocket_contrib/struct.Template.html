@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `Template` struct in crate `rocket_contrib`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, Template">
+
+    <title>rocket_contrib::Template - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='index.html'>rocket_contrib</a></p><script>window.sidebarCurrent = {name: 'Template', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='index.html'>rocket_contrib</a>::<wbr><a class='struct' href=''>Template</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../src/rocket_contrib/templates/mod.rs.html#89' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct Template(_, _);</pre><div class='docblock'><p>The Template type implements generic support for template rendering in
+Rocket.</p>
+
+<p>Templating in Rocket words by first discovering all of the templates inside
+the template directory. The template directory is configurable via the
+<code>template_dir</code> configuration parameter and defaults to <code>templates/</code>. The
+path set in <code>template_dir</code> should be relative to the Rocket configuration
+file. See the <a href="https://rocket.rs/guide/overview/#configuration">configuration chapter</a>
+of the guide for more information on configuration.</p>
+
+<p>Templates are discovered according to their extension. At present, this
+library supports the following templates and extensions:</p>
+
+<ul>
+<li><strong>Tera</strong>: <code>.tera</code></li>
+<li><strong>Handlebars</strong>: <code>.hbs</code></li>
+</ul>
+
+<p>Any file that ends with one of these extension will be discovered and
+rendered with the corresponding templating engine. The name of the template
+will be the path to the template file relative to <code>template_dir</code> minus at
+most two extensions. The following are examples of template names (on the
+right) given that the template is at the path on the left.</p>
+
+<ul>
+<li><code>{template_dir}/index.html.hbs</code> =&gt; index</li>
+<li><code>{template_dir}/index.tera</code> =&gt; index</li>
+<li><code>{template_dir}/index.hbs</code> =&gt; index</li>
+<li><code>{template_dir}/dir/index.hbs</code> =&gt; dir/index</li>
+<li><code>{template_dir}/dir/index.html.tera</code> =&gt; dir/index</li>
+<li><code>{template_dir}/index.template.html.hbs</code> =&gt; index.template</li>
+<li><code>{template_dir}/subdir/index.template.html.hbs</code> =&gt; subdir/index.template</li>
+</ul>
+
+<p>The recommended naming scheme is to use two extensions: one for the file
+type, and one for the template extension. This means that template
+extensions should look like: <code>.html.hbs</code>, <code>.html.tera</code>, <code>.xml.hbs</code>, etc.</p>
+
+<p>Templates are rendered with the <code>render</code> method. The method takes in the
+name of a template and a context to render the template with. The context
+can be any type that implements <code>Serialize</code> from
+<a href="https://github.com/serde-rs/json">Serde</a> and would serialize to an <code>Object</code>
+value.</p>
+
+<h1 id='usage' class='section-header'><a href='#usage'>Usage</a></h1>
+<p>To use, add the <code>handlebars_templates</code> feature, the <code>tera_templates</code>
+feature, or both, to the <code>rocket_contrib</code> dependencies section of your
+<code>Cargo.toml</code>:</p>
+
+<pre class='rust rust-example-rendered'>
+[<span class='ident'>dependencies</span>.<span class='ident'>rocket_contrib</span>]
+<span class='ident'>version</span> <span class='op'>=</span> <span class='string'>&quot;*&quot;</span>
+<span class='ident'>default</span><span class='op'>-</span><span class='ident'>features</span> <span class='op'>=</span> <span class='bool-val'>false</span>
+<span class='ident'>features</span> <span class='op'>=</span> [<span class='string'>&quot;handlebars_templates&quot;</span>, <span class='string'>&quot;tera_templates&quot;</span>]</pre>
+
+<p>The Template type implements Rocket&#39;s <code>Responder</code> trait, so it can be
+returned from a request handler directly:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='attribute'>#[<span class='ident'>get</span>(<span class='string'>&quot;/&quot;</span>)]</span>
+<span class='kw'>fn</span> <span class='ident'>index</span>() <span class='op'>-&gt;</span> <span class='ident'>Template</span> {
+    <span class='kw'>let</span> <span class='ident'>context</span> <span class='op'>=</span> ...;
+    <span class='ident'>Template</span>::<span class='ident'>render</span>(<span class='string'>&quot;index&quot;</span>, <span class='kw-2'>&amp;</span><span class='ident'>context</span>)
+}</pre>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../rocket_contrib/struct.Template.html' title='rocket_contrib::Template'>Template</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/rocket_contrib/templates/mod.rs.html#129-169' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.render' class='method'><span id='render.v' class='invisible'><code>fn <a href='#method.render' class='fnname'>render</a>&lt;S, T&gt;(name: S, context: &amp;T) -&gt; <a class='struct' href='../rocket_contrib/struct.Template.html' title='rocket_contrib::Template'>Template</a> <span class='where fmt-newline'>where S: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.AsRef.html' title='core::convert::AsRef'>AsRef</a>&lt;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;, T: <a class='trait' href='../serde/ser/trait.Serialize.html' title='serde::ser::Serialize'>Serialize</a></span></code></span></h4>
+<div class='docblock'><p>Render the template named <code>name</code> with the context <code>context</code>. The
+<code>context</code> can be of any type that implements <code>Serialize</code>. This is
+typically a <code>HashMap</code> or a custom <code>struct</code>.</p>
+
+<h1 id='example' class='section-header'><a href='#example'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>collections</span>::<span class='ident'>HashMap</span>;
+<span class='kw'>use</span> <span class='ident'>rocket_contrib</span>::<span class='ident'>Template</span>;
+
+<span class='comment'>// Create a `context`. Here, just an empty `HashMap`.</span>
+<span class='kw'>let</span> <span class='kw-2'>mut</span> <span class='ident'>context</span> <span class='op'>=</span> <span class='ident'>HashMap</span>::<span class='ident'>new</span>();
+
+<span class='kw'>let</span> <span class='ident'>template</span> <span class='op'>=</span> <span class='ident'>Template</span>::<span class='ident'>render</span>(<span class='string'>&quot;index&quot;</span>, <span class='kw-2'>&amp;</span><span class='ident'>context</span>);</pre>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../rocket_contrib/struct.Template.html' title='rocket_contrib::Template'>Template</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/rocket_contrib/templates/mod.rs.html#88' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='../rocket/response/responder/trait.Responder.html' title='rocket::response::responder::Responder'>Responder</a>&lt;'static&gt; for <a class='struct' href='../rocket_contrib/struct.Template.html' title='rocket_contrib::Template'>Template</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/rocket_contrib/templates/mod.rs.html#174-186' title='goto source code'>[src]</a></span></h3>
+<div class='docblock'><p>Returns a response with the Content-Type derived from the template&#39;s
+extension and a fixed-size body containing the rendered template. If
+rendering fails, an <code>Err</code> of <code>Status::InternalServerError</code> is returned.</p>
+</div><div class='impl-items'><h4 id='method.respond' class='method'><span id='respond.v' class='invisible'><code>fn <a href='../rocket/response/responder/trait.Responder.html#tymethod.respond' class='fnname'>respond</a>(self) -&gt; <a class='type' href='../rocket/response/type.Result.html' title='rocket::response::Result'>Result</a>&lt;'static&gt;</code></span></h4>
+<div class='docblock'><p>Returns <code>Ok</code> if a <code>Response</code> could be generated successfully. Otherwise, returns an <code>Err</code> with a failing <code>Status</code>. <a href="../rocket/response/responder/trait.Responder.html#tymethod.respond">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a> for <a class='struct' href='../rocket_contrib/struct.Template.html' title='rocket_contrib::Template'>Template</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../src/rocket_contrib/templates/mod.rs.html#189-196' title='goto source code'>[src]</a></span></h3>
+<div class='docblock'><p>Renders <code>self</code>. If the template cannot be rendered, nothing is written.</p>
+</div><div class='impl-items'><h4 id='method.fmt-1' class='method'><span id='fmt.v-1' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../";
+        window.currentCrate = "rocket_contrib";
+    </script>
+    <script src="../jquery.js"></script>
+    <script src="../main.js"></script>
+    <script defer src="../search-index.js"></script>
+</body>
+</html>

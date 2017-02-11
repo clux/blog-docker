@@ -1,5 +1,8 @@
 (function() {var implementors = {};
-implementors['rustc_serialize'] = [];implementors['handlebars'] = [];implementors['handlebars'] = [];
+implementors["hyper"] = [];
+implementors["rocket"] = [];
+implementors["rocket_contrib"] = [];
+implementors["rustc_serialize"] = [];
 
             if (window.register_implementors) {
                 window.register_implementors(implementors);

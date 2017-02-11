@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="generator" content="rustdoc">
+    <meta name="description" content="API documentation for the Rust `ContentType` struct in crate `rocket`.">
+    <meta name="keywords" content="rust, rustlang, rust-lang, ContentType">
+
+    <title>rocket::http::ContentType - Rust</title>
+
+    <link rel="stylesheet" type="text/css" href="../../normalize.css">
+    <link rel="stylesheet" type="text/css" href="../../rustdoc.css">
+    <link rel="stylesheet" type="text/css" href="../../main.css">
+    
+
+    
+    
+</head>
+<body class="rustdoc">
+    <!--[if lte IE 8]>
+    <div class="warning">
+        This old browser is unsupported and will most likely display funky
+        things.
+    </div>
+    <![endif]-->
+
+    
+
+    <nav class="sidebar">
+        
+        <p class='location'><a href='../index.html'>rocket</a>::<wbr><a href='index.html'>http</a></p><script>window.sidebarCurrent = {name: 'ContentType', ty: 'struct', relpath: ''};</script><script defer src="sidebar-items.js"></script>
+    </nav>
+
+    <nav class="sub">
+        <form class="search-form js-only">
+            <div class="search-container">
+                <input class="search-input" name="search"
+                       autocomplete="off"
+                       placeholder="Click or press ‘S’ to search, ‘?’ for more options…"
+                       type="search">
+            </div>
+        </form>
+    </nav>
+
+    <section id='main' class="content struct">
+<h1 class='fqn'><span class='in-band'>Struct <a href='../index.html'>rocket</a>::<wbr><a href='index.html'>http</a>::<wbr><a class='struct' href=''>ContentType</a></span><span class='out-of-band'><span id='render-detail'>
+                   <a id="toggle-all-docs" href="javascript:void(0)" title="collapse all docs">
+                       [<span class='inner'>&#x2212;</span>]
+                   </a>
+               </span><a class='srclink' href='../../src/rocket/http/content_type.rs.html#42-49' title='goto source code'>[src]</a></span></h1>
+<pre class='rust struct'>pub struct ContentType {
+    pub ttype: UncasedAscii&lt;'static&gt;,
+    pub subtype: UncasedAscii&lt;'static&gt;,
+    pub params: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;UncasedAscii&lt;'static&gt;&gt;,
+}</pre><div class='docblock'><p>Representation of HTTP Content-Types.</p>
+
+<h1 id='usage' class='section-header'><a href='#usage'>Usage</a></h1>
+<p>ContentTypes should rarely be created directly. Instead, an associated
+constant should be used; one is declared for most commonly used content
+types.</p>
+
+<h2 id='example' class='section-header'><a href='#example'>Example</a></h2>
+<p>A Content-Type of <code>text/html; charset=utf-8</code> can be insantiated via the
+<code>HTML</code> constant:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>ContentType</span>;
+
+<span class='kw'>let</span> <span class='ident'>html</span> <span class='op'>=</span> <span class='ident'>ContentType</span>::<span class='ident'>HTML</span>;</pre>
+
+<h1 id='header' class='section-header'><a href='#header'>Header</a></h1>
+<p><code>ContentType</code> implements <code>Into&lt;Header&gt;</code>. As such, it can be used in any
+context where an <code>Into&lt;Header&gt;</code> is expected:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>ContentType</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>response</span>::<span class='ident'>Response</span>;
+
+<span class='kw'>let</span> <span class='ident'>response</span> <span class='op'>=</span> <span class='ident'>Response</span>::<span class='ident'>build</span>().<span class='ident'>header</span>(<span class='ident'>ContentType</span>::<span class='ident'>HTML</span>).<span class='ident'>finalize</span>();</pre>
+</div><h2 class='fields'>Fields</h2><span id='structfield.ttype' class='structfield'>
+                           <span id='ttype.v' class='invisible'>
+                           <code>ttype: UncasedAscii&lt;'static&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The &quot;type&quot; component of the Content-Type.</p>
+</div><span id='structfield.subtype' class='structfield'>
+                           <span id='subtype.v' class='invisible'>
+                           <code>subtype: UncasedAscii&lt;'static&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>The &quot;subtype&quot; component of the Content-Type.</p>
+</div><span id='structfield.params' class='structfield'>
+                           <span id='params.v' class='invisible'>
+                           <code>params: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;UncasedAscii&lt;'static&gt;&gt;</code>
+                           </span></span><span class='stab '></span><div class='docblock'><p>Semicolon-seperated parameters associated with the Content-Type.</p>
+</div><h2 id='methods'>Methods</h2><h3 class='impl'><span class='in-band'><code>impl <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/content_type.rs.html#101-257' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedconstant.Any' class='associatedconstant'><span id='Any.v' class='invisible'><code>const <a href='#associatedconstant.Any' class='constant'>Any</a>: <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> = ContentType{ttype: UncasedAscii{string: Cow::Borrowed(&quot;*&quot;),},
+            subtype: UncasedAscii{string: Cow::Borrowed(&quot;*&quot;),},
+            params: None,}</code></span></h4>
+<div class='docblock'><p><a href="struct.ContentType.html">ContentType</a> for <b>
+any
+</b>: <i>
+*
+/
+*
+</i></p>
+</div><h4 id='associatedconstant.HTML' class='associatedconstant'><span id='HTML.v' class='invisible'><code>const <a href='#associatedconstant.HTML' class='constant'>HTML</a>: <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> = ContentType{ttype: UncasedAscii{string: Cow::Borrowed(&quot;text&quot;),},
+            subtype: UncasedAscii{string: Cow::Borrowed(&quot;html&quot;),},
+            params:
+                Some(UncasedAscii{string: Cow::Borrowed(&quot;charset=utf-8&quot;),}),}</code></span></h4>
+<div class='docblock'><p><a href="struct.ContentType.html">ContentType</a> for <b>
+HTML
+</b>: <i>
+text
+/
+html
+; 
+charset=utf-8
+</i></p>
+</div><h4 id='associatedconstant.Plain' class='associatedconstant'><span id='Plain.v' class='invisible'><code>const <a href='#associatedconstant.Plain' class='constant'>Plain</a>: <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> = ContentType{ttype: UncasedAscii{string: Cow::Borrowed(&quot;text&quot;),},
+            subtype: UncasedAscii{string: Cow::Borrowed(&quot;plain&quot;),},
+            params:
+                Some(UncasedAscii{string: Cow::Borrowed(&quot;charset=utf-8&quot;),}),}</code></span></h4>
+<div class='docblock'><p><a href="struct.ContentType.html">ContentType</a> for <b>
+Plain
+</b>: <i>
+text
+/
+plain
+; 
+charset=utf-8
+</i></p>
+</div><h4 id='associatedconstant.JSON' class='associatedconstant'><span id='JSON.v' class='invisible'><code>const <a href='#associatedconstant.JSON' class='constant'>JSON</a>: <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> = ContentType{ttype: UncasedAscii{string: Cow::Borrowed(&quot;application&quot;),},
+            subtype: UncasedAscii{string: Cow::Borrowed(&quot;json&quot;),},
+            params: None,}</code></span></h4>
+<div class='docblock'><p><a href="struct.ContentType.html">ContentType</a> for <b>
+JSON
+</b>: <i>
+application
+/
+json
+</i></p>
+</div><h4 id='associatedconstant.Form' class='associatedconstant'><span id='Form.v' class='invisible'><code>const <a href='#associatedconstant.Form' class='constant'>Form</a>: <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> = ContentType{ttype: UncasedAscii{string: Cow::Borrowed(&quot;application&quot;),},
+            subtype:
+                UncasedAscii{string: Cow::Borrowed(&quot;x-www-form-urlencoded&quot;),},
+            params: None,}</code></span></h4>
+<div class='docblock'><p><a href="struct.ContentType.html">ContentType</a> for <b>
+form
+</b>: <i>
+application
+/
+x-www-form-urlencoded
+</i></p>
+</div><h4 id='associatedconstant.JavaScript' class='associatedconstant'><span id='JavaScript.v' class='invisible'><code>const <a href='#associatedconstant.JavaScript' class='constant'>JavaScript</a>: <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> = ContentType{ttype: UncasedAscii{string: Cow::Borrowed(&quot;application&quot;),},
+            subtype: UncasedAscii{string: Cow::Borrowed(&quot;javascript&quot;),},
+            params: None,}</code></span></h4>
+<div class='docblock'><p><a href="struct.ContentType.html">ContentType</a> for <b>
+JavaScript
+</b>: <i>
+application
+/
+javascript
+</i></p>
+</div><h4 id='associatedconstant.CSS' class='associatedconstant'><span id='CSS.v' class='invisible'><code>const <a href='#associatedconstant.CSS' class='constant'>CSS</a>: <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> = ContentType{ttype: UncasedAscii{string: Cow::Borrowed(&quot;text&quot;),},
+            subtype: UncasedAscii{string: Cow::Borrowed(&quot;css&quot;),},
+            params:
+                Some(UncasedAscii{string: Cow::Borrowed(&quot;charset=utf-8&quot;),}),}</code></span></h4>
+<div class='docblock'><p><a href="struct.ContentType.html">ContentType</a> for <b>
+CSS
+</b>: <i>
+text
+/
+css
+; 
+charset=utf-8
+</i></p>
+</div><h4 id='associatedconstant.DataForm' class='associatedconstant'><span id='DataForm.v' class='invisible'><code>const <a href='#associatedconstant.DataForm' class='constant'>DataForm</a>: <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> = ContentType{ttype: UncasedAscii{string: Cow::Borrowed(&quot;multipart&quot;),},
+            subtype: UncasedAscii{string: Cow::Borrowed(&quot;form-data&quot;),},
+            params: None,}</code></span></h4>
+<div class='docblock'><p><a href="struct.ContentType.html">ContentType</a> for <b>
+data form
+</b>: <i>
+multipart
+/
+form-data
+</i></p>
+</div><h4 id='associatedconstant.XML' class='associatedconstant'><span id='XML.v' class='invisible'><code>const <a href='#associatedconstant.XML' class='constant'>XML</a>: <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> = ContentType{ttype: UncasedAscii{string: Cow::Borrowed(&quot;text&quot;),},
+            subtype: UncasedAscii{string: Cow::Borrowed(&quot;xml&quot;),},
+            params:
+                Some(UncasedAscii{string: Cow::Borrowed(&quot;charset=utf-8&quot;),}),}</code></span></h4>
+<div class='docblock'><p><a href="struct.ContentType.html">ContentType</a> for <b>
+XML
+</b>: <i>
+text
+/
+xml
+; 
+charset=utf-8
+</i></p>
+</div><h4 id='associatedconstant.CSV' class='associatedconstant'><span id='CSV.v' class='invisible'><code>const <a href='#associatedconstant.CSV' class='constant'>CSV</a>: <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> = ContentType{ttype: UncasedAscii{string: Cow::Borrowed(&quot;text&quot;),},
+            subtype: UncasedAscii{string: Cow::Borrowed(&quot;csv&quot;),},
+            params:
+                Some(UncasedAscii{string: Cow::Borrowed(&quot;charset=utf-8&quot;),}),}</code></span></h4>
+<div class='docblock'><p><a href="struct.ContentType.html">ContentType</a> for <b>
+CSV
+</b>: <i>
+text
+/
+csv
+; 
+charset=utf-8
+</i></p>
+</div><h4 id='associatedconstant.PNG' class='associatedconstant'><span id='PNG.v' class='invisible'><code>const <a href='#associatedconstant.PNG' class='constant'>PNG</a>: <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> = ContentType{ttype: UncasedAscii{string: Cow::Borrowed(&quot;image&quot;),},
+            subtype: UncasedAscii{string: Cow::Borrowed(&quot;png&quot;),},
+            params: None,}</code></span></h4>
+<div class='docblock'><p><a href="struct.ContentType.html">ContentType</a> for <b>
+PNG
+</b>: <i>
+image
+/
+png
+</i></p>
+</div><h4 id='associatedconstant.GIF' class='associatedconstant'><span id='GIF.v' class='invisible'><code>const <a href='#associatedconstant.GIF' class='constant'>GIF</a>: <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> = ContentType{ttype: UncasedAscii{string: Cow::Borrowed(&quot;image&quot;),},
+            subtype: UncasedAscii{string: Cow::Borrowed(&quot;gif&quot;),},
+            params: None,}</code></span></h4>
+<div class='docblock'><p><a href="struct.ContentType.html">ContentType</a> for <b>
+GIF
+</b>: <i>
+image
+/
+gif
+</i></p>
+</div><h4 id='associatedconstant.BMP' class='associatedconstant'><span id='BMP.v' class='invisible'><code>const <a href='#associatedconstant.BMP' class='constant'>BMP</a>: <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> = ContentType{ttype: UncasedAscii{string: Cow::Borrowed(&quot;image&quot;),},
+            subtype: UncasedAscii{string: Cow::Borrowed(&quot;bmp&quot;),},
+            params: None,}</code></span></h4>
+<div class='docblock'><p><a href="struct.ContentType.html">ContentType</a> for <b>
+BMP
+</b>: <i>
+image
+/
+bmp
+</i></p>
+</div><h4 id='associatedconstant.JPEG' class='associatedconstant'><span id='JPEG.v' class='invisible'><code>const <a href='#associatedconstant.JPEG' class='constant'>JPEG</a>: <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> = ContentType{ttype: UncasedAscii{string: Cow::Borrowed(&quot;image&quot;),},
+            subtype: UncasedAscii{string: Cow::Borrowed(&quot;jpeg&quot;),},
+            params: None,}</code></span></h4>
+<div class='docblock'><p><a href="struct.ContentType.html">ContentType</a> for <b>
+JPEG
+</b>: <i>
+image
+/
+jpeg
+</i></p>
+</div><h4 id='associatedconstant.SVG' class='associatedconstant'><span id='SVG.v' class='invisible'><code>const <a href='#associatedconstant.SVG' class='constant'>SVG</a>: <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> = ContentType{ttype: UncasedAscii{string: Cow::Borrowed(&quot;image&quot;),},
+            subtype: UncasedAscii{string: Cow::Borrowed(&quot;svg+xml&quot;),},
+            params: None,}</code></span></h4>
+<div class='docblock'><p><a href="struct.ContentType.html">ContentType</a> for <b>
+SVG
+</b>: <i>
+image
+/
+svg+xml
+</i></p>
+</div><h4 id='associatedconstant.PDF' class='associatedconstant'><span id='PDF.v' class='invisible'><code>const <a href='#associatedconstant.PDF' class='constant'>PDF</a>: <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> = ContentType{ttype: UncasedAscii{string: Cow::Borrowed(&quot;application&quot;),},
+            subtype: UncasedAscii{string: Cow::Borrowed(&quot;pdf&quot;),},
+            params: None,}</code></span></h4>
+<div class='docblock'><p><a href="struct.ContentType.html">ContentType</a> for <b>
+PDF
+</b>: <i>
+application
+/
+pdf
+</i></p>
+</div><h4 id='method.is_known' class='method'><span id='is_known.v' class='invisible'><code>fn <a href='#method.is_known' class='fnname'>is_known</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if this ContentType is known to Rocket, that is,
+there is an associated constant for <code>self</code>.</p>
+</div><h4 id='method.is_any' class='method'><span id='is_any.v' class='invisible'><code>fn <a href='#method.is_any' class='fnname'>is_any</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if <code>self</code> is a <b>
+any
+</b> ContentType: <i>
+*
+</i>/<i>
+*
+</i>.</p>
+
+<p>Paramaters are not taken into account when doing this check.</p>
+</div><h4 id='method.is_html' class='method'><span id='is_html.v' class='invisible'><code>fn <a href='#method.is_html' class='fnname'>is_html</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if <code>self</code> is a <b>
+HTML
+</b> ContentType: <i>
+text
+</i>/<i>
+html
+</i>.</p>
+
+<p>Paramaters are not taken into account when doing this check.</p>
+</div><h4 id='method.is_plain' class='method'><span id='is_plain.v' class='invisible'><code>fn <a href='#method.is_plain' class='fnname'>is_plain</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if <code>self</code> is a <b>
+Plain
+</b> ContentType: <i>
+text
+</i>/<i>
+plain
+</i>.</p>
+
+<p>Paramaters are not taken into account when doing this check.</p>
+</div><h4 id='method.is_json' class='method'><span id='is_json.v' class='invisible'><code>fn <a href='#method.is_json' class='fnname'>is_json</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if <code>self</code> is a <b>
+JSON
+</b> ContentType: <i>
+application
+</i>/<i>
+json
+</i>.</p>
+
+<p>Paramaters are not taken into account when doing this check.</p>
+</div><h4 id='method.is_form' class='method'><span id='is_form.v' class='invisible'><code>fn <a href='#method.is_form' class='fnname'>is_form</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if <code>self</code> is a <b>
+form
+</b> ContentType: <i>
+application
+</i>/<i>
+x-www-form-urlencoded
+</i>.</p>
+
+<p>Paramaters are not taken into account when doing this check.</p>
+</div><h4 id='method.is_javascript' class='method'><span id='is_javascript.v' class='invisible'><code>fn <a href='#method.is_javascript' class='fnname'>is_javascript</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if <code>self</code> is a <b>
+JavaScript
+</b> ContentType: <i>
+application
+</i>/<i>
+javascript
+</i>.</p>
+
+<p>Paramaters are not taken into account when doing this check.</p>
+</div><h4 id='method.is_css' class='method'><span id='is_css.v' class='invisible'><code>fn <a href='#method.is_css' class='fnname'>is_css</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if <code>self</code> is a <b>
+CSS
+</b> ContentType: <i>
+text
+</i>/<i>
+css
+</i>.</p>
+
+<p>Paramaters are not taken into account when doing this check.</p>
+</div><h4 id='method.is_data_form' class='method'><span id='is_data_form.v' class='invisible'><code>fn <a href='#method.is_data_form' class='fnname'>is_data_form</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if <code>self</code> is a <b>
+data form
+</b> ContentType: <i>
+multipart
+</i>/<i>
+form-data
+</i>.</p>
+
+<p>Paramaters are not taken into account when doing this check.</p>
+</div><h4 id='method.is_xml' class='method'><span id='is_xml.v' class='invisible'><code>fn <a href='#method.is_xml' class='fnname'>is_xml</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if <code>self</code> is a <b>
+XML
+</b> ContentType: <i>
+text
+</i>/<i>
+xml
+</i>.</p>
+
+<p>Paramaters are not taken into account when doing this check.</p>
+</div><h4 id='method.is_csv' class='method'><span id='is_csv.v' class='invisible'><code>fn <a href='#method.is_csv' class='fnname'>is_csv</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if <code>self</code> is a <b>
+CSV
+</b> ContentType: <i>
+text
+</i>/<i>
+csv
+</i>.</p>
+
+<p>Paramaters are not taken into account when doing this check.</p>
+</div><h4 id='method.is_png' class='method'><span id='is_png.v' class='invisible'><code>fn <a href='#method.is_png' class='fnname'>is_png</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if <code>self</code> is a <b>
+PNG
+</b> ContentType: <i>
+image
+</i>/<i>
+png
+</i>.</p>
+
+<p>Paramaters are not taken into account when doing this check.</p>
+</div><h4 id='method.is_gif' class='method'><span id='is_gif.v' class='invisible'><code>fn <a href='#method.is_gif' class='fnname'>is_gif</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if <code>self</code> is a <b>
+GIF
+</b> ContentType: <i>
+image
+</i>/<i>
+gif
+</i>.</p>
+
+<p>Paramaters are not taken into account when doing this check.</p>
+</div><h4 id='method.is_bmp' class='method'><span id='is_bmp.v' class='invisible'><code>fn <a href='#method.is_bmp' class='fnname'>is_bmp</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if <code>self</code> is a <b>
+BMP
+</b> ContentType: <i>
+image
+</i>/<i>
+bmp
+</i>.</p>
+
+<p>Paramaters are not taken into account when doing this check.</p>
+</div><h4 id='method.is_jpeg' class='method'><span id='is_jpeg.v' class='invisible'><code>fn <a href='#method.is_jpeg' class='fnname'>is_jpeg</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if <code>self</code> is a <b>
+JPEG
+</b> ContentType: <i>
+image
+</i>/<i>
+jpeg
+</i>.</p>
+
+<p>Paramaters are not taken into account when doing this check.</p>
+</div><h4 id='method.is_svg' class='method'><span id='is_svg.v' class='invisible'><code>fn <a href='#method.is_svg' class='fnname'>is_svg</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if <code>self</code> is a <b>
+SVG
+</b> ContentType: <i>
+image
+</i>/<i>
+svg+xml
+</i>.</p>
+
+<p>Paramaters are not taken into account when doing this check.</p>
+</div><h4 id='method.is_pdf' class='method'><span id='is_pdf.v' class='invisible'><code>fn <a href='#method.is_pdf' class='fnname'>is_pdf</a>(&amp;self) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>Returns <code>true</code> if <code>self</code> is a <b>
+PDF
+</b> ContentType: <i>
+application
+</i>/<i>
+pdf
+</i>.</p>
+
+<p>Paramaters are not taken into account when doing this check.</p>
+</div><h4 id='method.from_extension' class='method'><span id='from_extension.v' class='invisible'><code>fn <a href='#method.from_extension' class='fnname'>from_extension</a>(ext: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a></code></span></h4>
+<div class='docblock'><p>Returns the Content-Type associated with the extension <code>ext</code>. Not all
+extensions are recognized. If an extensions is not recognized, then this
+method returns a ContentType of <code>Any</code>. The currently recognized
+extensions are: txt, html, htm, xml, js, css, json, png, gif, bmp, jpeg,
+jpg, and pdf.</p>
+
+<h1 id='example-1' class='section-header'><a href='#example-1'>Example</a></h1>
+<p>A recognized content type:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>ContentType</span>;
+
+<span class='kw'>let</span> <span class='ident'>xml</span> <span class='op'>=</span> <span class='ident'>ContentType</span>::<span class='ident'>from_extension</span>(<span class='string'>&quot;xml&quot;</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>xml</span>.<span class='ident'>is_xml</span>());</pre>
+
+<p>An unrecognized content type:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>ContentType</span>;
+
+<span class='kw'>let</span> <span class='ident'>foo</span> <span class='op'>=</span> <span class='ident'>ContentType</span>::<span class='ident'>from_extension</span>(<span class='string'>&quot;foo&quot;</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>foo</span>.<span class='ident'>is_any</span>());</pre>
+</div><h4 id='method.new' class='method'><span id='new.v' class='invisible'><code>fn <a href='#method.new' class='fnname'>new</a>&lt;T, S&gt;(ttype: T, subtype: S) -&gt; <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> <span class='where fmt-newline'>where T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='enum' href='https://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'static, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;, S: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='enum' href='https://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'static, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;</span></code></span></h4>
+<div class='docblock'><p>Creates a new <code>ContentType</code> with type <code>ttype</code> and subtype <code>subtype</code>.
+This should <em>only</em> be used to construct uncommon Content-Types or custom
+Content-Types. Use an associated constant for common Content-Types.</p>
+
+<h1 id='example-2' class='section-header'><a href='#example-2'>Example</a></h1>
+<p>Create a custom <code>application/x-person</code> Content-Type:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>ContentType</span>;
+
+<span class='kw'>let</span> <span class='ident'>custom</span> <span class='op'>=</span> <span class='ident'>ContentType</span>::<span class='ident'>new</span>(<span class='string'>&quot;application&quot;</span>, <span class='string'>&quot;x-person&quot;</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>custom</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;application/x-person&quot;</span>.<span class='ident'>to_string</span>());</pre>
+</div><h4 id='method.with_params' class='method'><span id='with_params.v' class='invisible'><code>fn <a href='#method.with_params' class='fnname'>with_params</a>&lt;T, S, P&gt;(ttype: T, subtype: S, params: <a class='enum' href='https://doc.rust-lang.org/nightly/core/option/enum.Option.html' title='core::option::Option'>Option</a>&lt;P&gt;) -&gt; <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a> <span class='where fmt-newline'>where T: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='enum' href='https://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'static, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;S: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='enum' href='https://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'static, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;P: <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='enum' href='https://doc.rust-lang.org/nightly/collections/borrow/enum.Cow.html' title='collections::borrow::Cow'>Cow</a>&lt;'static, <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;&gt;</span></code></span></h4>
+<div class='docblock'><p>Creates a new <code>ContentType</code> with type <code>ttype</code>, subtype <code>subtype</code>, and
+optionally parameters <code>params</code>, a semicolon-seperated list of
+parameters. This should be <em>only</em> to construct uncommon Content-Types or
+custom Content-Types. Use an associated constant for common
+Content-Types.</p>
+
+<h1 id='example-3' class='section-header'><a href='#example-3'>Example</a></h1>
+<p>Create a custom <code>application/x-id; id=1</code> Content-Type:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>ContentType</span>;
+
+<span class='kw'>let</span> <span class='ident'>id</span> <span class='op'>=</span> <span class='ident'>ContentType</span>::<span class='ident'>with_params</span>(<span class='string'>&quot;application&quot;</span>, <span class='string'>&quot;x-id&quot;</span>, <span class='prelude-val'>Some</span>(<span class='string'>&quot;id=1&quot;</span>));
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>id</span>.<span class='ident'>to_string</span>(), <span class='string'>&quot;application/x-id; id=1&quot;</span>.<span class='ident'>to_string</span>());</pre>
+</div><h4 id='method.params' class='method'><span id='params.v-1' class='invisible'><code>fn <a href='#method.params' class='fnname'>params</a>&lt;'a&gt;(&amp;'a self) -&gt; impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/iter/iterator/trait.Iterator.html' title='core::iter::iterator::Iterator'>Iterator</a>&lt;Item=<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>(</a>&amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>, &amp;'a <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a><a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>)</a>&gt; + 'a</code></span></h4>
+<div class='docblock'><p>Returns an iterator over the (key, value) pairs of the Content-Type&#39;s
+parameter list. The iterator will be empty if the Content-Type has no
+parameters.</p>
+
+<h1 id='example-4' class='section-header'><a href='#example-4'>Example</a></h1>
+<p>The <code>ContentType::Plain</code> type has one parameter: <code>charset=utf-8</code>:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>ContentType</span>;
+
+<span class='kw'>let</span> <span class='ident'>plain</span> <span class='op'>=</span> <span class='ident'>ContentType</span>::<span class='ident'>Plain</span>;
+<span class='kw'>let</span> <span class='ident'>plain_params</span>: <span class='ident'>Vec</span><span class='op'>&lt;</span>_<span class='op'>&gt;</span> <span class='op'>=</span> <span class='ident'>plain</span>.<span class='ident'>params</span>().<span class='ident'>collect</span>();
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>plain_params</span>, <span class='macro'>vec</span><span class='macro'>!</span>[(<span class='string'>&quot;charset&quot;</span>, <span class='string'>&quot;utf-8&quot;</span>)]);</pre>
+
+<p>The <code>ContentType::PNG</code> type has no parameters:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>ContentType</span>;
+
+<span class='kw'>let</span> <span class='ident'>png</span> <span class='op'>=</span> <span class='ident'>ContentType</span>::<span class='ident'>PNG</span>;
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>png</span>.<span class='ident'>params</span>().<span class='ident'>count</span>(), <span class='number'>0</span>);</pre>
+</div></div><h2 id='implementations'>Trait Implementations</h2><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html' title='core::hash::Hash'>Hash</a> for <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/content_type.rs.html#41' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.hash' class='method'><span id='hash.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#tymethod.hash' class='fnname'>hash</a>&lt;__H:&nbsp;<a class='trait' href='https://doc.rust-lang.org/nightly/core/hash/trait.Hasher.html' title='core::hash::Hasher'>Hasher</a>&gt;(&amp;self, __arg_0: &amp;mut __H)</code></span></h4>
+<div class='docblock'><p>Feeds this value into the state given, updating the hasher as necessary.</p>
+</div><h4 id='method.hash_slice' class='method'><span id='hash_slice.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/hash/trait.Hash.html#method.hash_slice' class='fnname'>hash_slice</a>&lt;H&gt;(data: <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.slice.html'>&amp;[Self]</a>, state: &amp;mut H) <span class='where fmt-newline'>where H: <a class='trait' href='https://doc.rust-lang.org/nightly/core/hash/trait.Hasher.html' title='core::hash::Hasher'>Hasher</a></span></code><div class='since' title='Stable since Rust version 1.3.0'>1.3.0</div></span></h4>
+<div class='docblock'><p>Feeds a slice of this type into the state provided.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html' title='core::cmp::PartialEq'>PartialEq</a> for <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/content_type.rs.html#41' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.eq' class='method'><span id='eq.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq' class='fnname'>eq</a>(&amp;self, __arg_0: &amp;<a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests for <code>self</code> and <code>other</code> values to be equal, and is used by <code>==</code>. <a href="https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#tymethod.eq">Read more</a></p>
+</div><h4 id='method.ne' class='method'><span id='ne.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/cmp/trait.PartialEq.html#method.ne' class='fnname'>ne</a>(&amp;self, __arg_0: &amp;<a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a>) -&gt; <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.bool.html'>bool</a></code></span></h4>
+<div class='docblock'><p>This method tests for <code>!=</code>.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html' title='core::clone::Clone'>Clone</a> for <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/content_type.rs.html#41' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.clone' class='method'><span id='clone.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone' class='fnname'>clone</a>(&amp;self) -&gt; <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a></code></span></h4>
+<div class='docblock'><p>Returns a copy of the value. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#tymethod.clone">Read more</a></p>
+</div><h4 id='method.clone_from' class='method'><span id='clone_from.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from' class='fnname'>clone_from</a>(&amp;mut self, source: &amp;Self)</code><div class='since' title='Stable since Rust version 1.0.0'>1.0.0</div></span></h4>
+<div class='docblock'><p>Performs copy-assignment from <code>source</code>. <a href="https://doc.rust-lang.org/nightly/core/clone/trait.Clone.html#method.clone_from">Read more</a></p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html' title='core::fmt::Debug'>Debug</a> for <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/content_type.rs.html#41' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt' class='method'><span id='fmt.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Debug.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, __arg_0: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the value using the given formatter.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html' title='core::default::Default'>Default</a> for <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/content_type.rs.html#259-265' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.default' class='method'><span id='default.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/default/trait.Default.html#tymethod.default' class='fnname'>default</a>() -&gt; <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a></code></span></h4>
+<div class='docblock'><p>Returns a ContentType of <code>Any</code>, or <code>*/*</code>.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/str/trait.FromStr.html' title='core::str::FromStr'>FromStr</a> for <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/content_type.rs.html#304-390' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Err' class='type'><span id='Err.t' class='invisible'><code>type <a href='https://doc.rust-lang.org/nightly/core/str/trait.FromStr.html#associatedtype.Err' class='type'>Err</a> = &amp;'static <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a></code></span></h4>
+<div class='docblock'><p>The associated error which can be returned from parsing.</p>
+</div><h4 id='method.from_str' class='method'><span id='from_str.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/str/trait.FromStr.html#tymethod.from_str' class='fnname'>from_str</a>(raw: &amp;<a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>) -&gt; <a class='enum' href='https://doc.rust-lang.org/nightly/core/result/enum.Result.html' title='core::result::Result'>Result</a>&lt;<a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a>, &amp;'static <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.str.html'>str</a>&gt;</code></span></h4>
+<div class='docblock'><p>Parses a ContentType from a given Content-Type header value.</p>
+
+<h1 id='examples' class='section-header'><a href='#examples'>Examples</a></h1>
+<p>Parsing an <code>application/json</code>:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>::<span class='ident'>FromStr</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>ContentType</span>;
+
+<span class='kw'>let</span> <span class='ident'>json</span> <span class='op'>=</span> <span class='ident'>ContentType</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;application/json&quot;</span>).<span class='ident'>unwrap</span>();
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>json</span>.<span class='ident'>is_known</span>());
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>json</span>, <span class='ident'>ContentType</span>::<span class='ident'>JSON</span>);</pre>
+
+<p>Parsing a content-type extension:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>::<span class='ident'>FromStr</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>ContentType</span>;
+
+<span class='kw'>let</span> <span class='ident'>custom</span> <span class='op'>=</span> <span class='ident'>ContentType</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;application/x-custom&quot;</span>).<span class='ident'>unwrap</span>();
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='op'>!</span><span class='ident'>custom</span>.<span class='ident'>is_known</span>());
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>custom</span>.<span class='ident'>ttype</span>, <span class='string'>&quot;application&quot;</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>custom</span>.<span class='ident'>subtype</span>, <span class='string'>&quot;x-custom&quot;</span>);</pre>
+
+<p>Parsing an invalid Content-Type value:</p>
+
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>std</span>::<span class='ident'>str</span>::<span class='ident'>FromStr</span>;
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>ContentType</span>;
+
+<span class='kw'>let</span> <span class='ident'>custom</span> <span class='op'>=</span> <span class='ident'>ContentType</span>::<span class='ident'>from_str</span>(<span class='string'>&quot;application//x-custom&quot;</span>);
+<span class='macro'>assert</span><span class='macro'>!</span>(<span class='ident'>custom</span>.<span class='ident'>is_err</span>());</pre>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html' title='core::fmt::Display'>Display</a> for <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/content_type.rs.html#392-412' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='method.fmt-1' class='method'><span id='fmt.v-1' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/fmt/trait.Display.html#tymethod.fmt' class='fnname'>fmt</a>(&amp;self, f: &amp;mut <a class='struct' href='https://doc.rust-lang.org/nightly/core/fmt/struct.Formatter.html' title='core::fmt::Formatter'>Formatter</a>) -&gt; <a class='type' href='https://doc.rust-lang.org/nightly/core/fmt/type.Result.html' title='core::fmt::Result'>Result</a></code></span></h4>
+<div class='docblock'><p>Formats the ContentType as an HTTP Content-Type value.</p>
+
+<h1 id='example-5' class='section-header'><a href='#example-5'>Example</a></h1>
+<pre class='rust rust-example-rendered'>
+<span class='kw'>use</span> <span class='ident'>rocket</span>::<span class='ident'>http</span>::<span class='ident'>ContentType</span>;
+
+<span class='kw'>let</span> <span class='ident'>ct</span> <span class='op'>=</span> <span class='macro'>format</span><span class='macro'>!</span>(<span class='string'>&quot;{}&quot;</span>, <span class='ident'>ContentType</span>::<span class='ident'>JSON</span>);
+<span class='macro'>assert_eq</span><span class='macro'>!</span>(<span class='ident'>ct</span>, <span class='string'>&quot;application/json&quot;</span>);</pre>
+</div></div><h3 class='impl'><span class='in-band'><code>impl <a class='trait' href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html' title='core::convert::Into'>Into</a>&lt;<a class='struct' href='../../rocket/http/struct.Header.html' title='rocket::http::Header'>Header</a>&lt;'static&gt;&gt; for <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/http/content_type.rs.html#416-421' title='goto source code'>[src]</a></span></h3>
+<div class='docblock'><p>Creates a new <code>Header</code> with name <code>Content-Type</code> and the value set to the
+HTTP rendering of this Content-Type.</p>
+</div><div class='impl-items'><h4 id='method.into' class='method'><span id='into.v' class='invisible'><code>fn <a href='https://doc.rust-lang.org/nightly/core/convert/trait.Into.html#tymethod.into' class='fnname'>into</a>(self) -&gt; <a class='struct' href='../../rocket/http/struct.Header.html' title='rocket::http::Header'>Header</a>&lt;'static&gt;</code></span></h4>
+<div class='docblock'><p>Performs the conversion.</p>
+</div></div><h3 class='impl'><span class='in-band'><code>impl&lt;'a, 'r&gt; <a class='trait' href='../../rocket/request/trait.FromRequest.html' title='rocket::request::FromRequest'>FromRequest</a>&lt;'a, 'r&gt; for <a class='struct' href='../../rocket/http/struct.ContentType.html' title='rocket::http::ContentType'>ContentType</a></code></span><span class='out-of-band'><div class='ghost'></div><a class='srclink' href='../../src/rocket/request/from_request.rs.html#215-224' title='goto source code'>[src]</a></span></h3>
+<div class='impl-items'><h4 id='associatedtype.Error' class='type'><span id='Error.t' class='invisible'><code>type <a href='../../rocket/request/trait.FromRequest.html#associatedtype.Error' class='type'>Error</a> = <a class='primitive' href='https://doc.rust-lang.org/nightly/std/primitive.tuple.html'>()</a></code></span></h4>
+<div class='docblock'><p>The associated error to be returned if derivation fails.</p>
+</div><h4 id='method.from_request' class='method'><span id='from_request.v' class='invisible'><code>fn <a href='../../rocket/request/trait.FromRequest.html#tymethod.from_request' class='fnname'>from_request</a>(request: &amp;'a <a class='struct' href='../../rocket/struct.Request.html' title='rocket::Request'>Request</a>&lt;'r&gt;) -&gt; <a class='type' href='../../rocket/request/type.Outcome.html' title='rocket::request::Outcome'>Outcome</a>&lt;Self, Self::<a class='trait' href='../../rocket/request/trait.FromRequest.html' title='rocket::request::FromRequest'>Error</a>&gt;</code></span></h4>
+<div class='docblock'><p>Derives an instance of <code>Self</code> from the incoming request metadata. <a href="../../rocket/request/trait.FromRequest.html#tymethod.from_request">Read more</a></p>
+</div></div></section>
+    <section id='search' class="content hidden"></section>
+
+    <section class="footer"></section>
+
+    <aside id="help" class="hidden">
+        <div>
+            <h1 class="hidden">Help</h1>
+
+            <div class="shortcuts">
+                <h2>Keyboard Shortcuts</h2>
+
+                <dl>
+                    <dt>?</dt>
+                    <dd>Show this help dialog</dd>
+                    <dt>S</dt>
+                    <dd>Focus the search field</dd>
+                    <dt>&larrb;</dt>
+                    <dd>Move up in search results</dd>
+                    <dt>&rarrb;</dt>
+                    <dd>Move down in search results</dd>
+                    <dt>&#9166;</dt>
+                    <dd>Go to active search result</dd>
+                    <dt>+</dt>
+                    <dd>Collapse/expand all sections</dd>
+                </dl>
+            </div>
+
+            <div class="infos">
+                <h2>Search Tricks</h2>
+
+                <p>
+                    Prefix searches with a type followed by a colon (e.g.
+                    <code>fn:</code>) to restrict the search to a given type.
+                </p>
+
+                <p>
+                    Accepted types are: <code>fn</code>, <code>mod</code>,
+                    <code>struct</code>, <code>enum</code>,
+                    <code>trait</code>, <code>type</code>, <code>macro</code>,
+                    and <code>const</code>.
+                </p>
+
+                <p>
+                    Search functions by type signature (e.g.
+                    <code>vec -> usize</code> or <code>* -> vec</code>)
+                </p>
+            </div>
+        </div>
+    </aside>
+
+    
+
+    <script>
+        window.rootPath = "../../";
+        window.currentCrate = "rocket";
+    </script>
+    <script src="../../jquery.js"></script>
+    <script src="../../main.js"></script>
+    <script defer src="../../search-index.js"></script>
+</body>
+</html>
