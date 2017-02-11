@@ -5,6 +5,7 @@ use serde_json;
 use std::collections::BTreeMap;
 use std::path::Path;
 use std::fs::File;
+use std::vec::Vec;
 use std::io::Read;
 
 use errors::*;
@@ -33,9 +34,14 @@ pub struct Post {
     pub summary: String,
 }
 
-
-/// Convenience alias
-pub type PostMap = BTreeMap<String, Post>;
+/// All the data we have in posts/
+#[derive(Serialize, Deserialize, Clone)]
+pub struct DataBase {
+    /// All the posts indexed by slug
+    pub posts: BTreeMap<String, Post>,
+    /// All the posts in a tera-iterable format
+    pub post_list: Vec<Post>,
+}
 
 fn parse_markdown(data: &String) -> Result<String> {
     use hoedown::{self, Markdown, Render, Extension};
@@ -107,9 +113,10 @@ fn load_post(slug: &str) -> Result<(String, String)> {
 ///
 /// By globbing for `data.json` in subdirectories, we can find the all they keys
 /// and metadata. By reading the `README.md` and converting it to HTML via `hoedown`
-/// we can build up the values of `PostMap`.
-pub fn load_posts() -> Result<PostMap> {
-    let mut map = PostMap::new();
+/// we can build up the values of `DataBase`.
+pub fn load_posts() -> Result<DataBase> {
+    let mut map = BTreeMap::new();
+    let mut vec = vec![];
     let entries = glob("posts/*/data.json")
         .chain_err(|| "Failed to glob for posts")?;
     for entry in entries { // iterate over Result objects from Glob
@@ -125,9 +132,10 @@ pub fn load_posts() -> Result<PostMap> {
             summary: summary,
             html: html,
         };
-        map.insert(slug, post);
+        map.insert(slug, post.clone());
+        vec.push(post);
     }
-    Ok(map)
+    Ok(DataBase { posts: map, post_list: vec })
 }
 
 #[cfg(test)]

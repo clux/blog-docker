@@ -11,20 +11,19 @@ use rocket::State;
 use rocket_contrib::Template;
 use rocket::response::Failure;
 
-use blog::PostMap;
+use blog::DataBase;
 use std::process;
 use std::path::{Path, PathBuf};
 
 #[get("/")]
-fn index(db: State<PostMap>) -> Template {
-    // TODO: render this properly
+fn index(db: State<DataBase>) -> Template {
     Template::render("index", &db.clone())
 }
 
 #[get("/<slug>")]
-fn entry(db: State<PostMap>, slug: &str) -> Result<Template, Failure> {
-    // http://localhost:8000/e/2013-03-20-colemak
-    if let Some(post) = db.get(slug) {
+fn entry(db: State<DataBase>, slug: &str) -> Result<Template, Failure> {
+    // http://localhost:8000/2013-03-20-colemak
+    if let Some(post) = db.posts.get(slug) {
         Ok(Template::render("entry", &post))
     } else {
         Err(Failure(Status::NotFound))
@@ -51,11 +50,11 @@ fn main() {
             process::exit(1);
         })
         .unwrap();
-    if db.is_empty() {
+    if db.posts.is_empty() {
         println!("No posts found in posts/ - clone posts repo first");
         process::exit(1);
     }
-    println!("Loaded {} posts", db.len());
+    println!("Loaded {} posts", db.posts.len());
 
     rocket::ignite()
         .manage(db)

@@ -39,7 +39,7 @@ extern crate hoedown;
 extern crate regex;
 
 //pub use errors::BlogResult;
-pub use data::{Post, MetaData, PostMap, load_posts};
+pub use data::{Post, MetaData, DataBase, load_posts};
 
 mod data;
 

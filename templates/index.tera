@@ -1,0 +1,11 @@
+<h1> Recent</h1>
+
+<ul>
+  {% for post in post_list %}
+    <li>
+      <h2><a href="{{post.info.slug}}">{{post.info.title}}</a></h2>
+      <h6>posted {{post.info.date}} by  <a href="/about/">clux</a>.</h6>
+      {{ post.summary }}
+    </li>
+  {% endfor %}
+</ul>
