@@ -10,9 +10,8 @@ use rocket::http::Status;
 use rocket::State;
 use rocket_contrib::Template;
 use rocket::response::Failure;
-
 use blog::DataBase;
-use std::process;
+
 use std::path::{Path, PathBuf};
 
 #[get("/")]
@@ -35,16 +34,13 @@ fn files(file: PathBuf) -> Option<NamedFile> {
 }
 
 fn main() {
-    // Load posts
+    use std::process;
     let db = blog::load_posts()
         .map_err(|e| {
             println!("Failed to load posts: {}", e);
             for e in e.iter().skip(1) {
                 println!("Caused by: {}", e);
             }
-            //if let Some(backtrace) = e.backtrace() {
-            //    println!("backtrace: {:?}", backtrace);
-            //}
             process::exit(1);
         })
         .unwrap();

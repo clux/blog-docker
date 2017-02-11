@@ -2,7 +2,8 @@
 //! depends on to get posts, and convert markdown to html properly.
 //!
 //! For documentation on using the blog binary, see
-//! [the main readme](https://github.com/clux/blog/blob/rust/README.md)
+//! [the main readme](https://github.com/clux/blog/blob/rust/README.md).
+//! The [entry point is main.rs](https://github.com/clux/blog/blob/rust/src/main.rs).
 //!
 //! ## Strategy
 //! All markdown files are read at startup by globbing for README.md in
