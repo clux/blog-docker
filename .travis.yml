@@ -3,19 +3,19 @@ services:
 - docker
 language: rust
 rust:
-- stable
+- nightly
 before_script:
 - pip install 'travis-cargo<0.2' --user
 - export PATH=$HOME/.local/bin:$PATH
 - git clone https://github.com/clux/posts.git
 - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-- docker pull clux/muslrust
+- docker pull clux/muslrust:nightly
 script:
 - travis-cargo build
 - travis-cargo test
 - travis-cargo bench
 - travis-cargo --only stable doc
-- docker run --rm -v $PWD:/volume -w /volume -t clux/muslrust cargo build --release
+- docker run --rm -v $PWD:/volume -w /volume -t clux/muslrust:nightly cargo build --release
 - docker build -t clux/blog .
 - docker run -p 8000:8000 --name=blog -t clux/blog &
 - sleep 1
