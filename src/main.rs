@@ -22,7 +22,6 @@ fn index(db: State<DataBase>) -> Template {
 
 #[get("/<slug>")]
 fn entry(db: State<DataBase>, slug: &str) -> Result<Template, Failure> {
-    // http://localhost:8000/2013-03-20-colemak
     if let Some(post) = db.posts.get(slug) {
         Ok(Template::render("entry", &post))
     } else {
@@ -32,7 +31,6 @@ fn entry(db: State<DataBase>, slug: &str) -> Result<Template, Failure> {
 
 #[get("/<file..>")]
 fn files(file: PathBuf) -> Option<NamedFile> {
-    // http://localhost:8000/static/2013-03-20-colemak/Colemak_fingers-600.png
     NamedFile::open(Path::new("posts/").join(file)).ok()
 }
 

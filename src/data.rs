@@ -117,14 +117,20 @@ fn load_post(slug: &str) -> Result<(String, String)> {
 pub fn load_posts() -> Result<DataBase> {
     let mut map = BTreeMap::new();
     let mut vec = vec![];
+    // TODO: warn on subdirectories of posts/ not containing data.json
     let entries = glob("posts/*/data.json")
         .chain_err(|| "Failed to glob for posts")?;
+
     for entry in entries { // iterate over Result objects from Glob
         let pth = entry.chain_err(|| "Failed to glob path")?;
-        let mut f = File::open(pth).chain_err(|| "Failed to read file")?;
+        let resource = pth.display().to_string();
+        let mut f = File::open(pth)
+            .chain_err(|| format!("Failed to open {}", resource))?;
         let mut data = String::new();
-        f.read_to_string(&mut data).chain_err(|| "Failed to read file")?;
-        let meta: MetaData = serde_json::from_str(&data).chain_err(|| "Failed to deserialize file")?;
+        f.read_to_string(&mut data)
+            .chain_err(|| format!("Failed to read {}", resource))?;
+        let meta: MetaData = serde_json::from_str(&data)
+            .chain_err(|| format!("Failed to deserialize {}", resource))?;
         let slug = meta.slug.clone();
         let (html, summary) = load_post(&slug)?;
         let post = Post {

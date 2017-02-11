@@ -10,5 +10,5 @@ if [[ "$1" == "build" ]]; then
   docker build -t clux/blog .
 elif [[ "$1" == "run" ]]; then
   trap stop_blog SIGINT
-  docker run -p 8000:8000 --name=blog -t clux/blog
+  docker run -p 8000:80 --name=blog -t clux/blog
 fi

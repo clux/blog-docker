@@ -15,14 +15,7 @@
 //!
 //! ## Serving
 //! The main blog engine would be in the binary, and that's the only
-//! thing that is depending on `iron` and its ecosystem. It has thus far
-//! seemed the most stable, and it has the most feature support of
-//! normal web app stuff like templates, databases, routers and loggers.
-//!
-//! ## Docker
-//! End goal is to have a 5 MB docker image that contains everything.
-//! This is achieved almost entirely by compiling it with musl, and by
-//! building a docker image 'FROM scratch' with the static binary copied.
+//! thing that is depending on `rocket` and its ecosystem.
 //!
 
 #![recursion_limit = "1024"]
