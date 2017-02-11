@@ -15,25 +15,28 @@
 //!
 //! ## Serving
 //! The main blog engine would be in the binary, and that's the only
-//! thing that is depending on `iron` and its ecosystem. It has thus far
-//! seemed the most stable, and it has the most feature support of
-//! normal web app stuff like templates, databases, routers and loggers.
+//! thing that is depending on `rocket` and its ecosystem.
 //!
-//! ## Docker
-//! End goal is to have a 5 MB docker image that contains everything.
-//! This is achieved almost entirely by compiling it with musl, and by
-//! building a docker image 'FROM scratch' with the static binary copied.
-//!
+
+#![recursion_limit = "1024"]
+#[macro_use]
+extern crate error_chain;
+
+
+#[macro_use]
+extern crate serde_derive;
+extern crate serde_json;
 
 extern crate glob;
 extern crate hoedown;
-extern crate rustc_serialize;
 extern crate regex;
-#[macro_use]
-extern crate log;
 
-pub use errors::BlogResult;
-pub use data::{Post, MetaData, PostMap, load_posts};
+//pub use errors::BlogResult;
+pub use data::{Post, MetaData, DataBase, load_posts};
 
-mod errors;
 mod data;
+
+mod errors {
+    // Create the Error, ErrorKind, ResultExt, and Result types
+    error_chain! { }
+}

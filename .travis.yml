@@ -3,32 +3,20 @@ services:
 - docker
 language: rust
 rust:
-- stable
+- nightly
 before_script:
-- pip install 'travis-cargo<0.2' --user
-- export PATH=$HOME/.local/bin:$PATH
 - git clone https://github.com/clux/posts.git
 - docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 - docker pull clux/muslrust
 script:
-- travis-cargo build
-- travis-cargo test
-- travis-cargo bench
-- travis-cargo --only stable doc
+- cargo test
 - docker run --rm -v $PWD:/volume -w /volume -t clux/muslrust cargo build --release
 - docker build -t clux/blog .
-- docker run -p 8000:8000 --name=blog -t clux/blog &
+- docker run -d -p 8000:80 --name=blog -t clux/blog
 - sleep 1
 - curl -s localhost:8000 | grep -q "<ul>"
 - docker rm -f blog
-addons:
-  apt:
-    packages:
-    - libcurl4-openssl-dev
-    - libelf-dev
-    - libdw-dev
 after_success:
-- travis-cargo coveralls --no-sudo
 - docker push clux/blog
 after_script:
 - docker logout
