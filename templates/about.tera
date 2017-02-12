@@ -1,0 +1,37 @@
+{% extends "base" %}
+
+{% block title %}clux/blog about{% endblock title %}
+
+{% block content %}
+<article>
+  <header>
+    <h1>About</h1>
+  </header>
+  <section>
+    This website is a personal learning project and has little fresh content.
+    It is, however, a quite interesting piece of machinery behind it.
+  </section>
+  <section>
+    <p>The key features it uses are:<p>
+    <ul>
+      <li>rust-lang</li>
+      <li>rocket.rs</li>
+      <li>docker</li>
+      <li>musl-libc</li>
+      <li>github</li>
+      <li>markdown</li>
+      <li>latex</li>
+      <li>html5</li>
+      <li>css3</li>
+    </ul>
+  </section>
+
+  <section>
+    <p>Please report bugs or post issues at:</p>
+    <ul>
+      <li><a href="https://github.com/clux/blog/issues">blog</a></li>
+      <li><a href="https://github.com/clux/posts/issues">posts</a></li>
+    </ul>
+  </section>
+</article>
+{% endblock content %}

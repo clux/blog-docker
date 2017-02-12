@@ -21,7 +21,13 @@
 
 
 {% block content %}
-<h2><a href="{{info.slug}}">{{info.title}}</a></h2>
-<h6>posted {{info.date}} by  <a href="/about/">clux</a>.</h6>
-{{ html }}
+<article>
+  <header>
+    <h2><a href="{{info.slug}}">{{info.title}}</a></h2>
+    <h6>posted {{info.date}} by <a href="/about/">clux</a>.</h6>
+  </header>
+  <section>
+    {{ html }}
+  </section>
+</article>
 {% endblock content %}

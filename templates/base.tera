@@ -1,11 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <!-- <link rel="stylesheet" href="style.css" />-->
-    <title>{% block title %}{% endblock title %} - clux</title>
-    {% block head %}{% endblock head %}
-</head>
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="apple-touch-icon" href="apple-touch-icon.png">
+
+        <link rel="stylesheet" href="/css/normalize.min.css">
+        <link rel="stylesheet" href="/css/main.css">
+        <title>{% block title %}{% endblock title %} - clux</title>
+        {% block head %}{% endblock head %}
+
+        <!--[if lt IE 9]>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
+            <script>window.html5 || document.write('<script src="/js/vendor/html5shiv.js"><\/script>')</script>
+        <![endif]-->
+    </head>
 <body>
-    <div id="content">{% block content %}{% endblock content %}</div>
-</body>
+      <!--[if lt IE 8]>
+            <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+        <div class="header-container">
+            <header class="wrapper clearfix">
+                <h1 class="title"><a href="/e">clux/blog</a></h1>
+                <nav>
+                    <ul>
+                        <li><a href="/e">entries</a></li>
+                        <li><a href="/about">about</a></li>
+                    </ul>
+                </nav>
+            </header>
+        </div>
+
+        <div class="main-container">
+            <div class="main wrapper clearfix">
+                {% block content %}{% endblock content %}
+
+                {% block aside %}
+                {% endblock aside %}
+
+            </div> <!-- #main -->
+        </div> <!-- #main-container -->
+
+
+
+        <script src="/js/main.js"></script>
+    </body>
+    </body>
 </html>
