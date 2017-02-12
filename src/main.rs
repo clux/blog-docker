@@ -5,14 +5,25 @@ extern crate rocket_contrib;
 
 extern crate blog;
 
-use rocket::response::NamedFile;
+use rocket::response::{NamedFile, Redirect, Failure};
 use rocket::http::Status;
 use rocket::State;
 use rocket_contrib::Template;
-use rocket::response::Failure;
+
 use blog::DataBase;
 
+use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
+
+// main /
+
+#[get("/")]
+fn root() -> Redirect {
+    Redirect::to("/e")
+}
+
+
+// /e
 
 #[get("/")]
 fn index(db: State<DataBase>) -> Template {
@@ -28,9 +39,25 @@ fn entry(db: State<DataBase>, slug: &str) -> Result<Template, Failure> {
     }
 }
 
+// /static
+
 #[get("/<file..>")]
 fn files(file: PathBuf) -> Option<NamedFile> {
-    NamedFile::open(Path::new("posts/").join(file)).ok()
+    NamedFile::open(Path::new("posts").join(file)).ok()
+}
+
+// stuff under root:
+
+#[get("/about")]
+fn about() -> Template {
+    // apparently you have to feed Template something
+    let noop : BTreeMap<String, String> = BTreeMap::new();
+    Template::render("about", &noop)
+}
+
+#[get("/<file..>")]
+fn resources(file: PathBuf) -> Option<NamedFile> {
+    NamedFile::open(Path::new("resources").join(file)).ok()
 }
 
 fn main() {
@@ -52,7 +79,8 @@ fn main() {
 
     rocket::ignite()
         .manage(db)
-        .mount("/", routes![index, entry])
+        .mount("/e/", routes![index, entry])
         .mount("/static/", routes![files])
+        .mount("/", routes![root, about, resources]) // misc resources under root
         .launch();
 }

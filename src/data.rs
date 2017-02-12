@@ -116,7 +116,6 @@ fn load_post(slug: &str) -> Result<(String, String)> {
 /// we can build up the values of `DataBase`.
 pub fn load_posts() -> Result<DataBase> {
     let mut map = BTreeMap::new();
-    let mut vec = vec![];
     // TODO: warn on subdirectories of posts/ not containing data.json
     let entries = glob("posts/*/data.json")
         .chain_err(|| "Failed to glob for posts")?;
@@ -138,9 +137,10 @@ pub fn load_posts() -> Result<DataBase> {
             summary: summary,
             html: html,
         };
-        map.insert(slug, post.clone());
-        vec.push(post);
+        map.insert(slug, post);
     }
+    let mut vec : Vec<Post> = map.values().cloned().collect();
+    vec.reverse();
     Ok(DataBase { posts: map, post_list: vec })
 }
 

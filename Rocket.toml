@@ -1,18 +1,18 @@
 [development]
 address = "localhost"
 port = 8000
-workers = 2
+workers = 4
 log = "normal"
 template_dir = "templates/"
 
 [staging]
 address = "0.0.0.0"
 port = 80
-workers = 2
+workers = 4
 log = "normal"
 
 [production]
 address = "0.0.0.0"
 port = 80
-workers = 2
+workers = 4
 log = "critical"
