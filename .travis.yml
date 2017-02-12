@@ -15,7 +15,7 @@ script:
 - docker build -t clux/blog .
 - docker run -d -p 8000:80 --name=blog -t clux/blog
 - sleep 1
-- curl -s localhost:8000 | grep -q "<ul>"
+- curl -sSL localhost:8000 | grep -q "<div>"
 - docker rm -f blog
 after_success:
 - docker push clux/blog
