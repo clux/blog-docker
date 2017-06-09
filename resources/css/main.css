@@ -57,7 +57,12 @@ textarea {
    ========================================================================== */
 
 body {
-    font: 16px/26px Helvetica, Helvetica Neue, Arial;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px/26px;
+}
+
+code {
+    font-family: 'Roboto Mono', monospace;
 }
 
 .wrapper {
@@ -73,14 +78,12 @@ body {
     border-bottom: 20px solid #e44d26;
 }
 
-.footer-container,
-.main aside {
+.footer-container {
     border-top: 20px solid #e44d26;
 }
 
 .header-container,
-.footer-container,
-.main aside {
+.footer-container {
     background: #f16529;
 }
 
@@ -130,11 +133,6 @@ nav a:hover {
 
 .main article h1 {
     font-size: 2em;
-}
-
-.main aside {
-    color: white;
-    padding: 0px 5% 10px;
 }
 
 .footer-container footer {
@@ -213,8 +211,7 @@ nav a:hover {
     WIDE: CSS3 Effects
    ==================== */
 
-    .header-container,
-    .main aside {
+    .header-container {
         -webkit-box-shadow: 0 5px 10px #aaa;
            -moz-box-shadow: 0 5px 10px #aaa;
                 box-shadow: 0 5px 10px #aaa;
@@ -239,13 +236,9 @@ nav a:hover {
 
     .main article {
         float: left;
-        width: 57%;
+        width: 80%;
     }
 
-    .main aside {
-        float: right;
-        width: 28%;
-    }
 }
 
 @media only screen and (min-width: 1140px) {
