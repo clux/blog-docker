@@ -9,14 +9,14 @@
         <link rel="apple-touch-icon" href="apple-touch-icon.png">
 
         <link href="https://fonts.googleapis.com/css?family=Roboto|Roboto+Mono" rel="stylesheet">
-        <link rel="stylesheet" href="/css/normalize.min.css">
-        <link rel="stylesheet" href="/css/main.css">
+        <link rel="stylesheet" href="/dist/css/normalize.min.css">
+        <link rel="stylesheet" href="/dist/css/main.css">
         <title>{% block title %}{% endblock title %} - clux</title>
         {% block head %}{% endblock head %}
 
         <!--[if lt IE 9]>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
-            <script>window.html5 || document.write('<script src="/js/vendor/html5shiv.js"><\/script>')</script>
+            <script>window.html5 || document.write('<script src="/dist/js/vendor/html5shiv.js"><\/script>')</script>
         <![endif]-->
     </head>
 <body>
@@ -45,7 +45,7 @@
 
 
 
-        <script src="/js/main.js"></script>
+        <script src="/dist/js/main.js"></script>
     </body>
     </body>
 </html>

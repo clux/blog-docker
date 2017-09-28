@@ -31,8 +31,8 @@ fn index(db: State<DataBase>) -> Template {
 }
 
 #[get("/<slug>")]
-fn entry(db: State<DataBase>, slug: &str) -> Result<Template, Failure> {
-    if let Some(post) = db.posts.get(slug) {
+fn entry(db: State<DataBase>, slug: String) -> Result<Template, Failure> {
+    if let Some(post) = db.posts.get(&slug) {
         Ok(Template::render("entry", &post))
     } else {
         Err(Failure(Status::NotFound))
@@ -45,8 +45,6 @@ fn entry(db: State<DataBase>, slug: &str) -> Result<Template, Failure> {
 fn files(file: PathBuf) -> Option<NamedFile> {
     NamedFile::open(Path::new("posts").join(file)).ok()
 }
-
-// stuff under root:
 
 #[get("/about")]
 fn about() -> Template {
@@ -79,8 +77,10 @@ fn main() {
 
     rocket::ignite()
         .manage(db)
-        .mount("/e/", routes![index, entry])
         .mount("/static/", routes![files])
-        .mount("/", routes![root, about, resources]) // misc resources under root
+        .mount("/dist/", routes![resources])
+        .mount("/", routes![root, about]) // misc resources under root
+        .mount("/e/", routes![index, entry])
+        .attach(Template::fairing())
         .launch();
 }

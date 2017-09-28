@@ -25,7 +25,7 @@ Clone this repo, the dependent post repo, then build and link.
 ```sh
 git clone git@github.com:clux/blog.git && cd blog
 git clone git@github.com:clux/posts.git
-rustup override set nightly
+rustup override set $(cat .rustup)
 rustup update
 cargo build
 cargo run
