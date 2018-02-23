@@ -14,8 +14,10 @@ Pull docker image and run:
 
 ```sh
 docker pull clux/blog
-docker run -p 80:8000 -t clux/blog
+docker run -p 8000:80 -t --rm clux/blog
 ```
+
+Once the container is running, open http://localhost:8000/ in your web browser.
 
 The production build of this blog is entirely self-contained (`FROM scratch` - statically linked using [muslrust](https://github.com/clux/muslrust)), and uses no database.
 
