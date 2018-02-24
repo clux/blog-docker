@@ -7,7 +7,7 @@ rust:
 cache: cargo
 before_script:
 - git clone https://github.com/clux/posts.git
-- docker login -e="$DOCKER_EMAIL" -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
+- docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
 - docker pull clux/muslrust
 script:
 - cargo test
