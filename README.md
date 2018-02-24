@@ -17,7 +17,7 @@ docker pull clux/blog
 docker run -p 8000:80 -t --rm clux/blog
 ```
 
-Once the container is running, open http://localhost:8000/ in your web browser.
+Once the container is running, open http://0.0.0.0:8000/ in your web browser.
 
 The production build of this blog is entirely self-contained (`FROM scratch` - statically linked using [muslrust](https://github.com/clux/muslrust)), and uses no database.
 
@@ -28,7 +28,6 @@ Clone this repo, the dependent post repo, then build and link.
 git clone git@github.com:clux/blog.git && cd blog
 git clone git@github.com:clux/posts.git
 rustup override set $(cat .rustup)
-rustup update
 cargo build
 cargo run
 ```
@@ -40,4 +39,11 @@ cargo run
 cargo fmt
 cargo test
 cargo doc
+```
+
+Check that the docker version works:
+
+```sh
+make build
+make start
 ```

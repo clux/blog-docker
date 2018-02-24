@@ -8,17 +8,15 @@ cache: cargo
 before_script:
 - git clone https://github.com/clux/posts.git
 - docker login -u="$DOCKER_USERNAME" -p="$DOCKER_PASSWORD"
-- docker pull clux/muslrust
+- docker pull clux/muslrust:nightly
 script:
 - cargo test
-- docker run --rm -v $PWD:/volume -w /volume -t clux/muslrust cargo build --release
-- docker build -t clux/blog .
-- docker run -d -p 8000:80 --name=blog -t clux/blog
-- sleep 1
-- curl -sSL localhost:8000 | grep "<body>"
-- docker rm -f blog
+- make build
+- make start
+- make stop
 after_success:
-- docker push clux/blog
+- make tag-latest
+- make tag-semver
 after_script:
 - docker logout
 notifications:
