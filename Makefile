@@ -14,8 +14,8 @@ build:
 stop:
 	(docker rm -f $(NAME) 2> /dev/null) || true
 
-start: stop
-	docker run -p 8000:80 -d --name=$(NAME) -t $(REPO)/$(NAME)
+run: stop
+	docker run -p 8000:80 -d --name=$(NAME) -t $(REPO)/$(NAME):$(VERSION)
 	curl -sSL 0.0.0.0:8000 | grep "Posts"
 	@echo "http://0.0.0.0:8000"
 

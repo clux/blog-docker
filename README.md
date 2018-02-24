@@ -45,5 +45,5 @@ Check that the docker version works:
 
 ```sh
 make build
-make start
+make run
 ```
