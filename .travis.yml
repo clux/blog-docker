@@ -12,7 +12,7 @@ before_script:
 script:
 - cargo test
 - make build
-- make start
+- make run
 - make stop
 after_success:
 - make tag-latest
